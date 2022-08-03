@@ -1,0 +1,79 @@
+:root {
+    --primary: #596CFF;
+    --secondary: #8392AB;
+    --accent: #e3ffe6;
+    --warning: #fbcf33;
+    --danger: #ea0606;
+    --success: #82d616;
+    --info: #17c1e8;
+    --ligth: #e9ecef;
+    --dark: #344767;
+}
+
+.primary {
+    color: var(--primary);
+}
+.bg-primary {
+    background-image: linear-gradient(310deg, #596CFF 0%, #141727 100%) !important;
+}
+.secondary {
+    color: var(--secondary);
+}
+.bg-secondary {
+    background-image: linear-gradient(310deg, #627594 0%, #8ca1cb 100%) !important;
+}
+.accent {
+    color: var(--accent);
+}
+.bg-accent {
+    background-color: var(--accent)!important;
+}
+.warning {
+    color: var(--warning)
+}
+.bg-warning {
+    background-image: linear-gradient(310deg, #f53939 0%, #fbcf33 100%) !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.danger {
+    color: var(--danger)
+}
+.bg-danger {
+    background-image: linear-gradient(310deg, #ea0606 0%, #ff3d59 100%) !important;
+}
+.success {
+    color: var(--success)
+}
+.bg-success {
+    background-image: linear-gradient(310deg, #1a3c5b 0%, #64ffda 100%) !important;
+}
+.info {
+    color: var(--info)
+}
+.bg-info {
+    background-image: linear-gradient(310deg, #2152ff 0%, #02c6f3 100%) !important;
+}
+.light {
+    color: var(--ligth)
+}
+.bg-light {
+    background-image: linear-gradient(310deg, #CED4DA 0%, #d1dae6 100%) !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.dark {
+    color: var(--dark)
+}
+.bg-dark {
+    background-image: linear-gradient(310deg, #141727 50%, #2c3154 100%) !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.white {
+    color: white;
+}
+
+.grayscale {
+    filter: grayscale(75%)!important;
+}

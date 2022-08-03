@@ -1,0 +1,32 @@
+{
+  "name": "prodev-chat",
+  "version": "0.1.0",
+  "description": "Live chat",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm start",
+    "start": "npm run parcel-dev & node server.js",
+    "parcel-dev": "rm -rf dist & parcel ./static/*.html --no-source-maps --no-cache",
+    "build": "rm -rf dist & parcel build ./static/*.html --no-source-maps --no-cache"
+  },
+  "author": "kami16ru",
+  "license": "MIT",
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.6.2",
+    "express": "^4.17.3",
+    "parcel": "^2.6.2",
+    "parcel-transformer-hbs": "^1.0.4"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  },
+  "engines": {
+    "node": "^16",
+    "npm": "^8"
+  },
+  "browserslist": [
+    "last 2 chrome version",
+    "last 2 firefox version",
+    "last 2 safari version"
+  ]
+}

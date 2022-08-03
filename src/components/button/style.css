@@ -1,0 +1,32 @@
+.btn {
+    display: block;
+    width: 80%;
+    border: none;
+    background-color: #FFFFFF;
+    padding: 0.5em 0.5em;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 0 6px #000000;
+    border-radius: 12px;
+}
+
+button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn_outline {
+    background-color: transparent!important;
+    box-shadow: none!important;
+    border-radius: unset!important;
+}
+
+.btn-group__row {
+    display: inline-flex;
+    width: 100%;
+}
+
+.btn-group__row > a, button {
+    margin: 1em;
+}

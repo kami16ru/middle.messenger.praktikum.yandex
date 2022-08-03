@@ -1,0 +1,8 @@
+.container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    border-radius: 4px;
+    flex-wrap: wrap;
+    color: transparent;
+}

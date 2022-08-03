@@ -1,0 +1,14 @@
+/* The Close Button */
+.dialog__close-icon {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.dialog__close-icon:hover,
+.dialog__close-icon:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

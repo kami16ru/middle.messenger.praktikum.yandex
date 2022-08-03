@@ -1,0 +1,7 @@
+{{#if underline}}
+    <p><a id={{ id }} href="{{ href }}" class="grayscale {{ class }}">{{ value }}</a></p>
+{{else}}
+    <button id="{{ id }}" class="btn dark submit {{ class }}">
+        <a href="{{ href }}">{{ value }}</a>
+    </button>
+{{/if}}

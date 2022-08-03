@@ -1,0 +1,15 @@
+.error-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--dark);
+}
+
+.return-back {
+    text-align: center;
+    margin-top: 5%;
+    color: var(--primary);
+    width: 100%;
+    height: 100%
+}
