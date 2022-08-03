@@ -13,7 +13,7 @@
 https://www.figma.com/file/CA7wA3xpoIsKt4jieXv2QL/Yandex-Chat?node-id=0%3A1
 
 ### Netlify
-https://frabjous-madeleine-d4fee5.netlify.app/
+https://lucky-centaur-1a1b81.netlify.app
 
 ### История релизов
 
