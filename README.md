@@ -145,8 +145,8 @@ https://lucky-centaur-1a1b81.netlify.app
       [] - Опишите свои правила или наследуйтесь от уже готовых наборов: например Airbnb или Google;
       [] - Настройте editorconfig и другие статические анализаторы и инструменты для кода;
       [] - Весь код должен проходить линтинг и тесты.
-      [] - Добавьте Stylelint.
-      [] - Обновите README.md, а именно информацию о функционале и использованных инструментах.
+    [] - Добавьте Stylelint.
+    [] - Обновите README.md, а именно информацию о функционале и использованных инструментах.
 
 <hr>
 
@@ -183,5 +183,12 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - debounce mouseover avatar
         [] - nav-drawer по умолчанию collapsed
         [] - Почистить js файлы
+      [][pcjs-33] - typesript
+      [][pcjs-34] - event bus
+      [][pcjs-35] - form validation
+      [][pcjs-36] - http service
+      [][pcjs-37] - stylelint
+      [][pcjs-38] - Описать движок в readme
+
 
 
