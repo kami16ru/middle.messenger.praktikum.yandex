@@ -1,6 +1,4 @@
-import { useNavDrawer } from './components/nav/nav-drawer'
 import { routes } from './router'
-import Handlebars from './plugins/handlebars'
 
 import chatLayout from './layouts/chat'
 import defaultLayout from './layouts/default'
@@ -17,8 +15,6 @@ const layouts = {
 function getLayout(name) {
     return layouts[`${name}Layout`] ? layouts[`${name}Layout`] : layouts.defaultLayout
 }
-
-const importAssets = () => import('./assets/css')
 
 document.addEventListener('DOMContentLoaded', async () => {
     const app = document.getElementById('app')
@@ -49,7 +45,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             app.innerHTML = await component.template(component.props)
         }
 
-        await importAssets()
         await component.mounted()
     }
 })

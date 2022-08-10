@@ -18,5 +18,8 @@ export default {
         navList: nav.drawer,
         toggleIcon: icons.toggleNav
     },
-    mounted: () => import('./mounted')
+    mounted: () => {
+        import('./mounted')
+        import('../../../assets/css/dialog')
+    }
 }
