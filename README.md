@@ -95,11 +95,11 @@ https://lucky-centaur-1a1b81.netlify.app
           [] - src/assets/css/dialog/__content/dialog__content.css комментарий
           [] - src/pages/profile/edit/template.hbs инлайн стили
           [] - стандартизация определения цветов
-          [] - src/components/button/template.hbs разделить ссылки и кнопки на разные сущности
-          [] - src/components/example.tmpl.js
           [] - src/pages/chat/template.hbs инлайн стили
           [] - src/pages/profile/edit/template.hbs инлайн стили
-          [] - Убрать ошибку dialog
+        [] - src/components/button/template.hbs разделить ссылки и кнопки на разные сущности
+        [] - src/components/example.tmpl.js убрать
+        [] - Убрать ошибку dialog
       [*][pcjs-25] - Страница edit password
       [*][pcjs-26] - layouts
 
