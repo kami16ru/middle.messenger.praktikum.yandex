@@ -93,10 +93,10 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - Почистить css файлы. 
           [] - Убрать по возможности !important
           [*] - src/assets/css/dialog/__content/dialog__content.css комментарий
-          [] - src/pages/profile/edit/template.hbs инлайн стили
-          [] - стандартизация определения цветов
-          [] - src/pages/chat/template.hbs инлайн стили
-          [] - src/pages/profile/edit/template.hbs инлайн стили
+          [*] - src/pages/profile/edit/template.hbs инлайн стили
+          [*] - стандартизация определения цветов
+          [*] - src/pages/chat/template.hbs инлайн стили
+          [*] - src/pages/profile/show/template.hbs инлайн стили
         [] - src/components/button/template.hbs разделить ссылки и кнопки на разные сущности
         [*] - src/components/example.tmpl.js убрать
         [*] - Убрать ошибку dialog

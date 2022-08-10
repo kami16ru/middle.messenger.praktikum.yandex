@@ -2,7 +2,7 @@
     display: block;
     width: 80%;
     border: none;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     padding: 0.5em 0.5em;
     font-size: 16px;
     cursor: pointer;
@@ -17,9 +17,9 @@ button a {
 }
 
 .btn_outline {
-    background-color: transparent!important;
-    box-shadow: none!important;
-    border-radius: unset!important;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: unset;
 }
 
 .btn-group__row {

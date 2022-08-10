@@ -14,7 +14,7 @@
     color: var(--primary);
 }
 .bg-primary {
-    background-image: linear-gradient(310deg, #596CFF 0%, #141727 100%) !important;
+    background-image: linear-gradient(310deg, #596cff 0%, #141727 100%) !important;
 }
 .secondary {
     color: var(--secondary);
@@ -58,7 +58,7 @@
     color: var(--ligth)
 }
 .bg-light {
-    background-image: linear-gradient(310deg, #CED4DA 0%, #d1dae6 100%) !important;
+    background-image: linear-gradient(310deg, #ced4da 0%, #d1dae6 100%) !important;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
