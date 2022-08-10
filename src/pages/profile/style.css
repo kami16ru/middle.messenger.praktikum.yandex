@@ -3,7 +3,7 @@ form {
 }
 
 #app-profile-edit, #app-profile-show {
-    background-image: url('../../assets/images/profile.png') !important;
+    background-image: url('../../assets/images/profile.png');
 }
 
 .btn-group__row {

@@ -1,5 +1,5 @@
 .default-layout {
     background-size: 100%;
     background-attachment: fixed;
-    background-image: url('../../assets/images/people.png') !important;
+    background-image: url('../../assets/images/people.png');
 }

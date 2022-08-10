@@ -90,8 +90,8 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - Почистить папки с изображениями
         [] - Оптимизировать изображения
         [] - Заголовки h1, h2...
-        [] - Почистить css файлы. 
-          [] - Убрать по возможности !important
+        [*] - Почистить css файлы. 
+          [*] - Убрать по возможности !important
           [*] - src/assets/css/dialog/__content/dialog__content.css комментарий
           [*] - src/pages/profile/edit/template.hbs инлайн стили
           [*] - стандартизация определения цветов
