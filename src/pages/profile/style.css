@@ -14,3 +14,7 @@ form {
     width: 50%;
     min-width: 800px;
 }
+
+.profile-avatar {
+    margin-top: 2em;
+}
