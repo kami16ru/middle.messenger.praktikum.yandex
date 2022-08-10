@@ -98,7 +98,7 @@ https://lucky-centaur-1a1b81.netlify.app
           [] - src/pages/chat/template.hbs инлайн стили
           [] - src/pages/profile/edit/template.hbs инлайн стили
         [] - src/components/button/template.hbs разделить ссылки и кнопки на разные сущности
-        [] - src/components/example.tmpl.js убрать
+        [*] - src/components/example.tmpl.js убрать
         [] - Убрать ошибку dialog
       [*][pcjs-25] - Страница edit password
       [*][pcjs-26] - layouts
