@@ -3,7 +3,6 @@ import LoginPage from './template.hbs'
 import './style.css'
 import '../../components/input'
 import '../../components/button'
-import loadingImg from "../../assets/images/loading.gif";
 
 Handlebars.registerPartial('LoginPage', LoginPage);
 
@@ -23,10 +22,7 @@ export default {
         buttonId: loginBtnId,
         registerBtnId,
         loginBtnId,
-        loading: {
-            id: loginLoadingId,
-            imgSrc: loadingImg
-        },
+        loadingId: loginLoadingId,
         form
     },
     mounted: () => import('./mounted')
