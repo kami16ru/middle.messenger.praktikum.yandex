@@ -92,7 +92,7 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - Заголовки h1, h2...
         [] - Почистить css файлы. 
           [] - Убрать по возможности !important
-          [] - src/assets/css/dialog/__content/dialog__content.css комментарий
+          [*] - src/assets/css/dialog/__content/dialog__content.css комментарий
           [] - src/pages/profile/edit/template.hbs инлайн стили
           [] - стандартизация определения цветов
           [] - src/pages/chat/template.hbs инлайн стили
