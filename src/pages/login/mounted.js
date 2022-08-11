@@ -9,32 +9,32 @@ const loginLoadingId = 'login-submit-loading'
 const submitBtn = document.getElementById(loginBtnId)
 
 submitBtn.addEventListener('click', async (e) => {
-    e.preventDefault()
+  e.preventDefault()
 
-    console.log('btn clicked')
+  console.log('btn clicked')
 
-    await submitLoginForm()
+  await submitLoginForm()
 })
 
 function submitLoginForm() {
-    const loadingElement = document.getElementById(loginLoadingId)
-    const form = document.getElementById('login-form')
+  const loadingElement = document.getElementById(loginLoadingId)
+  const form = document.getElementById('login-form')
 
-    const formData = new FormData(form);
-    const email = formData.get('email');
-    const password = formData.get('password');
+  const formData = new FormData(form)
+  const email = formData.get('email')
+  const password = formData.get('password')
 
-    const credentials = {
-        email,
-        password
-    };
+  const credentials = {
+    email,
+    password,
+  }
 
-    loading({ target: submitBtn, loadingElement, loading: true })
+  loading({ target: submitBtn, loadingElement, loading: true })
 
-    setTimeout(function () {
-        form.reset();
+  setTimeout(() => {
+    form.reset()
 
-        loading({ target: submitBtn, loadingElement, loading: false })
-        console.log(credentials);
-    }, 2000);
+    loading({ target: submitBtn, loadingElement, loading: false })
+    console.log(credentials)
+  }, 2000)
 }

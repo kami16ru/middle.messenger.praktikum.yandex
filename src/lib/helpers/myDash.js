@@ -1,5 +1,6 @@
 export const isEmpty = function (value) {
   for (const prop in value) {
+    // eslint-disable-next-line no-prototype-builtins
     if (value.hasOwnProperty(prop)) {
       return false
     }

@@ -3,8 +3,8 @@ import template from './template.hbs'
 
 import './style.css'
 
-Handlebars.registerPartial('inputText', template);
+Handlebars.registerPartial('inputText', template)
 
 export default (props = {}) => {
-    return template(props)
+  return template(props)
 }
