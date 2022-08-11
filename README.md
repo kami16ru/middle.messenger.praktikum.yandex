@@ -97,7 +97,7 @@ https://lucky-centaur-1a1b81.netlify.app
           [*] - стандартизация определения цветов
           [*] - src/pages/chat/template.hbs инлайн стили
           [*] - src/pages/profile/show/template.hbs инлайн стили
-        [] - src/components/button/template.hbs разделить ссылки и кнопки на разные сущности
+        [*] - src/components/button/template.hbs оптимизировать
         [*] - src/components/example.tmpl.js убрать
         [*] - Убрать ошибку dialog
       [*][pcjs-25] - Страница edit password
@@ -182,6 +182,7 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - Изменение container в зависимости от ширины nav
         [] - debounce mouseover avatar
         [] - nav-drawer по умолчанию collapsed
+        [] - button убрать <a>
         [] - Почистить js файлы
       [][pcjs-33] - typesript
       [][pcjs-34] - event bus
