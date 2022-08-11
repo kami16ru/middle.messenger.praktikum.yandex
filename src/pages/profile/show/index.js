@@ -2,9 +2,10 @@ import '../style.css'
 import '../../../components/input'
 import '../../../components/button'
 import '../../../components/nav/nav-drawer'
-import ProfileShowPage from './template.hbs'
+import template from './template.hbs'
 import nav from '../../../config/nav'
 import icons from '../../../config/icons'
+import Component from '../../../lib/dom/Component'
 
 const form = {
   email: { id: 'form-profile-email', name: 'email', label: 'Почта', readOnly: 'readonly', value: 'example@example.com' },
@@ -15,15 +16,24 @@ const form = {
   phone: { id: 'form-profile-phone', name: 'phone', label: 'Телефон', readOnly: 'readonly', value: '89099999999' },
 }
 
-export default {
-  template: ProfileShowPage,
+class ProfileShowPage extends Component {
+  constructor(options) {
+    super(options)
+  }
+
+  async mounted() {
+    console.log('Profile show page mounted')
+
+    import('../mounted')
+    import('../../../assets/css/dialog')
+  }
+}
+
+export default new ProfileShowPage({
+  template,
   props: {
     form,
     navList: nav.drawer,
-    toggleIcon: icons.toggleNav,
-  },
-  mounted: () => {
-    import('./mounted')
-    import('../../../assets/css/dialog')
-  },
-}
+    toggleIcon: icons.toggleNav
+  }
+})

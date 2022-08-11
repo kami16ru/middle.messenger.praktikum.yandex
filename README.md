@@ -156,7 +156,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [][pcjs-21] - Компонент profile-avatar
       [][pcjs-22] - Компонент form
       [][pcjs-23] - Компонент dialog
-      [][pcjs-24] - class Component
+      [*][pcjs-24] - class Component
       [][pcjs-27] - exceptions
       [][pcjs-28] - chat page content
       [*][pcjs-29] - eslint
@@ -183,6 +183,7 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - nav-drawer по умолчанию collapsed
         [] - button убрать <a>
         [] - Оптимизировать изображения
+        [] - Один error layout, 2 error pages
         [] - Почистить js файлы
       [][pcjs-33] - typesript
       [][pcjs-34] - event bus
@@ -190,6 +191,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [][pcjs-36] - http service
       [][pcjs-37] - stylelint
       [][pcjs-38] - Описать движок в readme
+      [][pcjs-39] - Partials to class
 
 
 

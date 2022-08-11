@@ -1,5 +1,3 @@
-console.log('render profile edit page')
-
 const avatar = document.getElementById('avatar')
 const avatarChange = document.getElementById('avatar-change')
 

@@ -9,7 +9,7 @@ const layouts = {
   chatLayout,
   defaultLayout,
   authLayout,
-  errorLayout,
+  errorLayout
 }
 
 function getLayout(name) {

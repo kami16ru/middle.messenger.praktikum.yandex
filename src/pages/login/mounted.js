@@ -26,7 +26,7 @@ function submitLoginForm() {
 
   const credentials = {
     email,
-    password,
+    password
   }
 
   loading({ target: submitBtn, loadingElement, loading: true })

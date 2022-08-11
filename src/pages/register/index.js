@@ -1,10 +1,7 @@
-import Handlebars from '../../plugins/handlebars'
-import RegisterPage from './template.hbs'
-
+import template from './template.hbs'
 import '../../components/input'
 import '../../components/button'
-
-Handlebars.registerPartial('RegisterPage', RegisterPage)
+import Component from '../../lib/dom/Component'
 
 const registerBtnId = 'register-submit'
 const goHomeBtnId = 'register-go-home'
@@ -20,13 +17,24 @@ const form = {
   passwordConfirm: { id: 'form-register-password-confirm', label: 'Пароль еще раз', helper: 'Должны совпадать' },
 }
 
-export default {
-  template: RegisterPage,
+class RegisterPage extends Component {
+  constructor(options) {
+    super(options)
+  }
+
+  async mounted() {
+    console.log('Register page mounted')
+
+    return import('./mounted')
+  }
+}
+
+export default new RegisterPage({
+  template,
   props: {
     form,
     registerBtnId,
     goHomeBtnId,
-    loadingId: registerLoadingId,
-  },
-  mounted: () => import('./mounted'),
-}
+    loadingId: registerLoadingId
+  }
+})

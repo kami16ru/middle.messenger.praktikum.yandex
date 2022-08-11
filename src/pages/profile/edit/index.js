@@ -2,9 +2,10 @@ import '../style.css'
 import '../../../components/input'
 import '../../../components/button'
 import '../../../components/nav/nav-drawer'
-import ProfileEditPage from './template.hbs'
+import template from './template.hbs'
 import nav from '../../../config/nav'
 import icons from '../../../config/icons'
+import Component from '../../../lib/dom/Component'
 
 const form = {
   email: { id: 'form-profile-email', name: 'email', label: 'Почта', value: 'example@example.com' },
@@ -12,18 +13,27 @@ const form = {
   first_name: { id: 'form-profile-first-name', name: 'first_name', label: 'Имя', value: 'Иван' },
   second_name: { id: 'form-profile-second-name', name: 'second_name', label: 'Фамилия', value: 'Иванов' },
   display_name: { id: 'form-profile-second-name', name: 'display_name', label: 'Имя в чате', value: 'superhero' },
-  phone: { id: 'form-profile-phone', name: 'phone', label: 'Телефон', value: '89099999999' },
+  phone: { id: 'form-profile-phone', name: 'phone', label: 'Телефон', value: '89099999999' }
 }
 
-export default {
-  template: ProfileEditPage,
+class ProfileEditPage extends Component {
+  constructor(options) {
+    super(options)
+  }
+
+  async mounted() {
+    console.log('Profile edit page mounted')
+
+    import('../mounted')
+    import('../../../assets/css/dialog')
+  }
+}
+
+export default new ProfileEditPage({
+  template,
   props: {
     form,
     navList: nav.drawer,
-    toggleIcon: icons.toggleNav,
-  },
-  mounted: () => {
-    import('./mounted')
-    import('../../../assets/css/dialog')
-  },
-}
+    toggleIcon: icons.toggleNav
+  }
+})
