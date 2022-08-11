@@ -1,7 +1,7 @@
 <div class="container full">
     <div class="card bordered bg-success accent">
         <form id="login-form" class="form auth-form">
-            <div class="card__title h3">Вход</div>
+            <h3 class="card__title">Вход</h3>
             {{> inputText input=form.email }}
             {{> inputText input=form.password }}
         </form>
@@ -10,13 +10,13 @@
 
         {{> button id=loginBtnId value='Войти' class='bg-primary white' }}
         <img
-                id="{{ loading.id }}"
+                id="{{ loadingId }}"
                 class="loading"
                 style="display: none"
-                src="{{ loading.imgSrc }}"
+                src="/images/loading.gif"
                 alt="loading"
                 height="40px"
         >
-        {{> button id=registerBtnId href='/register' value='Регистрация' underline=true }}
+        {{> button id=registerBtnId href='/register' value='Регистрация' outline=true class="white" }}
     </div>
 </div>

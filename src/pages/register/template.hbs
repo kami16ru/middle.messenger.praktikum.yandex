@@ -3,7 +3,7 @@
         <div class="card bordered bg-success accent">
             <form id="register-form">
 
-                <div class="card__title h3">Регистрация</div>
+                <h3 class="card__title">Регистрация</h3>
 
                 {{> inputText input=form.email }}
                 {{> inputText input=form.login }}
@@ -19,14 +19,14 @@
 
             {{> button id=registerBtnId value='Создать аккаунт' class='bg-primary white' }}
             <img
-                    id="{{ loading.id }}"
+                    id="{{ loadingId }}"
                     class="loading"
                     style="display: none"
-                    src="{{ loading.imgSrc }}"
+                    src="images/loading.gif"
                     alt="loading"
                     height="40px"
             >
-            {{> button id=goHomeBtnId href='/' value='Уже зарегистрированы?' underline=true }}
+            {{> button id=goHomeBtnId href='/' value='Уже зарегистрированы?' outline=true class="white" }}
 
         </div>
     </div>

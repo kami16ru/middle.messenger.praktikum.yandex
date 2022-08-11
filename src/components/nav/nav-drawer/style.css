@@ -21,17 +21,17 @@
 }
 
 .nav-drawer__menu > li {
-    display: block!important;
+    display: block;
     justify-content: center;
     align-content: center;
     margin-left: -2em;
 }
 .nav-drawer_collapsed {
-    width: 70px!important;
+    width: 70px;
 }
 
 .nav-drawer__toggle-icon_collapsed {
-    margin-left: 0.1em!important;
+    margin-left: 0.1em;
 }
 
 li a {

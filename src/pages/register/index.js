@@ -3,7 +3,6 @@ import RegisterPage from './template.hbs'
 
 import '../../components/input'
 import '../../components/button'
-import loadingImg from "../../assets/images/loading.gif";
 
 Handlebars.registerPartial('RegisterPage', RegisterPage);
 
@@ -27,10 +26,7 @@ export default {
         form,
         registerBtnId,
         goHomeBtnId,
-        loading: {
-            id: registerLoadingId,
-            imgSrc: loadingImg
-        },
+        loadingId: registerLoadingId,
     },
     mounted: () => import('./mounted')
 }

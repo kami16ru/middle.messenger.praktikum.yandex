@@ -14,13 +14,13 @@
     color: var(--primary);
 }
 .bg-primary {
-    background-image: linear-gradient(310deg, #596CFF 0%, #141727 100%) !important;
+    background-image: linear-gradient(310deg, #596cff 0%, #141727 100%);
 }
 .secondary {
     color: var(--secondary);
 }
 .bg-secondary {
-    background-image: linear-gradient(310deg, #627594 0%, #8ca1cb 100%) !important;
+    background-image: linear-gradient(310deg, #627594 0%, #8ca1cb 100%);
 }
 .accent {
     color: var(--accent);
@@ -32,7 +32,7 @@
     color: var(--warning)
 }
 .bg-warning {
-    background-image: linear-gradient(310deg, #f53939 0%, #fbcf33 100%) !important;
+    background-image: linear-gradient(310deg, #f53939 0%, #fbcf33 100%);
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
@@ -40,25 +40,25 @@
     color: var(--danger)
 }
 .bg-danger {
-    background-image: linear-gradient(310deg, #ea0606 0%, #ff3d59 100%) !important;
+    background-image: linear-gradient(310deg, #ea0606 0%, #ff3d59 100%);
 }
 .success {
     color: var(--success)
 }
 .bg-success {
-    background-image: linear-gradient(310deg, #1a3c5b 0%, #64ffda 100%) !important;
+    background-image: linear-gradient(310deg, #1a3c5b 0%, #64ffda 100%);
 }
 .info {
     color: var(--info)
 }
 .bg-info {
-    background-image: linear-gradient(310deg, #2152ff 0%, #02c6f3 100%) !important;
+    background-image: linear-gradient(310deg, #2152ff 0%, #02c6f3 100%);
 }
 .light {
     color: var(--ligth)
 }
 .bg-light {
-    background-image: linear-gradient(310deg, #CED4DA 0%, #d1dae6 100%) !important;
+    background-image: linear-gradient(310deg, #ced4da 0%, #d1dae6 100%);
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
@@ -66,7 +66,7 @@
     color: var(--dark)
 }
 .bg-dark {
-    background-image: linear-gradient(310deg, #141727 50%, #2c3154 100%) !important;
+    background-image: linear-gradient(310deg, #141727 50%, #2c3154 100%);
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
@@ -75,5 +75,5 @@
 }
 
 .grayscale {
-    filter: grayscale(75%)!important;
+    filter: grayscale(75%);
 }

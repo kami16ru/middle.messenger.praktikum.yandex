@@ -87,19 +87,18 @@ https://lucky-centaur-1a1b81.netlify.app
       [*][pcjs-18] - Настроить Netlify
       [*][pcjs-19] - Страница 5**
       [][pcjs-20] - Рефакторинг 1
-        [] - Почистить папки с изображениями
-        [] - Оптимизировать изображения
-        [] - Заголовки h1, h2...
-        [] - Почистить css файлы. 
-          [] - Убрать по возможности !important
-          [] - src/assets/css/dialog/__content/dialog__content.css комментарий
-          [] - src/pages/profile/edit/template.hbs инлайн стили
-          [] - стандартизация определения цветов
-          [] - src/pages/chat/template.hbs инлайн стили
-          [] - src/pages/profile/edit/template.hbs инлайн стили
-        [] - src/components/button/template.hbs разделить ссылки и кнопки на разные сущности
-        [] - src/components/example.tmpl.js убрать
-        [] - Убрать ошибку dialog
+        [*] - Почистить папки с изображениями
+        [*] - Заголовки h1, h2...
+        [*] - Почистить css файлы. 
+          [*] - Убрать по возможности !important
+          [*] - src/assets/css/dialog/__content/dialog__content.css комментарий
+          [*] - src/pages/profile/edit/template.hbs инлайн стили
+          [*] - стандартизация определения цветов
+          [*] - src/pages/chat/template.hbs инлайн стили
+          [*] - src/pages/profile/show/template.hbs инлайн стили
+        [*] - src/components/button/template.hbs оптимизировать
+        [*] - src/components/example.tmpl.js убрать
+        [*] - Убрать ошибку dialog
       [*][pcjs-25] - Страница edit password
       [*][pcjs-26] - layouts
 
@@ -182,6 +181,8 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - Изменение container в зависимости от ширины nav
         [] - debounce mouseover avatar
         [] - nav-drawer по умолчанию collapsed
+        [] - button убрать <a>
+        [] - Оптимизировать изображения
         [] - Почистить js файлы
       [][pcjs-33] - typesript
       [][pcjs-34] - event bus
