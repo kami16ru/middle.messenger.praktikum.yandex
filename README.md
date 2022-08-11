@@ -88,7 +88,6 @@ https://lucky-centaur-1a1b81.netlify.app
       [*][pcjs-19] - Страница 5**
       [][pcjs-20] - Рефакторинг 1
         [*] - Почистить папки с изображениями
-        [] - Оптимизировать изображения
         [*] - Заголовки h1, h2...
         [*] - Почистить css файлы. 
           [*] - Убрать по возможности !important
@@ -183,6 +182,7 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - debounce mouseover avatar
         [] - nav-drawer по умолчанию collapsed
         [] - button убрать <a>
+        [] - Оптимизировать изображения
         [] - Почистить js файлы
       [][pcjs-33] - typesript
       [][pcjs-34] - event bus
