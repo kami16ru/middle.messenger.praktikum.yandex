@@ -1,0 +1,14 @@
+<div class="nav-drawer bg-dark">
+    <ul class="nav-drawer__menu">
+        {{#each navList}}
+            <li>
+                <a href="{{ this.href }}">
+                    <span class="mdi {{ this.icon }} h1 primary"></span>
+                    <span class="nav-menu-title info">{{ this.title }}</span>
+                </a>
+            </li>
+        {{/each}}
+        <li>
+    </ul>
+    <span class="mdi {{ toggleIcon }} nav-drawer__toggle-icon white display-4"></span>
+</div>

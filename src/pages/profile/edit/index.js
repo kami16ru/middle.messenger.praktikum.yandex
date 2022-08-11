@@ -1,0 +1,29 @@
+import '../style.css'
+import '../../../components/input'
+import '../../../components/button'
+import '../../../components/nav/nav-drawer'
+import ProfileEditPage from './template.hbs'
+import nav from '../../../config/nav'
+import icons from '../../../config/icons'
+
+const form = {
+    email: { id: 'form-profile-email', name: 'email', label: 'Почта', value: 'example@example.com' },
+    login: { id: 'form-profile-login', name: 'login', label: 'Логин', value: 'examplelogin' },
+    first_name: { id: 'form-profile-first-name', name: 'first_name', label: 'Имя', value: 'Иван' },
+    second_name: { id: 'form-profile-second-name', name: 'second_name', label: 'Фамилия', value: 'Иванов' },
+    display_name: { id: 'form-profile-second-name', name: 'display_name', label: 'Имя в чате', value: 'superhero' },
+    phone: { id: 'form-profile-phone', name: 'phone', label: 'Телефон', value: '89099999999' },
+}
+
+export default {
+    template: ProfileEditPage,
+    props: {
+        form,
+        navList: nav.drawer,
+        toggleIcon: icons.toggleNav
+    },
+    mounted: () => {
+        import('./mounted')
+        import('../../../assets/css/dialog')
+    }
+}

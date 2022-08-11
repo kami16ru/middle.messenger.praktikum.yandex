@@ -1,0 +1,49 @@
+<div class="container full">
+    <img
+        id="avatar"
+        class="dialog_activator profile-avatar"
+        src="/images/avatar_default.png"
+        alt="аватар"
+        height="130"
+    >
+    <img
+        id="avatar-change"
+        class="dialog_activator profile-avatar"
+        src="/images/avatar_change.png"
+        alt="аватар"
+        hidden
+        height="130"
+    >
+
+    <!-- Modal dialog -->
+    <div id="dialog" class="dialog">
+
+        <!-- Dialog content -->
+        <div class="dialog__content bordered">
+            <span class="dialog__close-icon">&times;</span>
+            <div class="card">
+                <h3 class="primary">Загрузите файл</h3>
+                <button class="btn btn_outline secondary">Выберите файл на компьютере</button>
+                <button class="btn bg-primary white">Поменять</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="break"></div>
+
+    <div class="card bordered profile__profile-card bg-success accent">
+        <form id="profile-form" class="form">
+            <h3 class="card__title">Профайл</h3>
+
+            {{> inputText input=form.old_password }}
+            {{> inputText input=form.new_password }}
+            {{> inputText input=form.retype_new_password }}
+
+        </form>
+
+        <div class="spacer"></div>
+
+        {{> button id=registerBtnId value='Сохранить' class='bg-dark white' href='/profile/show' }}
+    </div>
+</div>
