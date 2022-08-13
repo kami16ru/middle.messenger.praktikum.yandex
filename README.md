@@ -186,12 +186,13 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - Один error layout, 2 error pages
         [] - Почистить js файлы
       [][pcjs-33] - typesript
-      [][pcjs-34] - event bus
+      [*][pcjs-34] - event bus
       [][pcjs-35] - form validation
       [][pcjs-36] - http service
       [][pcjs-37] - stylelint
       [][pcjs-38] - Описать движок в readme
       [][pcjs-39] - Partials to class
+      [][pcjs-40] - Компоненты через теневой DOM
 
 
 

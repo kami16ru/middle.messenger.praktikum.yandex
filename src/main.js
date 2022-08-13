@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       app.innerHTML = layout.template(layout.props)
 
-      await layout.mounted()
+      layout.evenBus.emit('mounted')
 
       const layoutDOM = document.querySelector(layout.selector)
 
@@ -45,6 +45,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       app.innerHTML = await component.template(component.props)
     }
 
-    await component.mounted()
+    component.evenBus.emit('mounted')
   }
 })

@@ -2,8 +2,6 @@ import '../style.css'
 import '../../../components/input'
 import '../../../components/button'
 import template from './template.hbs'
-import nav from '../../../config/nav'
-import icons from '../../../config/icons'
 import Component from '../../../lib/dom/Component'
 
 const form = {
@@ -28,8 +26,6 @@ class EditPwdPage extends Component {
 export default new EditPwdPage({
   template,
   props: {
-    form,
-    navList: nav.drawer,
-    toggleIcon: icons.toggleNav
+    form
   }
 })

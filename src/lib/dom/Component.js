@@ -1,4 +1,5 @@
 import { errorMessages } from '../error/config'
+import EventBus from './EventBus'
 
 export default class Component {
   constructor(options) {
@@ -12,6 +13,9 @@ export default class Component {
     this.props = props
     this._mounted = mounted
     this._selector = selector
+    this.evenBus = new EventBus()
+
+    this.evenBus.on('mounted', () => this.mounted())
   }
 
   get selector() {

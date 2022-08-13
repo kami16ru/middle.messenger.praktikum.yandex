@@ -32,8 +32,6 @@ class ProfileEditPage extends Component {
 export default new ProfileEditPage({
   template,
   props: {
-    form,
-    navList: nav.drawer,
-    toggleIcon: icons.toggleNav
+    form
   }
 })

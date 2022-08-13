@@ -3,8 +3,6 @@ import '../../../components/input'
 import '../../../components/button'
 import '../../../components/nav/nav-drawer'
 import template from './template.hbs'
-import nav from '../../../config/nav'
-import icons from '../../../config/icons'
 import Component from '../../../lib/dom/Component'
 
 const form = {
@@ -32,8 +30,6 @@ class ProfileShowPage extends Component {
 export default new ProfileShowPage({
   template,
   props: {
-    form,
-    navList: nav.drawer,
-    toggleIcon: icons.toggleNav
+    form
   }
 })
