@@ -3,9 +3,8 @@ import '../../../components/input'
 import '../../../components/button'
 import '../../../components/nav/nav-drawer'
 import template from './template.hbs'
-import nav from '../../../config/nav'
-import icons from '../../../config/icons'
 import Component from '../../../lib/dom/Component'
+import ProfileAvatar from '../../../modules/profile/components/profile-avatar'
 
 const form = {
   email: { id: 'form-profile-email', name: 'email', label: 'Почта', value: 'example@example.com' },
@@ -23,15 +22,16 @@ class ProfileEditPage extends Component {
 
   async mounted() {
     console.log('Profile edit page mounted')
-
-    import('../mounted')
-    import('../../../assets/css/dialog')
   }
 }
 
 export default new ProfileEditPage({
   template,
   props: {
-    form
+    form,
+    ProfileAvatar: ProfileAvatar.compile()
+  },
+  components: {
+    ProfileAvatar
   }
 })

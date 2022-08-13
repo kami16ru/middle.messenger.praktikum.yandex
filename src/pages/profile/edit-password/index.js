@@ -3,6 +3,7 @@ import '../../../components/input'
 import '../../../components/button'
 import template from './template.hbs'
 import Component from '../../../lib/dom/Component'
+import ProfileAvatar from '../../../modules/profile/components/profile-avatar'
 
 const form = {
   old_password: { id: 'form-edit-password-old_password', name: 'old_password', label: 'Старый пароль', value: '12345678', type: 'password' },
@@ -17,15 +18,16 @@ class EditPwdPage extends Component {
 
   async mounted() {
     console.log('Edit password page mounted')
-
-    import('../mounted')
-    import('../../../assets/css/dialog')
   }
 }
 
 export default new EditPwdPage({
   template,
   props: {
-    form
+    form,
+    ProfileAvatar: ProfileAvatar.compile()
+  },
+  components: {
+    ProfileAvatar
   }
 })
