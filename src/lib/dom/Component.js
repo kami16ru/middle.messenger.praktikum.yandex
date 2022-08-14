@@ -1,6 +1,7 @@
 import { errorMessages } from '../error/config'
 import EventBus from './EventBus'
 import { EVENTS } from '../../config/events'
+import templateEngine from './templateEngine'
 
 export default class Component {
   constructor(options) {
@@ -38,6 +39,6 @@ export default class Component {
   }
 
   compile() {
-    return this.template(this.props)
+    return templateEngine.compile(this.template, this.props)
   }
 }
