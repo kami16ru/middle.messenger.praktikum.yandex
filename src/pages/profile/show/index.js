@@ -1,10 +1,10 @@
 import '../style.css'
 import '../../../components/input'
-import '../../../components/button'
 import '../../../components/nav/nav-drawer'
 import template from './template.hbs'
 import Component from '../../../lib/dom/Component'
 import ProfileAvatar from '../../../modules/profile/components/profile-avatar'
+import Button from '../../../components/ui/button'
 
 const form = {
   email: { id: 'form-profile-email', name: 'email', label: 'Почта', readOnly: 'readonly', value: 'example@example.com' },
@@ -29,9 +29,28 @@ export default new ProfileShowPage({
   template,
   props: {
     form,
-    ProfileAvatar: ProfileAvatar.compile()
+    ProfileAvatar: ProfileAvatar.compile(),
+    EditProfileBtn: Button.template({
+      ...Button.props,
+      class: 'bg-dark white',
+      value: 'Изменить данные',
+      href: '/profile/edit'
+    }),
+    EditPasswordBtn: Button.template({
+      ...Button.props,
+      class: 'bg-dark white',
+      value: 'Изменить пароль',
+      href: '/profile/edit-password'
+    }),
+    ExitBtn: Button.template({
+      ...Button.props,
+      class: 'bg-danger white',
+      value: 'Выйти',
+      href: '/logout'
+    })
   },
   components: {
-    ProfileAvatar
+    ProfileAvatar,
+    Button
   }
 })

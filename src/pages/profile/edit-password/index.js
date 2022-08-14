@@ -1,9 +1,8 @@
 import '../style.css'
 import '../../../components/input'
-import '../../../components/button'
 import template from './template.hbs'
 import Component from '../../../lib/dom/Component'
-import ProfileAvatar from '../../../modules/profile/components/profile-avatar'
+import Button from '../../../components/ui/button'
 
 const form = {
   old_password: { id: 'form-edit-password-old_password', name: 'old_password', label: 'Старый пароль', value: '12345678', type: 'password' },
@@ -25,9 +24,14 @@ export default new EditPwdPage({
   template,
   props: {
     form,
-    ProfileAvatar: ProfileAvatar.compile()
+    SaveBtn: Button.template({
+      ...Button.props,
+      class: 'bg-dark white',
+      value: 'Сохранить',
+      href: '/profile/show'
+    })
   },
   components: {
-    ProfileAvatar
+    Button
   }
 })
