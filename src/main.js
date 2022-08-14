@@ -4,6 +4,8 @@ import chatLayout from './layouts/chat'
 import defaultLayout from './layouts/default'
 import authLayout from './layouts/auth'
 import errorLayout from './layouts/error'
+import { EVENTS } from './config/events'
+import ErrorHandler from './lib/error/ErrorHandler'
 
 const layouts = {
   chatLayout,
@@ -36,7 +38,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       app.innerHTML = layout.template(layout.props)
 
-      layout.evenBus.emit('mounted')
+      try {
+        layout.evenBus.emit(EVENTS.FLOW_CDM)
+      } catch (e) {
+        ErrorHandler.handle(e)
+      }
 
       const layoutDOM = document.querySelector(layout.selector)
 
@@ -45,6 +51,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       app.innerHTML = await component.template(component.props)
     }
 
-    component.evenBus.emit('mounted')
+    try {
+      component.evenBus.emit(EVENTS.FLOW_CDM)
+    } catch (e) {
+      ErrorHandler.handle(e)
+    }
   }
 })

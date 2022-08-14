@@ -1,5 +1,6 @@
 import { errorMessages } from '../error/config'
 import EventBus from './EventBus'
+import { EVENTS } from '../../config/events'
 
 export default class Component {
   constructor(options) {
@@ -17,10 +18,10 @@ export default class Component {
     this.evenBus = new EventBus()
     this.components = components
 
-    this.evenBus.on('mounted', async () => {
+    this.evenBus.on(EVENTS.FLOW_CDM, async () => {
       await this.mounted()
 
-      if (this.components) await Promise.all(Object.values(this.components).map((component) => component.evenBus.emit('mounted')))
+      if (this.components) await Promise.all(Object.values(this.components).map((component) => component.evenBus.emit(EVENTS.FLOW_CDM)))
     })
   }
 
