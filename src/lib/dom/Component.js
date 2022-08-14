@@ -2,28 +2,40 @@ import { errorMessages } from '../error/config'
 import EventBus from './EventBus'
 import { EVENTS } from '../../config/events'
 import templateEngine from './templateEngine'
+import  { v4 as makeUUID } from 'uuid'
 
 export default class Component {
+  _children
+
   constructor(options) {
     if (this.constructor === Component) throw new Error(errorMessages.classErrors.ABSTRACT_CLASS)
 
-    const { template, selector, props, mounted, components } = options
+    const { template, selector, props = {}, components, tagName = 'div' } = options
 
     if (!template) throw new Error(errorMessages.classErrors.INVALID_CONSTRUCTOR_ARGS)
 
     this._options = options
-    this.template = template
-    this.props = props
-    this._mounted = mounted
+    this._id = makeUUID()
+    this._template = template
+    this._props = this._makePropsProxy(props)
     this._selector = selector
-    this.evenBus = new EventBus()
+    this.eventBus = new EventBus()
     this.components = components
+    this._meta = {
+      tag: tagName ? tagName : 'div',
+      props
+    }
 
-    this.evenBus.on(EVENTS.FLOW_CDM, async () => {
-      await this.mounted()
+    this._registerEvents()
+    this.eventBus.emit(EVENTS.INIT)
+  }
 
-      if (this.components) await Promise.all(Object.values(this.components).map((component) => component.evenBus.emit(EVENTS.FLOW_CDM)))
-    })
+  get props() {
+    return this._props
+  }
+
+  get template() {
+    return this._template
   }
 
   get options() {
@@ -35,10 +47,137 @@ export default class Component {
   }
 
   mounted() {
-    return this._mounted
+    console.log(`${this.constructor.name} mounted`)
   }
 
   compile() {
     return templateEngine.compile(this.template, this.props)
+  }
+
+  dispatchComponentDidMount() {
+    this.eventBus.emit(EVENTS.FLOW_CDM)
+    if (Object.keys(this._children).length) this.eventBus.emit(EVENTS.FLOW_RENDER)
+  }
+
+  dispatchComponentDidUpdate(newProps) {
+    this.eventBus.emit(EVENTS.FLOW_CDU)
+  }
+
+  componentMustReRender(oldProps, newProps) {
+    return JSON.stringify(oldProps) !== JSON.stringify(newProps)
+  }
+
+  _init() {
+    this._element = this._createElement(this._meta.tag)
+    this._addAttributes()
+    this.eventBus.emit(EVENTS.FLOW_RENDER)
+  }
+
+  _registerEvents() {
+    this.eventBus.on(EVENTS.INIT, this._init.bind(this))
+    this.eventBus.on(EVENTS.FLOW_CDM, this._mounted.bind(this))
+    this.eventBus.on(EVENTS.FLOW_CDM, this._updated.bind(this))
+    this.eventBus.on(EVENTS.FLOW_RENDER, this._render.bind(this))
+  }
+
+  _mounted() {
+    this.mounted()
+    if (this.components) Object.values(this.components).map((component) => component.eventBus.emit(EVENTS.FLOW_CDM))
+  }
+
+  _updated(newProps) {
+    if (this.componentMustReRender(this._props, newProps)) this.eventBus.emit(EVENTS.FLOW_RENDER)
+  }
+
+  _render() {
+    console.log(`${this.constructor.name} rendered`, this._id)
+    this._element.innerHTML = this.compile()
+  }
+
+  _createElement(tagName) {
+    return document.createElement(tagName)
+  }
+
+  _makePropsProxy(props) {
+    return new Proxy(props, {
+      get(target, prop) {
+        if (prop.indexOf('_') === 0) {
+          throw new Error('Отказано в доступе')
+        }
+
+        const value = target[prop]
+
+        return typeof value === 'function' ? value.bind(target) : value
+      },
+      deleteProperty() {
+        throw new Error('Отказано в доступе')
+      }
+    })
+  }
+
+  _addAttributes() {
+    const { attrs = {} } = this._options
+
+    Object.entries(attrs).forEach(([key,value]) => {
+      this._element.setAttribute(key, value)
+    })
+  }
+
+  __render() {
+    const block = this.compile()
+
+    this.__removeEvents()
+    this._element.innerHTML = ''
+    this._element.appendChild(block)
+    this.__addEvents()
+    this._addAttributes()
+  }
+
+  __addEvents() {
+    const { events = {} } = this._props
+
+    Object.values(events).forEach((key, value) => {
+      this._element.addEventListener(key, value)
+    })
+  }
+
+  __compile(template, props) {
+    if (!props) props = this._props
+
+    const propsAndStubs = { ...props }
+
+    Object.entries(this._children).forEach((key, child) => {
+      propsAndStubs[key] = `<div data-id="${child._id}"></div>`
+    })
+
+    const fragment = this._createElement('template')
+
+    fragment.innerHTML = templateEngine.compile(template, propsAndStubs)
+
+    Object.values(this._children).forEach((child) => {
+      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
+
+      if (stub) stub.replaceWith(child.getContent())
+    })
+
+    return fragment.content
+  }
+  __removeEvents() {
+    const { events = {} } = this._props
+
+    Object.keys(events).forEach((eventName) => {
+      this._element.removeEventListener(eventName, events[eventName])
+    })
+  }
+  __getChildren(propsAndChilds) {
+    const children = {}
+    const props = {}
+
+    Object.keys(propsAndChilds).forEach((key) => {
+      if (propsAndChilds[key] instanceof Component) children[key] = propsAndChilds[key]
+      else props[key] = propsAndChilds[key]
+
+      return { children, props }
+    })
   }
 }

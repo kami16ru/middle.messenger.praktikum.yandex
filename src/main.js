@@ -3,8 +3,6 @@ import chatLayout from './layouts/chat'
 import defaultLayout from './layouts/default'
 import authLayout from './layouts/auth'
 import errorLayout from './layouts/error'
-import { EVENTS } from './config/events'
-import ErrorHandler from './lib/error/ErrorHandler'
 import templateEngine from './lib/dom/templateEngine'
 
 const layouts = {
@@ -36,25 +34,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (routeConfig.layout) {
       const layout = getLayout(routeConfig.layout)
 
-      app.innerHTML = layout.compile()
-
-      try {
-        layout.evenBus.emit(EVENTS.FLOW_CDM)
-      } catch (e) {
-        ErrorHandler.handle(e)
-      }
+      templateEngine.render(app, layout)
 
       const layoutDOM = document.querySelector(layout.selector)
 
-      layoutDOM.innerHTML = component.compile()
+      templateEngine.render(layoutDOM, component)
     } else {
-      app.innerHTML = component.compile()
-    }
-
-    try {
-      component.evenBus.emit(EVENTS.FLOW_CDM)
-    } catch (e) {
-      ErrorHandler.handle(e)
+      templateEngine.render(app, component)
     }
   }
 })

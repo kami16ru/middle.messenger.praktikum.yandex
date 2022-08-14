@@ -10,49 +10,49 @@ import ServerErrorPageComponent from '../pages/error/500'
 export const routes = [{
   name: 'home',
   path: '/',
-  redirect: 'chat',
+  redirect: 'chat'
 }, {
   name: 'chat',
   path: '/chat',
   component: ChatPageComponent,
-  layout: 'chat',
+  layout: 'chat'
 }, {
   name: 'auth-login',
   path: '/login',
   component: LoginPageComponent,
-  layout: 'auth',
+  layout: 'auth'
 }, {
   name: 'auth-register',
   path: '/register',
   component: RegisterPageComponent,
-  layout: 'auth',
+  layout: 'auth'
 }, {
   name: 'profile',
   path: '/profile',
-  redirect: 'profile-show',
+  redirect: 'profile-show'
 }, {
   name: 'profile-show',
   path: '/profile/show',
   component: ShowProfilePageComponent,
-  layout: 'default',
+  layout: 'default'
 }, {
   name: 'profile-edit',
   path: '/profile/edit',
   component: EditProfilePageComponent,
-  layout: 'default',
+  layout: 'default'
 }, {
   name: 'profile-edit-password',
   path: '/profile/edit-password',
   component: EditPasswordPageComponent,
-  layout: 'default',
+  layout: 'default'
 }, {
   name: '404',
   path: '/404',
   component: NotFoundPageComponent,
-  layout: 'error',
+  layout: 'error'
 }, {
   name: '500',
   path: '/500',
   component: ServerErrorPageComponent,
-  layout: 'error',
+  layout: 'error'
 }]

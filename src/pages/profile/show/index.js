@@ -19,10 +19,6 @@ class ProfileShowPage extends Component {
   constructor(options) {
     super(options)
   }
-
-  async mounted() {
-    console.log('Profile show page mounted')
-  }
 }
 
 export default new ProfileShowPage({
@@ -52,5 +48,8 @@ export default new ProfileShowPage({
   components: {
     ProfileAvatar,
     Button
+  },
+  attrs: {
+    class: 'profile-show-page container full'
   }
 })

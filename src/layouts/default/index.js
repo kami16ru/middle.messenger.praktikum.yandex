@@ -25,5 +25,8 @@ export default new DefaultLayout({
   props: {
     navList: nav.drawer,
     toggleIcon: icons.toggleNav
+  },
+  attrs: {
+    class: 'default-layout container full'
   }
 })
