@@ -4,6 +4,7 @@ import defaultLayout from './layouts/default'
 import authLayout from './layouts/auth'
 import errorLayout from './layouts/error'
 import templateEngine from './lib/dom/templateEngine'
+import {EVENTS} from "./config/events";
 
 const layouts = {
   chatLayout,

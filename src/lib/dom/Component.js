@@ -6,6 +6,7 @@ import  { v4 as makeUUID } from 'uuid'
 
 export default class Component {
   _children
+  _element
 
   constructor(options) {
     if (this.constructor === Component) throw new Error(errorMessages.classErrors.ABSTRACT_CLASS)
@@ -46,6 +47,10 @@ export default class Component {
     return this._selector
   }
 
+  getContent() {
+    return this._element
+  }
+
   mounted() {
     console.log(`${this.constructor.name} mounted`)
   }
@@ -54,9 +59,12 @@ export default class Component {
     return templateEngine.compile(this.template, this.props)
   }
 
+  dispatchRender() {
+    this.eventBus.emit(EVENTS.FLOW_RENDER)
+  }
+
   dispatchComponentDidMount() {
     this.eventBus.emit(EVENTS.FLOW_CDM)
-    if (Object.keys(this._children).length) this.eventBus.emit(EVENTS.FLOW_RENDER)
   }
 
   dispatchComponentDidUpdate(newProps) {
@@ -70,19 +78,22 @@ export default class Component {
   _init() {
     this._element = this._createElement(this._meta.tag)
     this._addAttributes()
-    this.eventBus.emit(EVENTS.FLOW_RENDER)
+    // this.eventBus.emit(EVENTS.FLOW_RENDER)
   }
 
   _registerEvents() {
     this.eventBus.on(EVENTS.INIT, this._init.bind(this))
     this.eventBus.on(EVENTS.FLOW_CDM, this._mounted.bind(this))
-    this.eventBus.on(EVENTS.FLOW_CDM, this._updated.bind(this))
+    this.eventBus.on(EVENTS.FLOW_CDU, this._updated.bind(this))
     this.eventBus.on(EVENTS.FLOW_RENDER, this._render.bind(this))
   }
 
   _mounted() {
     this.mounted()
-    if (this.components) Object.values(this.components).map((component) => component.eventBus.emit(EVENTS.FLOW_CDM))
+
+    if (this.components && Object.values(this.components).length) {
+      Object.values(this.components).map((component) => component.eventBus.emit(EVENTS.FLOW_CDM))
+    }
   }
 
   _updated(newProps) {
@@ -90,8 +101,13 @@ export default class Component {
   }
 
   _render() {
-    console.log(`${this.constructor.name} rendered`, this._id)
     this._element.innerHTML = this.compile()
+    console.log(`${this.constructor.name} rendered`, this._id, this.components)
+    if (this.components) {
+      const components = Object.values(this.components)
+
+      if (components.length > 0) components.forEach((instance) => instance.eventBus.emit(EVENTS.FLOW_RENDER))
+    }
   }
 
   _createElement(tagName) {
@@ -120,64 +136,6 @@ export default class Component {
 
     Object.entries(attrs).forEach(([key,value]) => {
       this._element.setAttribute(key, value)
-    })
-  }
-
-  __render() {
-    const block = this.compile()
-
-    this.__removeEvents()
-    this._element.innerHTML = ''
-    this._element.appendChild(block)
-    this.__addEvents()
-    this._addAttributes()
-  }
-
-  __addEvents() {
-    const { events = {} } = this._props
-
-    Object.values(events).forEach((key, value) => {
-      this._element.addEventListener(key, value)
-    })
-  }
-
-  __compile(template, props) {
-    if (!props) props = this._props
-
-    const propsAndStubs = { ...props }
-
-    Object.entries(this._children).forEach((key, child) => {
-      propsAndStubs[key] = `<div data-id="${child._id}"></div>`
-    })
-
-    const fragment = this._createElement('template')
-
-    fragment.innerHTML = templateEngine.compile(template, propsAndStubs)
-
-    Object.values(this._children).forEach((child) => {
-      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
-
-      if (stub) stub.replaceWith(child.getContent())
-    })
-
-    return fragment.content
-  }
-  __removeEvents() {
-    const { events = {} } = this._props
-
-    Object.keys(events).forEach((eventName) => {
-      this._element.removeEventListener(eventName, events[eventName])
-    })
-  }
-  __getChildren(propsAndChilds) {
-    const children = {}
-    const props = {}
-
-    Object.keys(propsAndChilds).forEach((key) => {
-      if (propsAndChilds[key] instanceof Component) children[key] = propsAndChilds[key]
-      else props[key] = propsAndChilds[key]
-
-      return { children, props }
     })
   }
 }

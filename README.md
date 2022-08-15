@@ -157,7 +157,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [][pcjs-22] - Компонент form
       [][pcjs-23] - Компонент dialog
       [*][pcjs-24] - class Component
-      [][pcjs-27] - exceptions
+      [*][pcjs-27] - exceptions
       [][pcjs-28] - chat page content
       [*][pcjs-29] - eslint
       [][pcjs-30] - шрифты из cdn в проект

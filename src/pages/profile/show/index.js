@@ -5,6 +5,7 @@ import template from './template.hbs'
 import Component from '../../../lib/dom/Component'
 import ProfileAvatar from '../../../modules/profile/components/profile-avatar'
 import Button from '../../../components/ui/button'
+import { EVENTS } from '../../../config/events'
 
 const form = {
   email: { id: 'form-profile-email', name: 'email', label: 'Почта', readOnly: 'readonly', value: 'example@example.com' },

@@ -7,8 +7,9 @@ export default {
   },
   render: (root, component) => {
     try {
+      component.dispatchRender()
       root.appendChild(component._element)
-      component.eventBus.emit(EVENTS.FLOW_CDM)
+      component.dispatchComponentDidMount()
     } catch (e) {
       ErrorHandler.handle(e)
     }

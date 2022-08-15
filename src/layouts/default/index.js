@@ -13,7 +13,7 @@ class DefaultLayout extends Component {
   }
 
   async mounted() {
-    console.log('render default layout')
+    super.mounted()
 
     await useNavDrawer()
   }
