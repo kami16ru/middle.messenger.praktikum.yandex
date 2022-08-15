@@ -1,22 +1,24 @@
 <div class="container full">
-    <div class="card bordered bg-success accent">
-        <form id="login-form" class="form auth-form">
-            <h3 class="card__title">Вход</h3>
-            {{> inputText input=form.email }}
-            {{> inputText input=form.password }}
-        </form>
+  <div class="card bordered bg-success accent">
+    <form id="login-form" class="form auth-form">
+        <h3 class="card__title">Вход</h3>
+        {{> inputText input=form.email }}
+        {{> inputText input=form.password }}
+    </form>
 
-        <div class="spacer"></div>
+    <div class="spacer"></div>
 
-        {{> button id=loginBtnId value='Войти' class='bg-primary white' }}
-        <img
-                id="{{ loadingId }}"
-                class="loading"
-                style="display: none"
-                src="/images/loading.gif"
-                alt="loading"
-                height="40px"
-        >
-        {{> button id=registerBtnId href='/register' value='Регистрация' outline=true class="white" }}
-    </div>
+    {{{ LoginBtn }}}
+
+    <img
+            id="{{ loadingId }}"
+            class="loading"
+            style="display: none"
+            src="/images/loading.gif"
+            alt="loading"
+            height="40px"
+    >
+
+    {{{ RegisterBtn }}}
+  </div>
 </div>
