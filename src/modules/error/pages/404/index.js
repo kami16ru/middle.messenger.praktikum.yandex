@@ -1,7 +1,7 @@
 import template from './template.hbs'
 import './style.css'
-import '../../../components/button'
-import Component from '../../../lib/dom/Component'
+import '../../../../components/button'
+import Component from '../../../../lib/dom/Component'
 
 class NotFoundPage extends Component {
   constructor(options) {

@@ -1,4 +1,4 @@
-import { loading } from '../../lib/helpers/components'
+import { loading } from '../../../../lib/helpers/components'
 
 const registerBtnId = 'register-submit'
 const goHomeBtnId = 'register-go-home'

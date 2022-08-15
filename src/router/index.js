@@ -1,11 +1,11 @@
-import ChatPageComponent from '../pages/chat'
-import LoginPageComponent from '../pages/login'
-import RegisterPageComponent from '../pages/register'
-import ShowProfilePageComponent from '../pages/profile/show'
-import EditProfilePageComponent from '../pages/profile/edit'
-import EditPasswordPageComponent from '../pages/profile/edit-password'
-import NotFoundPageComponent from '../pages/error/404'
-import ServerErrorPageComponent from '../pages/error/500'
+import ChatPageComponent from '../modules/chat/pages'
+import LoginPageComponent from '../modules/auth/pages/login'
+import RegisterPageComponent from '../modules/auth/pages/register'
+import ShowProfilePageComponent from '../modules/profile/pages/show'
+import EditProfilePageComponent from '../modules/profile/pages/edit'
+import EditPasswordPageComponent from '../modules/profile/pages/edit-password'
+import NotFoundPageComponent from '../modules/error/pages/404'
+import ServerErrorPageComponent from '../modules/error/pages/500'
 
 export const routes = [{
   name: 'home',

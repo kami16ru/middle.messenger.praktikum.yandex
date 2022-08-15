@@ -1,7 +1,7 @@
 import template from './template.hbs'
-import '../../components/input'
-import '../../components/button'
-import Component from '../../lib/dom/Component'
+import '../../../../components/input'
+import '../../../../components/button'
+import Component from '../../../../lib/dom/Component'
 
 const registerBtnId = 'register-submit'
 const goHomeBtnId = 'register-go-home'

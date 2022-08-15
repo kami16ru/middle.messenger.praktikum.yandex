@@ -1,8 +1,8 @@
 import template from './template.hbs'
 import './style.css'
-import '../../components/input'
-import '../../components/button'
-import Component from '../../lib/dom/Component'
+import '../../../../components/input'
+import '../../../../components/button'
+import Component from '../../../../lib/dom/Component'
 
 const loginBtnId = 'login-submit'
 const registerBtnId = 'login-new-user'

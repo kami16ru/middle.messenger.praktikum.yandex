@@ -1,4 +1,4 @@
-import { loading } from '../../lib/helpers/components'
+import { loading } from '../../../../lib/helpers/components'
 
 console.log('render login page')
 

@@ -1,10 +1,10 @@
 import '../style.css'
-import '../../../components/input'
-import '../../../components/nav/nav-drawer'
+import '../../../../components/input'
+import '../../../../components/nav/nav-drawer'
 import template from './template.hbs'
-import Component from '../../../lib/dom/Component'
-import ProfileAvatar from '../../../modules/profile/components/profile-avatar'
-import Button from '../../../components/ui/button'
+import Component from '../../../../lib/dom/Component'
+import ProfileAvatar from '../../components/profile-avatar'
+import Button from '../../../../components/ui/button'
 
 const form = {
   email: { id: 'form-profile-email', name: 'email', label: 'Почта', value: 'example@example.com' },
@@ -46,5 +46,8 @@ export default new ProfileEditPage({
   components: {
     ProfileAvatar,
     Button
+  },
+  attrs: {
+    class: 'profile-edit-page container full'
   }
 })
