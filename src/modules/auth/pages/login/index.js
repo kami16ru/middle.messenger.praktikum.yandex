@@ -20,7 +20,7 @@ class LoginPage extends Component {
   }
 
   async mounted() {
-    console.log('render login page')
+    super.mounted()
 
     const loginBtnId = 'login-submit'
     const registerBtnId = 'login-new-user'
@@ -36,12 +36,12 @@ class LoginPage extends Component {
 
       console.log('btn clicked')
 
-      await submitLoginForm(anchor)
+      await submitLoginForm()
 
       window.location = anchor.getAttribute('href')
     })
 
-    async function submitLoginForm(anchor) {
+    async function submitLoginForm() {
       const loadingElement = document.getElementById(loginLoadingId)
       const form = document.getElementById('login-form')
 

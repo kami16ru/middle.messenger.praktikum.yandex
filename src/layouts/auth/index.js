@@ -6,10 +6,6 @@ class AuthLayout extends Component {
   constructor(options) {
     super(options)
   }
-
-  mounted() {
-    console.log('render auth layout')
-  }
 }
 
 export default new AuthLayout({

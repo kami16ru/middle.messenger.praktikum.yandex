@@ -2,9 +2,11 @@ import template from './template.hbs'
 import '../../../../components/input'
 import '../../../../components/button'
 import Component from '../../../../lib/dom/Component'
+import Button from '../../../../components/ui/button'
+import { loading } from '../../../../lib/helpers/components'
 
 const registerBtnId = 'register-submit'
-const goHomeBtnId = 'register-go-home'
+const redirectLoginBtnId = 'register-go-login'
 const registerLoadingId = 'register-submit-loading'
 
 const form = {
@@ -23,9 +25,55 @@ class RegisterPage extends Component {
   }
 
   async mounted() {
-    console.log('Register page mounted')
+    super.mounted()
 
-    return import('./mounted')
+    const submitBtn = document.getElementById(registerBtnId)
+
+    submitBtn.addEventListener('click', async (e) => {
+      e.preventDefault()
+      const anchor = e.target.closest('a')
+
+      if (!anchor) return
+
+      await submitRegisterForm()
+
+      window.location = anchor.getAttribute('href')
+    })
+
+    function submitRegisterForm() {
+      const loadingElement = document.getElementById(registerLoadingId)
+      const form = document.getElementById('register-form')
+
+      const formData = new FormData(form)
+      const email = formData.get('email')
+      const login = formData.get('login')
+      const first_name = formData.get('first_name')
+      const second_name = formData.get('second_name')
+      const phone = formData.get('phone')
+      const password = formData.get('password')
+
+      const model = {
+        email,
+        login,
+        first_name,
+        second_name,
+        phone,
+        password
+      }
+
+      loading({ target: submitBtn, loadingElement, loading: true })
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          form.reset()
+
+          loading({ target: submitBtn, loadingElement, loading: false })
+          console.log(model)
+
+          resolve()
+        }, 2000)
+      })
+    }
   }
 }
 
@@ -34,7 +82,21 @@ export default new RegisterPage({
   props: {
     form,
     registerBtnId,
-    goHomeBtnId,
-    loadingId: registerLoadingId
+    loadingId: registerLoadingId,
+    RedirectLoginBtn: Button.template({
+      ...Button.props,
+      class: 'white',
+      value: 'Уже зарегистрированы',
+      href: '/login',
+      id: redirectLoginBtnId,
+      outline: true
+    }),
+    RegisterBtn: Button.template({
+      ...Button.props,
+      class: 'bg-primary white',
+      value: 'Создать аккаунт',
+      href: '/',
+      id: registerBtnId
+    })
   }
 })
