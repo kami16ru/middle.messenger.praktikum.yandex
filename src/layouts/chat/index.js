@@ -12,7 +12,7 @@ class ChatLayout extends Component {
   }
 
   async mounted() {
-    console.log('render chat layout')
+    super.mounted()
 
     await useNavDrawer()
   }
