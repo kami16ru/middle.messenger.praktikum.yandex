@@ -1,7 +1,6 @@
 import template from './template.hbs'
 import './style.css'
 import '../../../../components/input'
-import '../../../../components/button'
 import Component from '../../../../lib/dom/Component'
 import Button from '../../../../components/ui/button'
 import { loading } from '../../../../lib/helpers/components'

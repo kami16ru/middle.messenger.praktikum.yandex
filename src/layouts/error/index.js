@@ -6,9 +6,6 @@ class ErrorLayout extends Component {
   constructor(options) {
     super(options)
   }
-  mounted() {
-    console.log('render error layout')
-  }
 }
 
 export default new ErrorLayout({

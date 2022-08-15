@@ -1,21 +1,24 @@
 import template from './template.hbs'
 import './style.css'
-import '../../../../components/button'
 import Component from '../../../../lib/dom/Component'
+import Button from '../../../../components/ui/button'
 
 class NotFoundPage extends Component {
   constructor(options) {
     super(options)
-  }
-
-  mounted() {
-    console.log('render 404 page')
   }
 }
 
 export default new NotFoundPage({
   template,
   props: {
-    goBackBtnId: 'return-back'
+    goBackBtnId: 'return-back',
+    GoBackBtn: Button.template({
+      ...Button.props,
+      class: 'white mx-auto',
+      value: 'На главную',
+      href: '/',
+      outline: true
+    })
   }
 })
