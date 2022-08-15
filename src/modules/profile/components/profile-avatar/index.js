@@ -7,9 +7,10 @@ class ProfileAvatar extends Component {
     super(options)
   }
 
-  async mounted() {
+  mounted() {
+    super.mounted()
+
     import('../../../../assets/css/dialog')
-    console.log('Profile avatar component mounted')
 
     const avatar = document.querySelector('.profile-avatar')
     const avatarChange = document.querySelector('.profile-avatar__change')

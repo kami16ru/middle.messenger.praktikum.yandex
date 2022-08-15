@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="auth-wrapper">
+    <div class="card bordered bg-success accent">
+      <form id="register-form">
+
+          <h3 class="card__title">Регистрация</h3>
+
+          {{> inputText input=form.email }}
+          {{> inputText input=form.login }}
+          {{> inputText input=form.first_name }}
+          {{> inputText input=form.second_name }}
+          {{> inputText input=form.phone }}
+          {{> inputText input=form.password }}
+          {{> inputText input=form.passwordConfirm }}
+
+      </form>
+
+      <div class="spacer"></div>
+
+      {{{ RegisterBtn }}}
+
+      <img
+              id="{{ loadingId }}"
+              class="loading"
+              style="display: none"
+              src="images/loading.gif"
+              alt="loading"
+              height="40px"
+      >
+
+      {{{ RedirectLoginBtn }}}
+
+    </div>
+  </div>
+</div>

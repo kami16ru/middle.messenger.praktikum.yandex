@@ -13,7 +13,7 @@ class DefaultLayout extends Component {
   }
 
   async mounted() {
-    console.log('render default layout')
+    super.mounted()
 
     await useNavDrawer()
   }
@@ -25,5 +25,8 @@ export default new DefaultLayout({
   props: {
     navList: nav.drawer,
     toggleIcon: icons.toggleNav
+  },
+  attrs: {
+    class: 'default-layout container full'
   }
 })

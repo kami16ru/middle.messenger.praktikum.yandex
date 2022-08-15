@@ -1,0 +1,9 @@
+{{#if outline}}
+    <button id="{{ id }}" class="btn dark submit btn_outline {{ class }}">
+        <a href="{{ href }}">{{ value }}</a>
+    </button>
+{{else}}
+    <button id="{{ id }}" class="btn dark submit {{ class }}">
+        <a href="{{ href }}">{{ value }}</a>
+    </button>
+{{/if}}

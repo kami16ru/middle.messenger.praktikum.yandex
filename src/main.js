@@ -1,9 +1,10 @@
 import { routes } from './router'
-
 import chatLayout from './layouts/chat'
 import defaultLayout from './layouts/default'
 import authLayout from './layouts/auth'
 import errorLayout from './layouts/error'
+import templateEngine from './lib/dom/templateEngine'
+import {EVENTS} from "./config/events";
 
 const layouts = {
   chatLayout,
@@ -19,7 +20,7 @@ function getLayout(name) {
 document.addEventListener('DOMContentLoaded', async () => {
   const app = document.getElementById('app')
 
-  window.onload = async function (event) {
+  window.onload = function (event) {
     const path = window.location.pathname
     let routeConfig = routes.find((route) => route.path === path)
 
@@ -34,17 +35,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (routeConfig.layout) {
       const layout = getLayout(routeConfig.layout)
 
-      app.innerHTML = layout.template(layout.props)
-
-      layout.evenBus.emit('mounted')
+      templateEngine.render(app, layout)
 
       const layoutDOM = document.querySelector(layout.selector)
 
-      layoutDOM.innerHTML = await component.template(component.props)
+      templateEngine.render(layoutDOM, component)
     } else {
-      app.innerHTML = await component.template(component.props)
+      templateEngine.render(app, component)
     }
-
-    component.evenBus.emit('mounted')
   }
 })
