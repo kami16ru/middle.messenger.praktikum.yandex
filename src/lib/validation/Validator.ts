@@ -1,8 +1,14 @@
 import ErrorHandler from '../error/ErrorHandler'
 import defaultRules from './rules'
+import { IValidator, ValidatorOptions, ValidationRuleConfig, OnBlurCallbackOptions } from './types'
 
-export default class Validator {
-  constructor(options) {
+export default class Validator implements IValidator {
+  _options
+  form
+  rules
+  errors
+
+  constructor(options: ValidatorOptions) {
     this._options = options
 
     const { form, rules = defaultRules } = options
@@ -16,23 +22,24 @@ export default class Validator {
     }, {})
   }
 
-  static isDirty(value, rule) {
+  static isDirty(value: string, rule: ValidationRuleConfig['check']) {
     return !rule(value)
   }
 
-  validateAllFields(target, rules) {
-    Object.entries(target).forEach(([key, value]) => {
-      const fieldRules = rules[key]
-
-      if (value && fieldRules?.length > 0) {
-        fieldRules.forEach((rule) => {
-          if (Validator.isDirty(value, rule.check)) this.errors[key].push(rule.message)
-        })
-      }
-    })
-
-    return Object.values(this.errors).every((val) => val === [])
-  }
+  // ToDo пофиксить перед использованием
+  // validateAllFields(form: ValidatorOptions['form'], rules: Record<string, ValidationRuleConfig>) {
+  //   Object.entries(form).forEach(([key, value]) => {
+  //     const fieldRules = value.rules
+  //
+  //     if (value && fieldRules?.length > 0) {
+  //       fieldRules.forEach((rule) => {
+  //         if (Validator.isDirty(value, rule.check)) this.errors[key].push(rule.message)
+  //       })
+  //     }
+  //   })
+  //
+  //   return Object.values(this.errors).every((val) => val === [])
+  // }
 
   initValidation() {
     const { form } = this
@@ -40,9 +47,9 @@ export default class Validator {
       return Object.assign(acc, { [cur]: document.getElementById(form[cur].id) })
     }, {})
 
-    Object.entries(formElements).forEach(([field, element]) => {
+    Object.entries(formElements).forEach(([field, element]: [string, HTMLInputElement]) => {
       if (form[field].rules) {
-        element.onblur = (e) => this.onBlurCallback({
+        element.onblur = () => this.onBlurCallback({
           target: element,
           messageContainer: element.closest('label').querySelector('.input-helper'),
           defaultValue: form[field].helper ?? '',
@@ -54,7 +61,7 @@ export default class Validator {
     })
   }
 
-  onBlurCallback(options) {
+  onBlurCallback(options: OnBlurCallbackOptions) {
     const { target, messageContainer, defaultValue, fieldRules } = options
 
     fieldRules.forEach((ruleName) => {
@@ -64,7 +71,7 @@ export default class Validator {
 
       if (Validator.isDirty(target.value, rule.check)) {
         if (!messageContainer.hasAttribute('dirty')) {
-          messageContainer.setAttribute('dirty', true)
+          messageContainer.setAttribute('dirty', '1')
           messageContainer.innerHTML = rule.message
         }
       } else {

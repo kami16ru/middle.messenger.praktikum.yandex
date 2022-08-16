@@ -7,7 +7,7 @@ export interface IErrorLoggerBuilder {
 }
 
 export type ErrorLoggerBuilderOptions = {
-  error: Error
+  error: ErrorMessage
 }
 
 export type ErrorMessagesConfig = {
