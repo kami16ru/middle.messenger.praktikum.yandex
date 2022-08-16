@@ -1,21 +1,13 @@
 import template from './template.hbs'
 import './style.css'
-
 import nav from '../../config/nav'
 import icons from '../../config/icons'
-import '../../components/nav/nav-drawer'
-import { useNavDrawer } from '../../components/nav/nav-drawer'
 import Component from '../../lib/dom/Component'
+import NavDrawer from '../../components/ui/nav/nav-drawer'
 
 class DefaultLayout extends Component {
   constructor(options) {
     super(options)
-  }
-
-  async mounted() {
-    super.mounted()
-
-    await useNavDrawer()
   }
 }
 
@@ -24,8 +16,14 @@ export default new DefaultLayout({
   template,
   props: {
     navList: nav.drawer,
-    toggleIcon: icons.toggleNav
+    toggleIcon: icons.toggleNav,
+    NavDrawer: NavDrawer.template({
+      ...NavDrawer.props,
+      navList: nav.drawer,
+      toggleIcon: icons.toggleNav
+    })
   },
+  components: { NavDrawer },
   attrs: {
     class: 'default-layout container full'
   }

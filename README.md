@@ -203,7 +203,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [][pcjs-40] - Компоненты через теневой DOM
       [][pcjs-41] - Рефакторинг 3
       [*][pcjs-42] - Input partial to class
-      [][pcjs-43] - NavDrawer partial to class
+      [*][pcjs-43] - NavDrawer partial to class
       [][pcjs-44] - Inputs in cycle
       [][pcjs-45] - Export default classes | Instances array elements
       [][pcjs-46] - Loading element component

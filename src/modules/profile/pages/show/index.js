@@ -1,5 +1,4 @@
 import '../style.css'
-import '../../../../components/nav/nav-drawer'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
 import ProfileAvatar from '../../components/profile-avatar'
