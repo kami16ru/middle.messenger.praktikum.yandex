@@ -125,5 +125,6 @@ export default new RegisterPage({
       ...Input.props,
       input: form.passwordConfirm
     })
-  }
+  },
+  components: { Input }
 })
