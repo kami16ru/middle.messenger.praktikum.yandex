@@ -19,10 +19,6 @@ class ProfileEditPage extends Component {
   constructor(options) {
     super(options)
   }
-
-  async mounted() {
-    console.log('Profile edit page mounted')
-  }
 }
 
 export default new ProfileEditPage({

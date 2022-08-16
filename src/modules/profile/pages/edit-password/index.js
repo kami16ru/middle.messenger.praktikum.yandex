@@ -1,8 +1,8 @@
 import '../style.css'
-import '../../../../components/input'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
 import Button from '../../../../components/ui/button'
+import Input from '../../../../components/ui/input'
 
 const form = {
   old_password: { id: 'form-edit-password-old_password', name: 'old_password', label: 'Старый пароль', value: '12345678', type: 'password' },
@@ -13,10 +13,6 @@ const form = {
 class EditPwdPage extends Component {
   constructor(options) {
     super(options)
-  }
-
-  async mounted() {
-    console.log('Edit password page mounted')
   }
 }
 
@@ -29,10 +25,23 @@ export default new EditPwdPage({
       class: 'bg-dark white',
       value: 'Сохранить',
       href: '/profile/show'
+    }),
+    InputOldPassword: Input.template({
+      ...Input.props,
+      input: form.old_password
+    }),
+    InputNewPassword: Input.template({
+      ...Input.props,
+      input: form.new_password
+    }),
+    InputRetypeNewPassword: Input.template({
+      ...Input.props,
+      input: form.retype_new_password
     })
   },
   components: {
-    Button
+    Button,
+    Input
   },
   attrs: {
     class: 'profile-edit-password-page container full'
