@@ -4,18 +4,18 @@ export default {
   drawer: [{
     title: 'На главную',
     href: '/',
-    icon: icons.home,
+    icon: icons.home
   }, {
     title: 'Профайл',
     href: '/profile/show',
-    icon: icons.profile,
+    icon: icons.profile
   }, {
     title: 'Чат',
     href: '/chat',
-    icon: icons.chat,
+    icon: icons.chat
   }, {
     title: 'Выход',
     href: '/logout',
-    icon: icons.logout,
-  }],
+    icon: icons.logout
+  }]
 }

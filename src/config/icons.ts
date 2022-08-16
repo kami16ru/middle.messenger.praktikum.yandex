@@ -3,5 +3,5 @@ export default {
   profile: 'mdi-account',
   chat: 'mdi-forum-outline',
   logout: 'mdi-exit-run',
-  toggleNav: 'mdi-arrow-expand-horizontal',
+  toggleNav: 'mdi-arrow-expand-horizontal'
 }

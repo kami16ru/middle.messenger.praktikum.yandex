@@ -1,4 +1,5 @@
 import EventBus from './EventBus'
+import Component from './Component'
 
 export interface IComponent {
   components: IComponent[]
@@ -29,10 +30,10 @@ export interface IComponent {
 export type TemplateEngineProps = Record<string, unknown>
 
 export type ComponentOptions = {
-  template: string
+  template: string | ((props: TemplateEngineProps) => string)
   selector?: string
   props?: TemplateEngineProps
-  components?: IComponent[]
+  components?: Record<string, Component>
   tagName?: string
   attrs?: Element['attributes']
 }
