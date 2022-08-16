@@ -168,7 +168,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [*][pcjs-29] - eslint
       [][pcjs-30] - шрифты из cdn в проект
       [][pcjs-31] - иконки из cdn в проект
-      [][pcjs-32] - Рефакторинг 2
+      [*][pcjs-32] - Рефакторинг 2
         [] - src/components/input/style.css
             Очищать состояние фокуса для интерактивных элементов - не самая хорошая практика, потому что в таком случае 
             пользователям, которые пользуются вашим сайтом с помощью клавиатуры, труднее будет понять, на каком элементе 
@@ -181,8 +181,7 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - src/pages/error/404/template.hbs задать картинку с помощью background
         [] - src/pages/login/template.hbs вход по enter
         [] - Привести страницы к общему виду
-        [] - Компоненты kebab-case. Страницы CamelCase с постфиксом Page
-        [] - Добавить префикс plc в компоненты
+        [*] - Страницы CamelCase с постфиксом Page
         [] - Иконка бургер для открытия меню. Переместить наверх
         [] - Изменение container в зависимости от ширины nav
         [] - debounce mouseover avatar
@@ -191,8 +190,7 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - Оптимизировать изображения
         [] - Один error layout, 2 error pages
         [] - Почистить js файлы
-        [] - Читаемый цвет надписи полей ввода
-        [] - input lable top if input is filled
+        [*] - Читаемый цвет надписи полей ввода
       [][pcjs-33] - typesript
       [*][pcjs-34] - event bus
       [][pcjs-35] - form validation
