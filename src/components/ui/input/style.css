@@ -73,3 +73,10 @@ input:focus {
     letter-spacing: 0.0275rem;
     margin: 0.125rem 0.875rem;
 }
+
+.input-helper[dirty] {
+  color: var(--danger);
+}
+.input-label[dirty] {
+  color: var(--danger);
+}
