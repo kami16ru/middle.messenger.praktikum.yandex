@@ -2,12 +2,12 @@ import template from './template.hbs'
 import './style.css'
 import Component from '../../../lib/dom/Component'
 
-class Button extends Component {
+class Input extends Component {
   constructor(options) {
     super(options)
   }
 }
 
-export default new Button({
+export default new Input({
   template
 })
