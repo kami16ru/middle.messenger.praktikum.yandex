@@ -4,13 +4,14 @@ import Component from '../../../../lib/dom/Component'
 import Button from '../../../../components/ui/button'
 import { loading } from '../../../../lib/helpers/components'
 import Input from '../../../../components/ui/input'
+import Validator from '../../../../lib/validation/Validator';
 
 const loginBtnId = 'login-submit'
 const registerBtnId = 'login-new-user'
 const loginLoadingId = 'login-submit-loading'
 const form = {
-  email: { id: 'form-login-email', name: 'email', label: 'Email', helper: 'Email пользователя' },
-  password: { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '' }
+  email: { id: 'form-login-email', name: 'email', label: 'Email', helper: 'Email пользователя', rules: ['isEmail'] },
+  password: { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', rules: ['isPassword'] }
 }
 
 class LoginPage extends Component {
@@ -20,10 +21,7 @@ class LoginPage extends Component {
 
   async mounted() {
     super.mounted()
-
-    const loginBtnId = 'login-submit'
-    const registerBtnId = 'login-new-user'
-    const loginLoadingId = 'login-submit-loading'
+    this.initValidation()
 
     const submitBtn = document.getElementById(loginBtnId)
 
@@ -35,37 +33,56 @@ class LoginPage extends Component {
 
       console.log('btn clicked')
 
-      await submitLoginForm()
+      await this.submitLoginForm(submitBtn)
 
       window.location = anchor.getAttribute('href')
     })
+  }
 
-    async function submitLoginForm() {
-      const loadingElement = document.getElementById(loginLoadingId)
-      const form = document.getElementById('login-form')
-
-      const formData = new FormData(form)
-      const email = formData.get('email')
-      const password = formData.get('password')
-
-      const credentials = {
-        email,
-        password
-      }
-
-      loading({ target: submitBtn, loadingElement, loading: true })
-
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          form.reset()
-
-          loading({ target: submitBtn, loadingElement, loading: false })
-          console.log(credentials)
-
-          resolve()
-        }, 2000)
-      })
+  initValidation() {
+    const validator = new Validator({ form })
+    const formElements = {
+      email: document.getElementById(form.email.id),
+      password: document.getElementById(form.password.id)
     }
+
+    Object.entries(formElements).forEach(([field, element]) => {
+      element.onblur = (e) => validator.onBlurCallback({
+        target: element,
+        messageContainer: element.closest('label').querySelector('.input-helper'),
+        defaultValue: form[field].helper,
+        fieldRules: form[field].rules
+      })
+
+      element.onfocus = element.onblur
+    })
+  }
+
+  async submitLoginForm(submitBtn) {
+    const loadingElement = document.getElementById(loginLoadingId)
+    const form = document.getElementById('login-form')
+
+    const formData = new FormData(form)
+    const email = formData.get('email')
+    const password = formData.get('password')
+
+    const credentials = {
+      email,
+      password
+    }
+
+    loading({ target: submitBtn, loadingElement, loading: true })
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        form.reset()
+
+        loading({ target: submitBtn, loadingElement, loading: false })
+        console.log(credentials)
+
+        resolve()
+      }, 2000)
+    })
   }
 }
 

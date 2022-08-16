@@ -173,7 +173,7 @@ https://lucky-centaur-1a1b81.netlify.app
         [*] - Читаемый цвет надписи полей ввода
       [][pcjs-33] - typesript
       [*][pcjs-34] - event bus
-      [][pcjs-35] - form validation
+      [*][pcjs-35] - form validation
       [][pcjs-36] - http service
       [][pcjs-37] - stylelint
       [][pcjs-38] - Описать движок в readme
@@ -199,7 +199,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [*][pcjs-42] - Input partial to class
       [*][pcjs-43] - NavDrawer partial to class
       [][pcjs-44] - Inputs in cycle
-      [][pcjs-45] - Export default classes | Instances array elements
+      [][pcjs-45] - Export default classes || Instances array elements
       [][pcjs-46] - Loading element component
 
 
