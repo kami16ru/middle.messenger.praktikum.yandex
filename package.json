@@ -12,11 +12,12 @@
   "author": "kami16ru",
   "license": "MIT",
   "devDependencies": {
+    "@parcel/transformer-typescript-tsc": "^2.7.0",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "eslint": "^7.22.0",
     "express": "^4.17.3",
-    "parcel": "^2.6.2",
+    "parcel": "^2.7.0",
     "parcel-transformer-hbs": "^1.0.4",
     "typescript": "^4.2.3"
   },

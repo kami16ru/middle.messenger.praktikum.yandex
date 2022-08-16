@@ -3,12 +3,20 @@ import EventBus from './EventBus'
 import { EVENTS } from '../../config/events'
 import templateEngine from './templateEngine'
 import  { v4 as makeUUID } from 'uuid'
+import { IComponent, ComponentOptions } from './types'
 
-export default class Component {
-  _children
-  _element
+export default class Component implements IComponent {
+  components
+  _element: Element
+  _options
+  _id: string
+  _template
+  _props: ComponentOptions['props']
+  _selector
+  eventBus: EventBus
+  _meta
 
-  constructor(options) {
+  constructor(options: ComponentOptions) {
     if (this.constructor === Component) throw new Error(errorMessages.classErrors.ABSTRACT_CLASS)
 
     const { template, selector, props = {}, components, tagName = 'div' } = options
@@ -67,28 +75,27 @@ export default class Component {
     this.eventBus.emit(EVENTS.FLOW_CDM)
   }
 
-  dispatchComponentDidUpdate(newProps) {
+  dispatchComponentDidUpdate() {
     this.eventBus.emit(EVENTS.FLOW_CDU)
   }
 
-  componentMustReRender(oldProps, newProps) {
+  componentMustReRender(oldProps: ComponentOptions['props'], newProps: ComponentOptions['props']) {
     return JSON.stringify(oldProps) !== JSON.stringify(newProps)
   }
 
-  _init() {
-    this._element = this._createElement(this._meta.tag)
+  private _init() {
+    this._element = Component._createElement(this._meta.tag)
     this._addAttributes()
-    // this.eventBus.emit(EVENTS.FLOW_RENDER)
   }
 
-  _registerEvents() {
+  private _registerEvents(): void {
     this.eventBus.on(EVENTS.INIT, this._init.bind(this))
     this.eventBus.on(EVENTS.FLOW_CDM, this._mounted.bind(this))
     this.eventBus.on(EVENTS.FLOW_CDU, this._updated.bind(this))
     this.eventBus.on(EVENTS.FLOW_RENDER, this._render.bind(this))
   }
 
-  _mounted() {
+  private _mounted(): void {
     this.mounted()
 
     if (this.components && Object.values(this.components).length) {
@@ -96,11 +103,11 @@ export default class Component {
     }
   }
 
-  _updated(newProps) {
+  private _updated(newProps: ComponentOptions['props']): void {
     if (this.componentMustReRender(this._props, newProps)) this.eventBus.emit(EVENTS.FLOW_RENDER)
   }
 
-  _render() {
+  private _render(): void {
     this._element.innerHTML = this.compile()
     console.log(`${this.constructor.name} rendered`, this._id, this.components)
     if (this.components) {
@@ -110,13 +117,13 @@ export default class Component {
     }
   }
 
-  _createElement(tagName) {
+  private static _createElement(tagName: string): Element {
     return document.createElement(tagName)
   }
 
-  _makePropsProxy(props) {
+  private _makePropsProxy(props: ComponentOptions['props']) {
     return new Proxy(props, {
-      get(target, prop) {
+      get(target, prop: string) {
         if (prop.indexOf('_') === 0) {
           throw new Error('Отказано в доступе')
         }
@@ -134,7 +141,7 @@ export default class Component {
   _addAttributes() {
     const { attrs = {} } = this._options
 
-    Object.entries(attrs).forEach(([key,value]) => {
+    Object.entries(attrs).forEach(([key,value]: [string, string]) => {
       this._element.setAttribute(key, value)
     })
   }

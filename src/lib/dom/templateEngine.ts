@@ -1,11 +1,11 @@
-import { EVENTS } from '../../config/events'
 import ErrorHandler from '../error/ErrorHandler'
+import { IComponent, TemplateEngineProps } from './types'
 
 export default {
-  compile: (template, props) => {
+  compile: (template: (props?: TemplateEngineProps) => string, props: TemplateEngineProps) => {
     return template(props)
   },
-  render: (root, component) => {
+  render: (root: HTMLElement, component: IComponent) => {
     try {
       component.dispatchRender()
       root.appendChild(component._element)

@@ -6,8 +6,17 @@ import EditProfilePageComponent from '../modules/profile/pages/edit'
 import EditPasswordPageComponent from '../modules/profile/pages/edit-password'
 import NotFoundPageComponent from '../modules/error/pages/404'
 import ServerErrorPageComponent from '../modules/error/pages/500'
+import { IComponent } from '../lib/dom/types'
 
-export const routes = [{
+export type RouteConfig = {
+  name: string
+  path: string
+  redirect?: string
+  layout?: string
+  component?: IComponent
+}
+
+export const routes: RouteConfig[] = [{
   name: 'home',
   path: '/',
   redirect: 'chat'

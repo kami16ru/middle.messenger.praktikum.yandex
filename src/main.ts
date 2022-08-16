@@ -1,28 +1,30 @@
-import { routes } from './router'
+import { RouteConfig, routes } from './router/index'
 import chatLayout from './layouts/chat'
 import defaultLayout from './layouts/default'
 import authLayout from './layouts/auth'
 import errorLayout from './layouts/error'
 import templateEngine from './lib/dom/templateEngine'
-import {EVENTS} from "./config/events";
+import { IComponent } from './lib/dom/types'
 
-const layouts = {
+type Layouts = Record<string, IComponent>
+
+const layouts: Layouts = {
   chatLayout,
   defaultLayout,
   authLayout,
   errorLayout
 }
 
-function getLayout(name) {
+function getLayout(name: string): IComponent {
   return layouts[`${name}Layout`] ? layouts[`${name}Layout`] : layouts.defaultLayout
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
   const app = document.getElementById('app')
 
-  window.onload = function (event) {
+  window.onload = function () {
     const path = window.location.pathname
-    let routeConfig = routes.find((route) => route.path === path)
+    let routeConfig: RouteConfig = routes.find((route) => route.path === path)
 
     if (routeConfig) {
       if (routeConfig.redirect) routeConfig = routes.find((route) => route.name === routeConfig.redirect)
