@@ -71,7 +71,8 @@ export default new ProfileShowPage({
   },
   components: {
     ProfileAvatar,
-    Button
+    Button,
+    Input
   },
   attrs: {
     class: 'profile-show-page container full'
