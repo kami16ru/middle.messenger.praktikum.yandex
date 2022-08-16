@@ -9,18 +9,18 @@ export default class Validator {
 
     if (!form) ErrorHandler.handle('form must be defined!')
 
+    this.form = form
+    this.rules = rules
     this.errors = Object.keys(form).reduce((acc, cur) => {
       return Object.assign(acc, { [cur]: [] })
     }, {})
-
-    this.rules = rules
   }
 
   static isDirty(value, rule) {
     return !rule(value)
   }
 
-  validate(target, rules) {
+  validateAllFields(target, rules) {
     Object.entries(target).forEach(([key, value]) => {
       const fieldRules = rules[key]
 
@@ -32,6 +32,26 @@ export default class Validator {
     })
 
     return Object.values(this.errors).every((val) => val === [])
+  }
+
+  initValidation() {
+    const { form } = this
+    const formElements = Object.keys(form).reduce((acc, cur) => {
+      return Object.assign(acc, { [cur]: document.getElementById(form[cur].id) })
+    }, {})
+
+    Object.entries(formElements).forEach(([field, element]) => {
+      if (form[field].rules) {
+        element.onblur = (e) => this.onBlurCallback({
+          target: element,
+          messageContainer: element.closest('label').querySelector('.input-helper'),
+          defaultValue: form[field].helper ?? '',
+          fieldRules: form[field].rules
+        })
+
+        element.onfocus = element.onblur
+      }
+    })
   }
 
   onBlurCallback(options) {

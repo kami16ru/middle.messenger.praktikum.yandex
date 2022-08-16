@@ -16,8 +16,8 @@ const form = {
   first_name: { id: 'form-register-first-name', name: 'first_name', label: 'Имя', helper: 'Как вас зовут?', rules: ['isName'] },
   second_name: { id: 'form-register-second-name', name: 'second_name', label: 'Фамилия', rules: ['isName'] },
   phone: { id: 'form-register-phone', name: 'phone', label: 'Телефон', helper: 'От 10 до 15 символов, состоит из цифр, может начинается с плюса', rules: ['isPhone'] },
-  password: { id: 'form-register-password', name: 'password', label: 'Пароль', helper: 'Хотя бы одна заглавная буква, цифра, минимум 8 символов, максимум 40', rules: ['isPassword'] },
-  passwordConfirm: { id: 'form-register-password-confirm', label: 'Пароль еще раз', helper: 'Должны совпадать', rules: ['isPassword'] }
+  password: { id: 'form-register-password', name: 'password', label: 'Пароль', helper: 'Хотя бы одна заглавная буква, цифра, минимум 8 символов, максимум 40', type: 'password', rules: ['isPassword'] },
+  passwordConfirm: { id: 'form-register-password-confirm', label: 'Пароль еще раз', helper: 'Должны совпадать', type: 'password', rules: ['isPassword'] }
 }
 const inputs = {
   InputEmail: Input.template({
@@ -93,20 +93,8 @@ class RegisterPage extends Component {
 
   initValidation() {
     const validator = new Validator({ form })
-    const formElements = Object.keys(form).reduce((acc, cur) => {
-      return Object.assign(acc, { [cur]: document.getElementById(form[cur].id) })
-    }, {})
 
-    Object.entries(formElements).forEach(([field, element]) => {
-      element.onblur = (e) => validator.onBlurCallback({
-        target: element,
-        messageContainer: element.closest('label').querySelector('.input-helper'),
-        defaultValue: form[field].helper,
-        fieldRules: form[field].rules
-      })
-
-      element.onfocus = element.onblur
-    })
+    validator.initValidation()
   }
 
   submitRegisterForm(submitBtn) {

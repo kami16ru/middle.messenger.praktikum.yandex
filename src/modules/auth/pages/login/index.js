@@ -11,7 +11,7 @@ const registerBtnId = 'login-new-user'
 const loginLoadingId = 'login-submit-loading'
 const form = {
   email: { id: 'form-login-email', name: 'email', label: 'Email', helper: 'Email пользователя', rules: ['isEmail'] },
-  password: { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', rules: ['isPassword'] }
+  password: { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'] }
 }
 
 class LoginPage extends Component {
@@ -41,21 +41,8 @@ class LoginPage extends Component {
 
   initValidation() {
     const validator = new Validator({ form })
-    const formElements = {
-      email: document.getElementById(form.email.id),
-      password: document.getElementById(form.password.id)
-    }
 
-    Object.entries(formElements).forEach(([field, element]) => {
-      element.onblur = (e) => validator.onBlurCallback({
-        target: element,
-        messageContainer: element.closest('label').querySelector('.input-helper'),
-        defaultValue: form[field].helper,
-        fieldRules: form[field].rules
-      })
-
-      element.onfocus = element.onblur
-    })
+    validator.initValidation()
   }
 
   async submitLoginForm(submitBtn) {
