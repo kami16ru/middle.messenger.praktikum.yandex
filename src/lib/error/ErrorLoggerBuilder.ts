@@ -2,9 +2,14 @@ import ConsoleLoggerAdapter from './adapter/ConsoleLoggerAdapter'
 import { errorMessages } from './config'
 import AlertLoggerAdapter from './adapter/AlertLoggerAdapter'
 import { isEmpty } from '../helpers/myDash'
+import { IErrorLoggerBuilder, ErrorLoggerBuilderOptions } from './types'
 
-export default class ErrorLoggerBuilder {
-  constructor(options) {
+export default class ErrorLoggerBuilder implements IErrorLoggerBuilder {
+  error
+  message
+  adapters: IErrorLoggerBuilder['adapters']
+
+  constructor(options: ErrorLoggerBuilderOptions) {
     const { error } = options
     const { message } = error
 

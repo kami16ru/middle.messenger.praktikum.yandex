@@ -1,4 +1,6 @@
-export const errorMessages = {
+import { ErrorMessagesConfig } from './types'
+
+export const errorMessages: ErrorMessagesConfig = {
   arrayErrors: {
     NO_ITEMS_TO_ITERATE: 'No items to iterate!'
   },
