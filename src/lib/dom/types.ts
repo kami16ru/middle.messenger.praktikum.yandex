@@ -35,7 +35,7 @@ export type ComponentOptions = {
   props?: TemplateEngineProps
   components?: Record<string, Component>
   tagName?: string
-  attrs?: Element['attributes']
+  attrs?: Record<string, string>
 }
 
 export interface IEventBus {
