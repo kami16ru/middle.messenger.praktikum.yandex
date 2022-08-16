@@ -3,15 +3,15 @@
 <div class="break"></div>
 
 <div class="card bordered profile__profile-card bg-success accent">
+  <h3 class="card__title">Профайл</h3>
   <form id="profile-form" class="form">
-    <h3 class="card__title">Профайл</h3>
 
-    {{> inputText input=form.email }}
-    {{> inputText input=form.login }}
-    {{> inputText input=form.first_name }}
-    {{> inputText input=form.second_name }}
-    {{> inputText input=form.display_name }}
-    {{> inputText input=form.phone }}
+    {{{ InputEmail }}}
+    {{{ InputLogin }}}
+    {{{ InputFirstName }}}
+    {{{ InputSecondName }}}
+    {{{ InputDisplayName }}}
+    {{{ InputPhone }}}
 
   </form>
 

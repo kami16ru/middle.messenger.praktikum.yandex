@@ -1,12 +1,12 @@
 <div class="break"></div>
 
 <div class="card bordered profile__profile-card bg-success accent">
+  <h3 class="card__title">Профайл</h3>
   <form id="profile-form" class="form">
-    <h3 class="card__title">Профайл</h3>
 
-    {{> inputText input=form.old_password }}
-    {{> inputText input=form.new_password }}
-    {{> inputText input=form.retype_new_password }}
+    {{{ InputOldPassword }}}
+    {{{ InputNewPassword }}}
+    {{{ InputPasswordConfirm }}}
 
   </form>
 

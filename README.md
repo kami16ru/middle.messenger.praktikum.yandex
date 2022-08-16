@@ -192,6 +192,7 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - Один error layout, 2 error pages
         [] - Почистить js файлы
         [] - Читаемый цвет надписи полей ввода
+        [] - input lable top if input is filled
       [][pcjs-33] - typesript
       [*][pcjs-34] - event bus
       [][pcjs-35] - form validation
@@ -201,10 +202,11 @@ https://lucky-centaur-1a1b81.netlify.app
       [*][pcjs-39] - Button partial to class
       [][pcjs-40] - Компоненты через теневой DOM
       [][pcjs-41] - Рефакторинг 3
-      [][pcjs-41] - Input partial to class
-      [][pcjs-42] - NavDrawer partial to class
-      [][pcjs-43] - Inputs in cycle
-      [][pcjs-44] - Export default classes | Instances array elements
+      [*][pcjs-42] - Input partial to class
+      [][pcjs-43] - NavDrawer partial to class
+      [][pcjs-44] - Inputs in cycle
+      [][pcjs-45] - Export default classes | Instances array elements
+      [][pcjs-46] - Loading element component
 
 
 

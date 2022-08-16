@@ -1,10 +1,10 @@
 import '../style.css'
-import '../../../../components/input'
 import '../../../../components/nav/nav-drawer'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
 import ProfileAvatar from '../../components/profile-avatar'
 import Button from '../../../../components/ui/button'
+import Input from '../../../../components/ui/input'
 
 const form = {
   email: { id: 'form-profile-email', name: 'email', label: 'Почта', value: 'example@example.com' },
@@ -18,10 +18,6 @@ const form = {
 class ProfileEditPage extends Component {
   constructor(options) {
     super(options)
-  }
-
-  async mounted() {
-    console.log('Profile edit page mounted')
   }
 }
 
@@ -41,11 +37,36 @@ export default new ProfileEditPage({
       class: 'bg-danger white',
       value: 'Выйти',
       href: '/logout'
+    }),
+    InputEmail: Input.template({
+      ...Input.props,
+      input: form.email
+    }),
+    InputLogin: Input.template({
+      ...Input.props,
+      input: form.login
+    }),
+    InputFirstName: Input.template({
+      ...Input.props,
+      input: form.first_name
+    }),
+    InputSecondName: Input.template({
+      ...Input.props,
+      input: form.second_name
+    }),
+    InputDisplayName: Input.template({
+      ...Input.props,
+      input: form.display_name
+    }),
+    InputPhone: Input.template({
+      ...Input.props,
+      input: form.phone
     })
   },
   components: {
     ProfileAvatar,
-    Button
+    Button,
+    Input
   },
   attrs: {
     class: 'profile-edit-page container full'

@@ -1,8 +1,8 @@
 import template from './template.hbs'
-import '../../../../components/input'
 import Component from '../../../../lib/dom/Component'
 import Button from '../../../../components/ui/button'
 import { loading } from '../../../../lib/helpers/components'
+import Input from '../../../../components/ui/input'
 
 const registerBtnId = 'register-submit'
 const redirectLoginBtnId = 'register-go-login'
@@ -96,6 +96,35 @@ export default new RegisterPage({
       value: 'Создать аккаунт',
       href: '/',
       id: registerBtnId
+    }),
+    InputEmail: Input.template({
+      ...Input.props,
+      input: form.email
+    }),
+    InputPassword: Input.template({
+      ...Input.props,
+      input: form.password
+    }),
+    InputLogin: Input.template({
+      ...Input.props,
+      input: form.login
+    }),
+    InputFirstName: Input.template({
+      ...Input.props,
+      input: form.first_name
+    }),
+    InputSecondName: Input.template({
+      ...Input.props,
+      input: form.second_name
+    }),
+    InputPhone: Input.template({
+      ...Input.props,
+      input: form.phone
+    }),
+    InputPasswordConfirm: Input.template({
+      ...Input.props,
+      input: form.passwordConfirm
     })
-  }
+  },
+  components: { Input }
 })

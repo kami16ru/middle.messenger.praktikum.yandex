@@ -1,17 +1,16 @@
 <div class="container">
   <div class="auth-wrapper">
     <div class="card bordered bg-success accent">
+      <h3 class="card__title">Регистрация</h3>
       <form id="register-form">
 
-          <h3 class="card__title">Регистрация</h3>
-
-          {{> inputText input=form.email }}
-          {{> inputText input=form.login }}
-          {{> inputText input=form.first_name }}
-          {{> inputText input=form.second_name }}
-          {{> inputText input=form.phone }}
-          {{> inputText input=form.password }}
-          {{> inputText input=form.passwordConfirm }}
+        {{{ InputEmail }}}
+        {{{ InputLogin }}}
+        {{{ InputFirstName }}}
+        {{{ InputSecondName }}}
+        {{{ InputPhone }}}
+        {{{ InputPassword }}}
+        {{{ InputPasswordConfirm }}}
 
       </form>
 
