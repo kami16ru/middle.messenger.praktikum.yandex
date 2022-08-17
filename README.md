@@ -243,3 +243,4 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - Изменение container в зависимости от ширины nav
         [] - debounce mouseover avatar
         [] - Оптимизировать изображения
+      [*][pcjs-49] - Copy static files parcel plugin
