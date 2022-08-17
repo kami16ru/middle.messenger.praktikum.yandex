@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import template from './template.hbs'
 import './style.css'
 import Component from '../../../../lib/dom/Component'
@@ -15,6 +13,33 @@ const loginLoadingId = 'login-submit-loading'
 const form = {
   email: { id: 'form-login-email', name: 'email', label: 'Email', helper: 'Email пользователя', rules: ['isEmail'] },
   password: { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'] }
+}
+const buttons = {
+  LoginBtn: Button.template({
+    ...Button.props,
+    class: 'bg-primary white',
+    value: 'Войти',
+    href: '/',
+    id: loginBtnId
+  }),
+  RegisterBtn: Button.template({
+    ...Button.props,
+    class: 'white',
+    value: 'Регистрация',
+    href: '/register',
+    id: registerBtnId,
+    outline: true
+  })
+}
+const inputs = {
+  InputEmail: Input.template({
+    ...Input.props,
+    input: form.email
+  }),
+  InputPassword: Input.template({
+    ...Input.props,
+    input: form.password
+  })
 }
 
 class LoginPage extends Component {
@@ -90,37 +115,8 @@ export default new LoginPage({
   props: {
     loadingId: loginLoadingId,
     form,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    LoginBtn: Button.template({
-      ...Button.props,
-      class: 'bg-primary white',
-      value: 'Войти',
-      href: '/',
-      id: loginBtnId
-    }),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    RegisterBtn: Button.template({
-      ...Button.props,
-      class: 'white',
-      value: 'Регистрация',
-      href: '/register',
-      id: registerBtnId,
-      outline: true
-    }),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    InputEmail: Input.template({
-      ...Input.props,
-      input: form.email
-    }),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    InputPassword: Input.template({
-      ...Input.props,
-      input: form.password
-    })
+    ...buttons,
+    ...inputs
   },
   components: { Button, Input }
 })

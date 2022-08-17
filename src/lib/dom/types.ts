@@ -2,11 +2,11 @@ import EventBus from './EventBus'
 import Component from './Component'
 
 export interface IComponent {
-  components: IComponent[]
+  components: ComponentOptions['components']
   _element: Element
   _options: ComponentOptions
   _id: string
-  _template: ComponentOptions['template']
+  template: ComponentOptions['template']
   _props: ComponentOptions['props']
   _selector: ComponentOptions['selector']
   eventBus: EventBus
@@ -15,7 +15,6 @@ export interface IComponent {
     props: ComponentOptions['props']
   }
   readonly props: ComponentOptions['props']
-  readonly template: ComponentOptions['template']
   readonly options: ComponentOptions
   readonly selector: ComponentOptions['selector']
   getContent(): Element
@@ -30,7 +29,7 @@ export interface IComponent {
 export type TemplateEngineProps = Record<string, unknown>
 
 export type ComponentOptions = {
-  template: string | ((props: TemplateEngineProps) => string)
+  template: (props: TemplateEngineProps) => string
   selector?: string
   props?: TemplateEngineProps
   components?: Record<string, Component>

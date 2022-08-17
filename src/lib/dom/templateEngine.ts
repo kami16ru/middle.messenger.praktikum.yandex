@@ -1,13 +1,11 @@
 import ErrorHandler from '../error/ErrorHandler'
-import { IComponent, TemplateEngineProps } from './types'
+import { ComponentOptions, IComponent, TemplateEngineProps } from './types'
 
 export default {
-  compile: (template: string, props: TemplateEngineProps): string => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+  compile: (template: ComponentOptions['template'], props: TemplateEngineProps): string => {
     return template(props)
   },
-  render: (root: HTMLElement, component: IComponent) => {
+  render: (root: Element, component: IComponent) => {
     try {
       component.dispatchRender()
       root.appendChild(component._element)

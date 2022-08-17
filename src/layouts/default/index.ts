@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import template from './template.hbs'
 import './style.css'
 import nav from '../../config/nav'
@@ -20,8 +18,6 @@ export default new DefaultLayout({
   props: {
     navList: nav.drawer,
     toggleIcon: icons.toggleNav,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     NavDrawer: NavDrawer.template({
       ...NavDrawer.props,
       navList: nav.drawer,

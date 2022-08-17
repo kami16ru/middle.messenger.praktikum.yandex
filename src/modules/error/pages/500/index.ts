@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import template from './template.hbs'
 import './style.css'
 import Component from '../../../../lib/dom/Component'
@@ -16,8 +14,6 @@ export default new ServerErrorPage({
   template,
   props: {
     goBackBtnId: 'return-back',
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     GoBackBtn: Button.template({
       ...Button.props,
       class: 'white mx-auto',

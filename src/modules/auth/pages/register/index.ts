@@ -1,6 +1,4 @@
 import './style.css'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
 import Button from '../../../../components/ui/button/index'
@@ -23,44 +21,30 @@ const form = {
   passwordConfirm: { id: 'form-register-password-confirm', label: 'Пароль еще раз', helper: 'Должны совпадать', type: 'password', rules: ['isPassword'] }
 }
 const inputs = {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   InputEmail: Input.template({
     ...Input.props,
     input: form.email
   }),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   InputPassword: Input.template({
     ...Input.props,
     input: form.password
   }),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   InputLogin: Input.template({
     ...Input.props,
     input: form.login
   }),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   InputFirstName: Input.template({
     ...Input.props,
     input: form.first_name
   }),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   InputSecondName: Input.template({
     ...Input.props,
     input: form.second_name
   }),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   InputPhone: Input.template({
     ...Input.props,
     input: form.phone
   }),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   InputPasswordConfirm: Input.template({
     ...Input.props,
     input: form.passwordConfirm
@@ -68,8 +52,6 @@ const inputs = {
 }
 
 const buttons = {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   RedirectLoginBtn: Button.template({
     ...Button.props,
     class: 'white',
@@ -78,8 +60,6 @@ const buttons = {
     id: redirectLoginBtnId,
     outline: true
   }),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   RegisterBtn: Button.template({
     ...Button.props,
     class: 'bg-primary white',

@@ -10,7 +10,7 @@ export default class Component implements IComponent {
   _element: Element
   _options
   _id: string
-  _template
+  template
   _props: ComponentOptions['props']
   _selector
   eventBus: EventBus
@@ -25,7 +25,7 @@ export default class Component implements IComponent {
 
     this._options = options
     this._id = makeUUID()
-    this._template = template
+    this.template = template
     this._props = this._makePropsProxy(props)
     this._selector = selector
     this.eventBus = new EventBus()
@@ -41,10 +41,6 @@ export default class Component implements IComponent {
 
   get props() {
     return this._props
-  }
-
-  get template() {
-    return this._template
   }
 
   get options() {

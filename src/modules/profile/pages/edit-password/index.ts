@@ -1,6 +1,4 @@
 import '../style.css'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
 import Button from '../../../../components/ui/button/index'
@@ -14,20 +12,14 @@ const form = {
   passwordConfirm: { id: 'form-edit-password-retype_new_password', name: 'retype_new_password', label: 'Повторите новый пароль', value: '', type: 'password', rules: ['isPassword'] }
 }
 const inputs = {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   InputOldPassword: Input.template({
     ...Input.props,
     input: form.old_password
   }),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   InputNewPassword: Input.template({
     ...Input.props,
     input: form.new_password
   }),
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   InputPasswordConfirm: Input.template({
     ...Input.props,
     input: form.passwordConfirm
@@ -55,8 +47,6 @@ export default new EditPwdPage({
   template,
   props: {
     form,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     SaveBtn: Button.template({
       ...Button.props,
       class: 'bg-dark white',

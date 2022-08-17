@@ -1,8 +1,8 @@
 import { RouteConfig, routes } from './router/index'
-import chatLayout from './layouts/chat'
-import defaultLayout from './layouts/default'
-import authLayout from './layouts/auth'
-import errorLayout from './layouts/error'
+import chatLayout from './layouts/chat/index'
+import defaultLayout from './layouts/default/index'
+import authLayout from './layouts/auth/index'
+import errorLayout from './layouts/error/index'
 import templateEngine from './lib/dom/templateEngine'
 import { IComponent } from './lib/dom/types'
 

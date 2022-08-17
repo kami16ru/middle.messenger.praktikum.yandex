@@ -203,6 +203,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [][pcjs-44] - Inputs in cycle
       [][pcjs-45] - Export default classes || Instances array elements
       [][pcjs-46] - Loading element component
+      [*][pcjs-47] - fix typings for hbs
 
 
 
