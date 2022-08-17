@@ -1,10 +1,13 @@
 import './style.css'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
-import Button from '../../../../components/ui/button'
+import Button from '../../../../components/ui/button/index'
 import { loading } from '../../../../lib/helpers/components'
-import Input from '../../../../components/ui/input'
+import Input from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
+import { ComponentOptions } from '../../../../lib/dom/types'
 
 const registerBtnId = 'register-submit'
 const redirectLoginBtnId = 'register-go-login'
@@ -20,30 +23,44 @@ const form = {
   passwordConfirm: { id: 'form-register-password-confirm', label: 'Пароль еще раз', helper: 'Должны совпадать', type: 'password', rules: ['isPassword'] }
 }
 const inputs = {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputEmail: Input.template({
     ...Input.props,
     input: form.email
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputPassword: Input.template({
     ...Input.props,
     input: form.password
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputLogin: Input.template({
     ...Input.props,
     input: form.login
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputFirstName: Input.template({
     ...Input.props,
     input: form.first_name
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputSecondName: Input.template({
     ...Input.props,
     input: form.second_name
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputPhone: Input.template({
     ...Input.props,
     input: form.phone
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputPasswordConfirm: Input.template({
     ...Input.props,
     input: form.passwordConfirm
@@ -51,6 +68,8 @@ const inputs = {
 }
 
 const buttons = {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   RedirectLoginBtn: Button.template({
     ...Button.props,
     class: 'white',
@@ -59,6 +78,8 @@ const buttons = {
     id: redirectLoginBtnId,
     outline: true
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   RegisterBtn: Button.template({
     ...Button.props,
     class: 'bg-primary white',
@@ -69,7 +90,7 @@ const buttons = {
 }
 
 class RegisterPage extends Component {
-  constructor(options) {
+  constructor(options: ComponentOptions) {
     super(options)
   }
 
@@ -81,6 +102,8 @@ class RegisterPage extends Component {
 
     submitBtn.addEventListener('click', async (e) => {
       e.preventDefault()
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const anchor = e.target.closest('a')
 
       if (!anchor) return
@@ -92,15 +115,19 @@ class RegisterPage extends Component {
   }
 
   initValidation() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const validator = new Validator({ form })
 
     validator.initValidation()
   }
 
-  submitRegisterForm(submitBtn) {
+  submitRegisterForm(submitBtn: HTMLElement) {
     const loadingElement = document.getElementById(registerLoadingId)
     const form = document.getElementById('register-form')
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const formData = new FormData(form)
     const email = formData.get('email')
     const login = formData.get('login')
@@ -120,14 +147,19 @@ class RegisterPage extends Component {
 
     loading({ target: submitBtn, loadingElement, loading: true })
 
+    // eslint-disable-next-line
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         form.reset()
 
         loading({ target: submitBtn, loadingElement, loading: false })
         console.log(model)
 
-        resolve()
+        resolve(true)
       }, 2000)
     })
   }

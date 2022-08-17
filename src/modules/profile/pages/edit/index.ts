@@ -1,10 +1,13 @@
 import '../style.css'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
-import ProfileAvatar from '../../components/profile-avatar'
-import Button from '../../../../components/ui/button'
-import Input from '../../../../components/ui/input'
+import ProfileAvatar from '../../components/profile-avatar/index'
+import Button from '../../../../components/ui/button/index'
+import Input from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
+import {ComponentOptions} from "../../../../lib/dom/types";
 
 const form = {
   email: { id: 'form-profile-email', name: 'email', label: 'Почта', value: 'example@example.com', rules: ['isEmail'] },
@@ -15,12 +18,16 @@ const form = {
   phone: { id: 'form-profile-phone', name: 'phone', label: 'Телефон', value: '89099999999', rules: ['isPhone'] }
 }
 const buttons = {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   SaveBtn: Button.template({
     ...Button.props,
     class: 'bg-dark white',
     value: 'Сохранить',
     href: '/profile/show'
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   ExitBtn: Button.template({
     ...Button.props,
     class: 'bg-danger white',
@@ -29,26 +36,38 @@ const buttons = {
   })
 }
 const inputs = {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputEmail: Input.template({
     ...Input.props,
     input: form.email
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputLogin: Input.template({
     ...Input.props,
     input: form.login
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputFirstName: Input.template({
     ...Input.props,
     input: form.first_name
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputSecondName: Input.template({
     ...Input.props,
     input: form.second_name
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputDisplayName: Input.template({
     ...Input.props,
     input: form.display_name
   }),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   InputPhone: Input.template({
     ...Input.props,
     input: form.phone
@@ -56,7 +75,7 @@ const inputs = {
 }
 
 class ProfileEditPage extends Component {
-  constructor(options) {
+  constructor(options: ComponentOptions) {
     super(options)
   }
 

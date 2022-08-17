@@ -1,15 +1,20 @@
 import './style.css'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
+import { ComponentOptions } from '../../../../lib/dom/types'
 
 class ProfileAvatar extends Component {
-  constructor(options) {
+  constructor(options: ComponentOptions) {
     super(options)
   }
 
   mounted() {
     super.mounted()
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     import('../../../../assets/css/dialog')
 
     const avatar = document.querySelector('.profile-avatar')
@@ -25,8 +30,12 @@ class ProfileAvatar extends Component {
       avatar.removeAttribute('hidden')
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     avatar.onmouseenter = () => setTimeout(showEditImg, 250)
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     avatar.onmouseout = () => setTimeout(hideEditImg, 500)
   }
 }
