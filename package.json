@@ -7,7 +7,7 @@
     "dev": "npm start",
     "start": "npm run parcel-dev & node server.js",
     "parcel-dev": "rm -rf dist & parcel ./static/*.html --no-source-maps --no-cache",
-    "build": "rm -rf dist & parcel build ./static/*.html --no-source-maps --no-cache"
+    "build": "rm -rf dist & parcel build ./static/*.html --no-cache"
   },
   "author": "kami16ru",
   "license": "MIT",
