@@ -7,5 +7,8 @@
     "import-notation": null,
     "selector-class-pattern": null
   },
-  "ignoreFiles": ["**/*.hbs"]
+  "ignoreFiles": [
+    "**/*.hbs",
+    "**/*.md"
+  ]
 }

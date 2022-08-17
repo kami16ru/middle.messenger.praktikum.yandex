@@ -142,10 +142,10 @@ https://lucky-centaur-1a1b81.netlify.app
       [*] - Проверьте, что ваше приложения соответствует шаблону MVC (тема «Паттерны», урок "MV*?").
     [*] - В следующем спринте вы напишете свой роутер и добавите его в проект, использовать express.Router() нельзя. 
         Сейчас для перехода между страницами можете применить, например, ссылки в тегах <a>.
-    [] - Добавьте класс для работы с запросами:
-      [] - Fetch, axios и подобные инструменты использовать нельзя. Только Promise и XHR;
-      [] - Реализуйте методы GET, POST, PUT, DELETE;
-      [] - Добавьте работу с query string в GET-запросе и с body для других методов.
+    [*] - Добавьте класс для работы с запросами:
+      [*] - Fetch, axios и подобные инструменты использовать нельзя. Только Promise и XHR;
+      [*] - Реализуйте методы GET, POST, PUT, DELETE;
+      [*] - Добавьте работу с query string в GET-запросе и с body для других методов.
     [*] - Добавьте ESLint:
       [*] - Опишите свои правила или наследуйтесь от уже готовых наборов: например Airbnb или Google;
       [*] - Настройте editorconfig и другие статические анализаторы и инструменты для кода;
@@ -174,7 +174,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [*][pcjs-33] - typesript
       [*][pcjs-34] - event bus
       [*][pcjs-35] - form validation
-      [][pcjs-36] - http service
+      [*][pcjs-36] - http service
       [*][pcjs-37] - stylelint
       [][pcjs-38] - Описать движок в readme
       [*][pcjs-39] - Button partial to class
@@ -205,6 +205,3 @@ https://lucky-centaur-1a1b81.netlify.app
       [][pcjs-45] - Export default classes || Instances array elements
       [][pcjs-46] - Loading element component
       [*][pcjs-47] - fix typings for hbs
-
-
-
