@@ -1,9 +1,8 @@
 .error-not-found-image {
-    display: flex;
-    width: 30%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 56px;
-
-    filter: grayscale(75%);
+  display: flex;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 56px;
+  filter: grayscale(75%);
 }

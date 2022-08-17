@@ -150,7 +150,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [*] - Опишите свои правила или наследуйтесь от уже готовых наборов: например Airbnb или Google;
       [*] - Настройте editorconfig и другие статические анализаторы и инструменты для кода;
       [*] - Весь код должен проходить линтинг и тесты.
-    [] - Добавьте Stylelint.
+    [*] - Добавьте Stylelint.
     [] - Обновите README.md, а именно информацию о функционале и использованных инструментах.
 
 <hr>
@@ -175,7 +175,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [*][pcjs-34] - event bus
       [*][pcjs-35] - form validation
       [][pcjs-36] - http service
-      [][pcjs-37] - stylelint
+      [*][pcjs-37] - stylelint
       [][pcjs-38] - Описать движок в readme
       [*][pcjs-39] - Button partial to class
       [][pcjs-40] - Компоненты через теневой DOM
@@ -198,6 +198,7 @@ https://lucky-centaur-1a1b81.netlify.app
         [] - Оптимизировать изображения
         [] - Валидация всех полей
         [] - Валидация подтверждения пароля
+        [] - Убрать комментарии typescript
       [*][pcjs-42] - Input partial to class
       [*][pcjs-43] - NavDrawer partial to class
       [][pcjs-44] - Inputs in cycle
