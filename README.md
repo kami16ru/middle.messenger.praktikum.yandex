@@ -115,7 +115,7 @@ https://lucky-centaur-1a1b81.netlify.app
     [] - Нарисовать прототип экранов проекта.
       [] - Список чатов и лента переписки (поле для ввода сообщения: message).
     [] - Выбрать препроцессор либо PostCSS. Использовать один из инструментов для стилей.
-    [] - Внедрите TypeScript.
+    [*] - Внедрите TypeScript.
     [*] - Добавьте компонентный подход в проект:
       [*] - Используйте реализацию блока и Event Bus;
       [*] - Разделите проект на папки с компонентами и страницами (components и blocks или pages).
@@ -171,7 +171,7 @@ https://lucky-centaur-1a1b81.netlify.app
       [*][pcjs-32] - Рефакторинг 2
         [*] - src/components/nav/nav-drawer/style.css конкретизировать стили
         [*] - Читаемый цвет надписи полей ввода
-      [][pcjs-33] - typesript
+      [*][pcjs-33] - typesript
       [*][pcjs-34] - event bus
       [*][pcjs-35] - form validation
       [][pcjs-36] - http service
