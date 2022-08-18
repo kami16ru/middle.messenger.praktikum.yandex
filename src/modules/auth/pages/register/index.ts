@@ -78,7 +78,7 @@ class RegisterPage extends Component {
     super.mounted()
     this.initValidation()
 
-    const submitBtn = document.getElementById(registerBtnId)
+    const submitBtn = document.getElementById(registerBtnId) as HTMLElement
 
     submitBtn.addEventListener('click', async (e) => {
       e.preventDefault()
@@ -95,16 +95,15 @@ class RegisterPage extends Component {
   }
 
   initValidation() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+
     const validator = new Validator({ form })
 
     validator.initValidation()
   }
 
   submitRegisterForm(submitBtn: HTMLElement) {
-    const loadingElement = document.getElementById(registerLoadingId)
-    const form = document.getElementById('register-form')
+    const loadingElement = document.getElementById(registerLoadingId) as HTMLElement
+    const form = document.getElementById('register-form') as HTMLFormElement
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -127,13 +126,9 @@ class RegisterPage extends Component {
 
     loading({ target: submitBtn, loadingElement, loading: true })
 
-    // eslint-disable-next-line
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+
         form.reset()
 
         loading({ target: submitBtn, loadingElement, loading: false })

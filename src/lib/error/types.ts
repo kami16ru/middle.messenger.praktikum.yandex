@@ -1,13 +1,12 @@
 import AbstractLoggerAdapter from './adapter/AbstractLoggerAdapter'
 
 export interface IErrorLoggerBuilder {
-  error: ErrorLoggerBuilderOptions['error']
-  message: ErrorMessage
+  error: Error | string
   adapters: Record<string, AbstractLoggerAdapter>
 }
 
 export type ErrorLoggerBuilderOptions = {
-  error: ErrorMessage
+  error: Error | string
 }
 
 export type ErrorMessagesConfig = {

@@ -53,20 +53,22 @@ class LoginPage extends Component {
 
     const submitBtn = document.getElementById(loginBtnId)
 
-    submitBtn.addEventListener('click', async (e) => {
-      e.preventDefault()
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const anchor = e.target.closest('a')
+    if (submitBtn) {
+      submitBtn.addEventListener('click', async (e) => {
+        e.preventDefault()
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const anchor = e.target.closest('a')
 
-      if (!anchor) return
+        if (!anchor) return
 
-      console.log('btn clicked')
+        console.log('btn clicked')
 
-      await this.submitLoginForm(submitBtn)
+        await this.submitLoginForm(submitBtn)
 
-      window.location = anchor.getAttribute('href')
-    })
+        window.location = anchor.getAttribute('href')
+      })
+    }
   }
 
   initValidation() {
@@ -76,11 +78,9 @@ class LoginPage extends Component {
   }
 
   async submitLoginForm(submitBtn: HTMLElement) {
-    const loadingElement = document.getElementById(loginLoadingId)
-    const form = document.getElementById('login-form')
+    const loadingElement = document.getElementById(loginLoadingId) as HTMLElement
+    const form = document.getElementById('login-form') as HTMLFormElement
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const formData = new FormData(form)
     const email = formData.get('email')
     const password = formData.get('password')
@@ -92,13 +92,9 @@ class LoginPage extends Component {
 
     loading({ target: submitBtn, loadingElement, loading: true })
 
-    // eslint-disable-next-line
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+
         form.reset()
 
         loading({ target: submitBtn, loadingElement, loading: false })

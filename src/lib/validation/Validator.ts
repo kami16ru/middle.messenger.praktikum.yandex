@@ -49,25 +49,29 @@ export default class Validator implements IValidator {
 
     Object.entries(formElements).forEach(([field, element]: [string, HTMLInputElement]) => {
       if (form[field].rules) {
-        element.onblur = () => this.onBlurCallback({
-          target: element,
-          messageContainer: element.closest('label').querySelector('.input-helper'),
-          defaultValue: form[field].helper ?? '',
-          fieldRules: form[field].rules
-        })
+        const closetsLabel = element.closest('label')
 
-        element.onfocus = element.onblur
+        if (closetsLabel) {
+          element.onblur = () => this.onBlurCallback({
+            target: element,
+            messageContainer: closetsLabel.querySelector('.input-helper') as HTMLElement,
+            defaultValue: form[field].helper ?? '',
+            fieldRules: form[field].rules ?? []
+          })
+
+          element.onfocus = element.onblur
+        }
       }
     })
   }
 
   onBlurCallback(options: OnBlurCallbackOptions) {
-    const { target, messageContainer, defaultValue, fieldRules } = options
+    const { target, messageContainer, defaultValue = '', fieldRules } = options
 
     fieldRules.forEach((ruleName) => {
-      const rule = this.rules.find((rule) => rule.name === ruleName)
+      const rule = this.rules.find((rule: ValidationRuleConfig) => rule.name === ruleName)
 
-      if (!rule) console.error(`No such rule: ${ruleName}`)
+      if (!rule) throw new Error(`No such rule: ${ruleName}`)
 
       if (Validator.isDirty(target.value, rule.check)) {
         if (!messageContainer.hasAttribute('dirty')) {

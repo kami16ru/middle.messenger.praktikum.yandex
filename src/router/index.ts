@@ -7,19 +7,32 @@ import EditPasswordPageComponent from '../modules/profile/pages/edit-password/in
 import NotFoundPageComponent from '../modules/error/pages/404/index'
 import ServerErrorPageComponent from '../modules/error/pages/500/index'
 import { IComponent } from '../lib/dom/types'
+import Component from '../lib/dom/Component'
+
+class DummyComponent extends Component {}
+
+const AbstractComponentInstance = new DummyComponent({ template: () => '' })
 
 export type RouteConfig = {
   name: string
   path: string
   redirect?: string
   layout?: string
-  component?: IComponent
+  component: IComponent
+}
+
+export const NotFoundRoute: RouteConfig = {
+  name: '404',
+  path: '/404',
+  component: NotFoundPageComponent,
+  layout: 'error'
 }
 
 export const routes: RouteConfig[] = [{
   name: 'home',
   path: '/',
-  redirect: 'chat'
+  redirect: 'chat',
+  component: AbstractComponentInstance
 }, {
   name: 'chat',
   path: '/chat',
@@ -38,7 +51,8 @@ export const routes: RouteConfig[] = [{
 }, {
   name: 'profile',
   path: '/profile',
-  redirect: 'profile-show'
+  redirect: 'profile-show',
+  component: AbstractComponentInstance
 }, {
   name: 'profile-show',
   path: '/profile/show',

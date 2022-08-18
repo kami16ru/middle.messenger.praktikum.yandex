@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import template from './template.hbs'
 import './style.css'
 import Component from '../../../lib/dom/Component'

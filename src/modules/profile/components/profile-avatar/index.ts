@@ -15,8 +15,8 @@ class ProfileAvatar extends Component {
     // @ts-ignore
     import('../../../../assets/css/dialog')
 
-    const avatar = document.querySelector('.profile-avatar')
-    const avatarChange = document.querySelector('.profile-avatar__change')
+    const avatar = document.querySelector('.profile-avatar') as HTMLElement
+    const avatarChange = document.querySelector('.profile-avatar__change') as HTMLElement
 
     function showEditImg() {
       avatar.setAttribute('hidden', 'true')

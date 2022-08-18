@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import template from './template.hbs'
 import './style.css'
 import Component from '../../../../lib/dom/Component'
@@ -15,8 +13,8 @@ class NavDrawer extends Component {
 
     let navCollapsed = false
 
-    const navDrawer = document.querySelector('.nav-drawer')
-    const navDrawerToggle: HTMLElement = document.querySelector('.nav-drawer__toggle-icon')
+    const navDrawer = document.querySelector('.nav-drawer') as HTMLElement
+    const navDrawerToggle = document.querySelector('.nav-drawer__toggle-icon') as HTMLElement
 
     navDrawerToggle.onclick = function () {
       toggleNavDrawer()
@@ -27,13 +25,11 @@ class NavDrawer extends Component {
     }
 
     function openNav() {
-      // navDrawer.style.width = '250px';
       navDrawer.classList.remove('nav-drawer_collapsed')
       navDrawerToggle.classList.remove('nav-drawer__toggle-icon_collapsed')
 
       setTimeout(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+
         for (const elem of document.getElementsByClassName('nav-menu-title')) {
           elem.removeAttribute('hidden')
         }
@@ -45,8 +41,6 @@ class NavDrawer extends Component {
       navDrawer.classList.add('nav-drawer_collapsed')
       navDrawerToggle.classList.add('nav-drawer__toggle-icon_collapsed')
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       for (const elem of document.getElementsByClassName('nav-menu-title')) {
         elem.setAttribute('hidden','true')
       }

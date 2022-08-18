@@ -3,7 +3,8 @@ import EventBus from './EventBus'
 import { EVENTS } from '../../config/events'
 import templateEngine from './templateEngine'
 import  { v4 as makeUUID } from 'uuid'
-import { IComponent, ComponentOptions } from './types'
+import { IComponent, ComponentOptions, TemplateEngineProps } from './types'
+import ErrorHandler from '../error/ErrorHandler'
 
 export default class Component implements IComponent {
   components
@@ -60,7 +61,7 @@ export default class Component implements IComponent {
   }
 
   compile() {
-    return templateEngine.compile(this.template, this.props)
+    return templateEngine.compile(this.template, this.props as TemplateEngineProps)
   }
 
   dispatchRender() {
@@ -117,7 +118,13 @@ export default class Component implements IComponent {
     return document.createElement(tagName)
   }
 
-  private _makePropsProxy(props: ComponentOptions['props']) {
+  private _makePropsProxy(props: ComponentOptions['props']): TemplateEngineProps {
+    if (typeof props !== 'object') {
+      ErrorHandler.handle('Please provide object for proxy')
+
+      return {}
+    }
+
     return new Proxy(props, {
       get(target, prop: string) {
         if (prop.indexOf('_') === 0) {

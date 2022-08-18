@@ -11,10 +11,12 @@ export default class ErrorLoggerBuilder implements IErrorLoggerBuilder {
 
   constructor(options: ErrorLoggerBuilderOptions) {
     const { error } = options
-    const { message } = error
 
     this.error = error
-    this.message = message ? message : error
+
+    if (error instanceof Error) this.message = error.message
+    else this.message = error
+
     this.adapters = {}
   }
 

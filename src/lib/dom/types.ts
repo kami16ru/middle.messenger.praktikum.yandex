@@ -7,7 +7,7 @@ export interface IComponent {
   _options: ComponentOptions
   _id: string
   template: ComponentOptions['template']
-  _props: ComponentOptions['props']
+  _props?: ComponentOptions['props']
   _selector: ComponentOptions['selector']
   eventBus: EventBus
   _meta: {

@@ -1,4 +1,4 @@
-import { RouteConfig, routes } from './router/index'
+import { RouteConfig, routes, NotFoundRoute } from './router/index'
 import chatLayout from './layouts/chat/index'
 import defaultLayout from './layouts/default/index'
 import authLayout from './layouts/auth/index'
@@ -24,26 +24,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   window.onload = function () {
     const path = window.location.pathname
-    let routeConfig: RouteConfig = routes.find((route) => route.path === path)
 
-    if (routeConfig) {
-      if (routeConfig.redirect) routeConfig = routes.find((route) => route.name === routeConfig.redirect)
-    } else {
-      routeConfig = routes.find((route) => route.name === '404')
-    }
+    const routeConfig: RouteConfig = routes.find((route) => route.path === path) ?? NotFoundRoute
+
+    if (routeConfig.redirect) window.location.href = routeConfig.redirect
 
     const { component } = routeConfig
 
     if (routeConfig.layout) {
       const layout = getLayout(routeConfig.layout)
 
-      templateEngine.render(app, layout)
+      templateEngine.render(app as HTMLElement, layout)
 
-      const layoutDOM = document.querySelector(layout.selector)
+      const layoutDOM = document.querySelector(layout.selector ?? '')
 
-      templateEngine.render(layoutDOM, component)
+      templateEngine.render(layoutDOM as HTMLElement, component)
     } else {
-      templateEngine.render(app, component)
+      templateEngine.render(app as HTMLElement, component)
     }
   }
 })

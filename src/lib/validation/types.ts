@@ -10,15 +10,16 @@ export type ValidatorOptions = {
 export type ValidationRuleConfig = {
   name: string
   message: string
-  check: ((value: string) => boolean) | ((value: string) => RegExpMatchArray)
+  check: ((value: string) => boolean) | ((value: string) => RegExpMatchArray | null)
 }
 
 export type FormConfig = {
   id: string
-  name: string
+  name?: string
   label?: string
   rules?: string[]
   helper?: string
+  type?: string
 }
 
 export type OnBlurCallbackOptions = {
