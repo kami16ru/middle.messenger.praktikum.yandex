@@ -1,0 +1,40 @@
+.nav-drawer {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.nav-drawer__toggle-icon {
+  position: absolute;
+  top: 50%;
+  margin-left: 75%;
+  overflow-x: hidden;
+  transition: 0.5s;
+  color: var(--info);
+}
+
+.nav-drawer__menu > li {
+  display: block;
+  justify-content: center;
+  align-content: center;
+  margin-left: -2em;
+}
+
+.nav-drawer__menu > li > a {
+  text-decoration: none;
+}
+
+.nav-drawer_collapsed {
+  width: 70px;
+}
+
+.nav-drawer__toggle-icon_collapsed {
+  margin-left: 0.1em;
+}

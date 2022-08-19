@@ -1,0 +1,26 @@
+<div class="container full">
+  <div class="card bordered bg-success accent">
+    <h3 class="card__title dark">Вход</h3>
+    <form id="login-form" class="form login-form">
+
+        {{{ InputEmail }}}
+        {{{ InputPassword }}}
+
+    </form>
+
+    <div class="spacer"></div>
+
+    {{{ LoginBtn }}}
+
+    <img
+            id="{{ loadingId }}"
+            class="loading"
+            style="display: none"
+            src="/images/loading.gif"
+            alt="loading"
+            height="40px"
+    >
+
+    {{{ RegisterBtn }}}
+  </div>
+</div>

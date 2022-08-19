@@ -1,0 +1,14 @@
+.profile-card {
+  width: 50%;
+  min-width: 800px;
+}
+
+.btn-group-row {
+  display: inline-flex;
+  width: 90%;
+}
+
+.btn-group-row > a,
+button {
+  margin: 1em;
+}
