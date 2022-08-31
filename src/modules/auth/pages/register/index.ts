@@ -69,9 +69,19 @@ const buttons = {
   })
 }
 
-class RegisterPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+export class RegisterPage extends Component {
+  constructor(options: ComponentOptions = {}) {
+    super({
+      template,
+      props: {
+        form,
+        loadingId: registerLoadingId,
+        ...buttons,
+        ...inputs
+      },
+      components: { Input },
+      ...options
+    })
   }
 
   async mounted() {
@@ -139,14 +149,3 @@ class RegisterPage extends Component {
     })
   }
 }
-
-export default new RegisterPage({
-  template,
-  props: {
-    form,
-    loadingId: registerLoadingId,
-    ...buttons,
-    ...inputs
-  },
-  components: { Input }
-})

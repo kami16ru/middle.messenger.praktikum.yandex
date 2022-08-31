@@ -15,66 +15,73 @@ const form = {
   phone: { id: 'form-profile-phone', name: 'phone', label: 'Телефон', readOnly: 'readonly', value: '89099999999' }
 }
 
-class ProfileShowPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
-  }
+const buttons = {
+  EditProfileBtn: Button.template({
+    ...Button.props,
+    class: 'bg-dark white',
+    value: 'Изменить данные',
+    href: '/profile/edit'
+  }),
+  EditPasswordBtn: Button.template({
+    ...Button.props,
+    class: 'bg-dark white',
+    value: 'Изменить пароль',
+    href: '/profile/edit-password'
+  }),
+  ExitBtn: Button.template({
+    ...Button.props,
+    class: 'bg-danger white',
+    value: 'Выйти',
+    href: '/logout'
+  })
 }
 
-export default new ProfileShowPage({
-  template,
-  props: {
-    form,
-    ProfileAvatar: ProfileAvatar.compile(),
-    EditProfileBtn: Button.template({
-      ...Button.props,
-      class: 'bg-dark white',
-      value: 'Изменить данные',
-      href: '/profile/edit'
-    }),
-    EditPasswordBtn: Button.template({
-      ...Button.props,
-      class: 'bg-dark white',
-      value: 'Изменить пароль',
-      href: '/profile/edit-password'
-    }),
-    ExitBtn: Button.template({
-      ...Button.props,
-      class: 'bg-danger white',
-      value: 'Выйти',
-      href: '/logout'
-    }),
-    InputEmail: Input.template({
-      ...Input.props,
-      input: form.email
-    }),
-    InputLogin: Input.template({
-      ...Input.props,
-      input: form.login
-    }),
-    InputFirstName: Input.template({
-      ...Input.props,
-      input: form.first_name
-    }),
-    InputSecondName: Input.template({
-      ...Input.props,
-      input: form.second_name
-    }),
-    InputDisplayName: Input.template({
-      ...Input.props,
-      input: form.display_name
-    }),
-    InputPhone: Input.template({
-      ...Input.props,
-      input: form.phone
+const inputs = {
+  InputEmail: Input.template({
+    ...Input.props,
+    input: form.email
+  }),
+  InputLogin: Input.template({
+    ...Input.props,
+    input: form.login
+  }),
+  InputFirstName: Input.template({
+    ...Input.props,
+    input: form.first_name
+  }),
+  InputSecondName: Input.template({
+    ...Input.props,
+    input: form.second_name
+  }),
+  InputDisplayName: Input.template({
+    ...Input.props,
+    input: form.display_name
+  }),
+  InputPhone: Input.template({
+    ...Input.props,
+    input: form.phone
+  })
+}
+
+export class ShowProfilePage extends Component {
+  constructor(options: ComponentOptions = {}) {
+    super({
+      template,
+      props: {
+        form,
+        ProfileAvatar: ProfileAvatar.compile(),
+        ...buttons,
+        ...inputs
+      },
+      components: {
+        ProfileAvatar,
+        Button,
+        Input
+      },
+      attrs: {
+        class: 'profile-show-page container full'
+      },
+      ...options
     })
-  },
-  components: {
-    ProfileAvatar,
-    Button,
-    Input
-  },
-  attrs: {
-    class: 'profile-show-page container full'
   }
-})
+}

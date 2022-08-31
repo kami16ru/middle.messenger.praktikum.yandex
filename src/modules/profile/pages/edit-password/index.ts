@@ -26,9 +26,29 @@ const inputs = {
   })
 }
 
-class EditPwdPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+export class EditPwdPage extends Component {
+  constructor(options: ComponentOptions = {}) {
+    super({
+      template,
+      props: {
+        form,
+        SaveBtn: Button.template({
+          ...Button.props,
+          class: 'bg-dark white',
+          value: 'Сохранить',
+          href: '/profile/show'
+        }),
+        ...inputs
+      },
+      components: {
+        Button,
+        Input
+      },
+      attrs: {
+        class: 'profile-edit-password-page container full'
+      },
+      ...options
+    })
   }
 
   mounted() {
@@ -42,24 +62,3 @@ class EditPwdPage extends Component {
     validator.initValidation()
   }
 }
-
-export default new EditPwdPage({
-  template,
-  props: {
-    form,
-    SaveBtn: Button.template({
-      ...Button.props,
-      class: 'bg-dark white',
-      value: 'Сохранить',
-      href: '/profile/show'
-    }),
-    ...inputs
-  },
-  components: {
-    Button,
-    Input
-  },
-  attrs: {
-    class: 'profile-edit-password-page container full'
-  }
-})

@@ -56,9 +56,26 @@ const inputs = {
   })
 }
 
-class ProfileEditPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+export class EditProfilePage extends Component {
+  constructor(options: ComponentOptions = {}) {
+    super({
+      template,
+      props: {
+        form,
+        ProfileAvatar: ProfileAvatar.compile(),
+        ...buttons,
+        ...inputs
+      },
+      components: {
+        ProfileAvatar,
+        Button,
+        Input
+      },
+      attrs: {
+        class: 'profile-edit-page container full'
+      },
+      ...options
+    })
   }
 
   mounted() {
@@ -72,21 +89,3 @@ class ProfileEditPage extends Component {
     validator.initValidation()
   }
 }
-
-export default new ProfileEditPage({
-  template,
-  props: {
-    form,
-    ProfileAvatar: ProfileAvatar.compile(),
-    ...buttons,
-    ...inputs
-  },
-  components: {
-    ProfileAvatar,
-    Button,
-    Input
-  },
-  attrs: {
-    class: 'profile-edit-page container full'
-  }
-})

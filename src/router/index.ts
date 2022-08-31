@@ -1,11 +1,11 @@
-import ChatPageComponent from '../modules/chat/pages/index'
-import LoginPageComponent from '../modules/auth/pages/login/index'
-import RegisterPageComponent from '../modules/auth/pages/register/index'
-import ShowProfilePageComponent from '../modules/profile/pages/show/index'
-import EditProfilePageComponent from '../modules/profile/pages/edit/index'
-import EditPasswordPageComponent from '../modules/profile/pages/edit-password/index'
-import NotFoundPageComponent from '../modules/error/pages/404/index'
-import ServerErrorPageComponent from '../modules/error/pages/500/index'
+import { ChatPage } from '../modules/chat/pages/index'
+import { LoginPage } from '../modules/auth/pages/login/index'
+import { RegisterPage } from '../modules/auth/pages/register/index'
+import { ShowProfilePage } from '../modules/profile/pages/show/index'
+import { EditProfilePage } from '../modules/profile/pages/edit/index'
+import { EditPwdPage } from '../modules/profile/pages/edit-password/index'
+import { NotFoundPage } from '../modules/error/pages/404/index'
+import { ServerErrorPage } from '../modules/error/pages/500/index'
 import { IComponent } from '../lib/dom/types'
 import Component from '../lib/dom/Component'
 
@@ -24,7 +24,7 @@ export type RouteConfig = {
 export const NotFoundRoute: RouteConfig = {
   name: '404',
   path: '/404',
-  component: NotFoundPageComponent,
+  component: new NotFoundPage(),
   layout: 'error'
 }
 
@@ -36,17 +36,17 @@ export const routes: RouteConfig[] = [{
 }, {
   name: 'chat',
   path: '/chat',
-  component: ChatPageComponent,
+  component: new ChatPage(),
   layout: 'chat'
 }, {
   name: 'auth-login',
   path: '/login',
-  component: LoginPageComponent,
+  component: new LoginPage(),
   layout: 'auth'
 }, {
   name: 'auth-register',
   path: '/register',
-  component: RegisterPageComponent,
+  component: new RegisterPage(),
   layout: 'auth'
 }, {
   name: 'profile',
@@ -56,26 +56,26 @@ export const routes: RouteConfig[] = [{
 }, {
   name: 'profile-show',
   path: '/profile/show',
-  component: ShowProfilePageComponent,
+  component: new ShowProfilePage(),
   layout: 'default'
 }, {
   name: 'profile-edit',
   path: '/profile/edit',
-  component: EditProfilePageComponent,
+  component: new EditProfilePage(),
   layout: 'default'
 }, {
   name: 'profile-edit-password',
   path: '/profile/edit-password',
-  component: EditPasswordPageComponent,
+  component: new EditPwdPage(),
   layout: 'default'
 }, {
   name: '404',
   path: '/404',
-  component: NotFoundPageComponent,
+  component: new NotFoundPage(),
   layout: 'error'
 }, {
   name: '500',
   path: '/500',
-  component: ServerErrorPageComponent,
+  component: new ServerErrorPage(),
   layout: 'error'
 }]

@@ -42,9 +42,19 @@ const inputs = {
   })
 }
 
-class LoginPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+export class LoginPage extends Component {
+  constructor(options: ComponentOptions = {}) {
+    super({
+      template,
+      props: {
+        loadingId: loginLoadingId,
+        form,
+        ...buttons,
+        ...inputs
+      },
+      components: { Button, Input },
+      ...options
+    })
   }
 
   async mounted() {
@@ -105,14 +115,3 @@ class LoginPage extends Component {
     })
   }
 }
-
-export default new LoginPage({
-  template,
-  props: {
-    loadingId: loginLoadingId,
-    form,
-    ...buttons,
-    ...inputs
-  },
-  components: { Button, Input }
-})

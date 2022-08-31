@@ -3,12 +3,11 @@ import './style.css'
 import Component from '../../../lib/dom/Component'
 import { ComponentOptions } from '../../../lib/dom/types'
 
-class ChatPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+export class ChatPage extends Component {
+  constructor(options: ComponentOptions = {}) {
+    super({
+      template,
+      ...options
+    })
   }
 }
-
-export default new ChatPage({
-  template
-})
