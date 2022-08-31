@@ -4,51 +4,48 @@ import Component from '../../../../lib/dom/Component'
 import { ComponentOptions } from '../../../../lib/dom/types'
 
 export class NavDrawer extends Component {
+  collapsed: boolean
+  navDrawer: HTMLElement
+  navDrawerToggle: HTMLElement
+
   constructor(options: Omit<ComponentOptions, 'template'>) {
     super({
       template,
       ...options
     })
+
+    this.collapsed = true
   }
 
   mounted() {
     super.mounted()
 
-    let navCollapsed = true
+    this.navDrawer = document.querySelector('.nav-drawer') as HTMLElement
+    this.navDrawerToggle = document.querySelector('.nav-drawer__toggle-icon') as HTMLElement
 
-    const navDrawer = document.querySelector('.nav-drawer') as HTMLElement
-    const navDrawerToggle = document.querySelector('.nav-drawer__toggle-icon') as HTMLElement
+    this.navDrawerToggle.onclick = () => this.collapsed ? this.openNav() : this.closeNav()
+  }
 
-    navDrawerToggle.onclick = function () {
-      toggleNavDrawer()
-    }
+  openNav() {
+    this.navDrawer.classList.remove('nav-drawer_collapsed')
+    this.navDrawerToggle.classList.remove('nav-drawer__toggle-icon_collapsed')
 
-    function toggleNavDrawer() {
-      navCollapsed ? openNav() : closeNav()
-    }
-
-    function openNav() {
-      navDrawer.classList.remove('nav-drawer_collapsed')
-      navDrawerToggle.classList.remove('nav-drawer__toggle-icon_collapsed')
-
-      setTimeout(() => {
-
-        for (const elem of document.getElementsByClassName('nav-menu-title')) {
-          elem.removeAttribute('hidden')
-        }
-      }, 500)
-      navCollapsed = false
-    }
-
-    function closeNav() {
-      navDrawer.classList.add('nav-drawer_collapsed')
-      navDrawerToggle.classList.add('nav-drawer__toggle-icon_collapsed')
+    setTimeout(() => {
 
       for (const elem of document.getElementsByClassName('nav-menu-title')) {
-        elem.setAttribute('hidden','true')
+        elem.removeAttribute('hidden')
       }
+    }, 500)
+    this.collapsed = false
+  }
+  closeNav() {
+    this.navDrawer.classList.add('nav-drawer_collapsed')
+    this.navDrawerToggle.classList.add('nav-drawer__toggle-icon_collapsed')
 
-      navCollapsed = true
+    for (const elem of document.getElementsByClassName('nav-menu-title')) {
+      elem.setAttribute('hidden','true')
     }
+
+    this.collapsed = true
   }
 }
