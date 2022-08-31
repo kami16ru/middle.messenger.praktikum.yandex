@@ -1,9 +1,9 @@
 import './style.css'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
-import Button from '../../../../components/ui/button/index'
+import { Button } from '../../../../components/ui/button/index'
 import { loading } from '../../../../lib/helpers/components'
-import Input from '../../../../components/ui/input/index'
+import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 
@@ -20,58 +20,98 @@ const form = {
   password: { id: 'form-register-password', name: 'password', label: 'Пароль', helper: 'Хотя бы одна заглавная буква, цифра, минимум 8 символов, максимум 40', type: 'password', rules: ['isPassword'] },
   passwordConfirm: { id: 'form-register-password-confirm', label: 'Пароль еще раз', helper: 'Должны совпадать', type: 'password', rules: ['isPassword'] }
 }
-const inputs = {
-  InputEmail: Input.template({
-    ...Input.props,
+
+const inputEmail = new Input({
+  props: {
     input: form.email
-  }),
-  InputPassword: Input.template({
-    ...Input.props,
+  }
+})
+const inputPassword = new Input({
+  props: {
     input: form.password
-  }),
-  InputLogin: Input.template({
-    ...Input.props,
+  }
+})
+const inputLogin = new Input({
+  props: {
     input: form.login
-  }),
-  InputFirstName: Input.template({
-    ...Input.props,
+  }
+})
+const inputFirstName = new Input({
+  props: {
     input: form.first_name
-  }),
-  InputSecondName: Input.template({
-    ...Input.props,
+  }
+})
+const inputSecondName = new Input({
+  props: {
     input: form.second_name
-  }),
-  InputPhone: Input.template({
-    ...Input.props,
+  }
+})
+const inputPhone = new Input({
+  props: {
     input: form.phone
-  }),
-  InputPasswordConfirm: Input.template({
-    ...Input.props,
+  }
+})
+const inputPasswordConfirm = new Input({
+  props: {
     input: form.passwordConfirm
-  })
+  }
+})
+const inputs = {
+  InputEmail: inputEmail.compile(),
+  InputPassword: inputPassword.compile(),
+  InputLogin: inputLogin.compile(),
+  InputFirstName: inputFirstName.compile(),
+  InputSecondName: inputSecondName.compile(),
+  InputPhone: inputPhone,
+  InputPasswordConfirm: inputPasswordConfirm.compile()
 }
 
-const buttons = {
-  RedirectLoginBtn: Button.template({
-    ...Button.props,
+const redirectLoginBtn = new Button({
+  props: {
     class: 'white',
     value: 'Уже зарегистрированы',
     href: '/login',
     id: redirectLoginBtnId,
     outline: true
-  }),
-  RegisterBtn: Button.template({
-    ...Button.props,
+  }
+})
+const registerBtn = new Button({
+  props: {
     class: 'bg-primary white',
     value: 'Создать аккаунт',
     href: '/',
     id: registerBtnId
-  })
+  }
+})
+
+const buttons = {
+  RedirectLoginBtn: redirectLoginBtn.compile(),
+  RegisterBtn: registerBtn.compile()
 }
 
-class RegisterPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+export class RegisterPage extends Component {
+  constructor(options: Omit<ComponentOptions, 'template'>) {
+    super({
+      template,
+      props: {
+        form,
+        loadingId: registerLoadingId,
+        ...buttons,
+        ...inputs
+      },
+      components: {
+        inputEmail,
+        inputPassword,
+        inputLogin,
+        inputFirstName,
+        inputSecondName,
+        inputPhone,
+        inputPasswordConfirm,
+        redirectLoginBtn,
+        registerBtn
+      },
+      ...options
+    })
   }
 
   async mounted() {
@@ -139,14 +179,3 @@ class RegisterPage extends Component {
     })
   }
 }
-
-export default new RegisterPage({
-  template,
-  props: {
-    form,
-    loadingId: registerLoadingId,
-    ...buttons,
-    ...inputs
-  },
-  components: { Input }
-})

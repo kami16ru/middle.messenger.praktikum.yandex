@@ -226,7 +226,7 @@ https://lucky-centaur-1a1b81.netlify.app
 #### ТЗ 3 спринта
 
 - [ ] Нарисовать прототип экранов проекта.
-- [ ] Список чатов и лента переписки (поле для ввода сообщения: message).
+  - [ ] Список чатов и лента переписки (поле для ввода сообщения: message).
 - [ ] Выбрать препроцессор либо PostCSS. Использовать один из инструментов для стилей.
 - [ ] Добавьте роутинг в проект.
   - [ ] У всех страниц должен быть собственный роут:
@@ -260,7 +260,7 @@ https://lucky-centaur-1a1b81.netlify.app
   - [ ] pcjs-31 - иконки из cdn в проект
   - [ ] pcjs-40 - Компоненты через теневой DOM
   - [ ] pcjs-44 - Inputs in cycle
-  - [ ] pcjs-45 - Export default classes || Instances array elements
+  - [x] pcjs-45 - Export default classes || Instances array elements
   - [ ] pcjs-46 - Loading element component
   - [ ] pcjs-48 - Рефакторинг 4
     - [ ] Иконка бургер для открытия меню. Переместить наверх

@@ -1,18 +1,18 @@
 import { RouteConfig, routes, NotFoundRoute } from './router/index'
-import chatLayout from './layouts/chat/index'
-import defaultLayout from './layouts/default/index'
-import authLayout from './layouts/auth/index'
-import errorLayout from './layouts/error/index'
+import { ChatLayout } from './layouts/chat/index'
+import { DefaultLayout } from './layouts/default/index'
+import { AuthLayout } from './layouts/auth/index'
+import { ErrorLayout } from './layouts/error/index'
 import templateEngine from './lib/dom/templateEngine'
 import { IComponent } from './lib/dom/types'
 
 type Layouts = Record<string, IComponent>
 
 const layouts: Layouts = {
-  chatLayout,
-  defaultLayout,
-  authLayout,
-  errorLayout
+  chatLayout: new ChatLayout(),
+  defaultLayout: new DefaultLayout(),
+  authLayout: new AuthLayout(),
+  errorLayout: new ErrorLayout()
 }
 
 function getLayout(name: string): IComponent {

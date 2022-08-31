@@ -1,50 +1,71 @@
 import template from './template.hbs'
 import './style.css'
 import Component from '../../../../lib/dom/Component'
-import Button from '../../../../components/ui/button/index'
+import { Button } from '../../../../components/ui/button/index'
 import { loading } from '../../../../lib/helpers/components'
-import Input from '../../../../components/ui/input/index'
+import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 
 const loginBtnId = 'login-submit'
 const registerBtnId = 'login-new-user'
 const loginLoadingId = 'login-submit-loading'
+
 const form = {
   email: { id: 'form-login-email', name: 'email', label: 'Email', helper: 'Email пользователя', rules: ['isEmail'] },
   password: { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'] }
 }
-const buttons = {
-  LoginBtn: Button.template({
-    ...Button.props,
+
+const loginBtn = new Button({
+  props: {
     class: 'bg-primary white',
     value: 'Войти',
     href: '/',
     id: loginBtnId
-  }),
-  RegisterBtn: Button.template({
-    ...Button.props,
+  }
+})
+const registerBtn = new Button({
+  props: {
     class: 'white',
     value: 'Регистрация',
     href: '/register',
     id: registerBtnId,
     outline: true
-  })
-}
-const inputs = {
-  InputEmail: Input.template({
-    ...Input.props,
-    input: form.email
-  }),
-  InputPassword: Input.template({
-    ...Input.props,
-    input: form.password
-  })
+  }
+})
+const buttons = {
+  LoginBtn: loginBtn.compile(),
+  RegisterBtn: registerBtn.compile()
 }
 
-class LoginPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+const inputEmail = new Input({
+  props: {
+    input: form.email
+  }
+})
+const inputPassword = new Input({
+  props: {
+    input: form.password
+  }
+})
+const inputs = {
+  InputEmail: inputEmail.compile(),
+  InputPassword: inputPassword.compile()
+}
+
+export class LoginPage extends Component {
+  constructor(options: Omit<ComponentOptions, 'template'>) {
+    super({
+      template,
+      props: {
+        loadingId: loginLoadingId,
+        form,
+        ...buttons,
+        ...inputs
+      },
+      components: { loginBtn, registerBtn, inputEmail, inputPassword },
+      ...options
+    })
   }
 
   async mounted() {
@@ -105,14 +126,3 @@ class LoginPage extends Component {
     })
   }
 }
-
-export default new LoginPage({
-  template,
-  props: {
-    loadingId: loginLoadingId,
-    form,
-    ...buttons,
-    ...inputs
-  },
-  components: { Button, Input }
-})

@@ -1,8 +1,8 @@
 import '../style.css'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
-import Button from '../../../../components/ui/button/index'
-import Input from '../../../../components/ui/input/index'
+import { Button } from '../../../../components/ui/button/index'
+import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 
@@ -11,24 +11,56 @@ const form = {
   new_password: { id: 'form-edit-password-new_password', name: 'new_password', label: 'Новый пароль', value: '', type: 'password', rules: ['isPassword'] },
   passwordConfirm: { id: 'form-edit-password-retype_new_password', name: 'retype_new_password', label: 'Повторите новый пароль', value: '', type: 'password', rules: ['isPassword'] }
 }
-const inputs = {
-  InputOldPassword: Input.template({
-    ...Input.props,
+
+const inputOldPassword = new Input({
+  props: {
     input: form.old_password
-  }),
-  InputNewPassword: Input.template({
-    ...Input.props,
+  }
+})
+const inputNewPassword = new Input({
+  props: {
     input: form.new_password
-  }),
-  InputPasswordConfirm: Input.template({
-    ...Input.props,
+  }
+})
+const inputPasswordConfirm = new Input({
+  props: {
     input: form.passwordConfirm
-  })
+  }
+})
+const inputs = {
+  InputOldPassword: inputOldPassword.compile(),
+  InputNewPassword: inputNewPassword.compile(),
+  InputPasswordConfirm: inputPasswordConfirm.compile()
 }
 
-class EditPwdPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+const saveBtn = new Button({
+  props: {
+    class: 'bg-dark white',
+    value: 'Сохранить',
+    href: '/profile/show'
+  }
+})
+
+export class EditPwdPage extends Component {
+  constructor(options: Omit<ComponentOptions, 'template'>) {
+    super({
+      template,
+      props: {
+        form,
+        SaveBtn: saveBtn.compile(),
+        ...inputs
+      },
+      components: {
+        saveBtn,
+        inputOldPassword,
+        inputNewPassword,
+        inputPasswordConfirm
+      },
+      attrs: {
+        class: 'profile-edit-password-page container full'
+      },
+      ...options
+    })
   }
 
   mounted() {
@@ -42,24 +74,3 @@ class EditPwdPage extends Component {
     validator.initValidation()
   }
 }
-
-export default new EditPwdPage({
-  template,
-  props: {
-    form,
-    SaveBtn: Button.template({
-      ...Button.props,
-      class: 'bg-dark white',
-      value: 'Сохранить',
-      href: '/profile/show'
-    }),
-    ...inputs
-  },
-  components: {
-    Button,
-    Input
-  },
-  attrs: {
-    class: 'profile-edit-password-page container full'
-  }
-})
