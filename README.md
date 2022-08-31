@@ -262,9 +262,9 @@ https://lucky-centaur-1a1b81.netlify.app
   - [ ] pcjs-44 - Inputs in cycle
   - [x] pcjs-45 - Export default classes || Instances array elements
   - [ ] pcjs-46 - Loading element component
-  - [ ] pcjs-48 - Рефакторинг 4
+  - [x] pcjs-48 - Рефакторинг 4
     - [ ] Иконка бургер для открытия меню. Переместить наверх
-    - [ ] nav-drawer по умолчанию collapsed
+    - [x] nav-drawer по умолчанию collapsed
     - [ ] Изменение container в зависимости от ширины nav
   - [x] pcjs-50 - readme sprint 3
   - [ ] pcjs-51 - router update

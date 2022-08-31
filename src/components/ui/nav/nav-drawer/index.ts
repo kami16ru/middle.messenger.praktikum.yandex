@@ -14,7 +14,7 @@ export class NavDrawer extends Component {
   mounted() {
     super.mounted()
 
-    let navCollapsed = false
+    let navCollapsed = true
 
     const navDrawer = document.querySelector('.nav-drawer') as HTMLElement
     const navDrawerToggle = document.querySelector('.nav-drawer__toggle-icon') as HTMLElement
