@@ -3,12 +3,11 @@ import './style.css'
 import Component from '../../../lib/dom/Component'
 import { ComponentOptions } from '../../../lib/dom/types'
 
-class Input extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+export class Input extends Component {
+  constructor(options: Omit<ComponentOptions, 'template'>) {
+    super({
+      template,
+      ...options
+    })
   }
 }
-
-export default new Input({
-  template
-})

@@ -3,7 +3,7 @@ import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
 import { ProfileAvatar } from '../../components/profile-avatar/index'
 import { Button } from '../../../../components/ui/button/index'
-import Input from '../../../../components/ui/input/index'
+import { Input } from '../../../../components/ui/input/index'
 import { ComponentOptions } from '../../../../lib/dom/types'
 
 const form = {
@@ -39,6 +39,37 @@ const exitBtn = new Button({
   }
 })
 
+const inputEmail = new Input({
+  props: {
+    input: form.email
+  }
+})
+const inputLogin = new Input({
+  props: {
+    input: form.login
+  }
+})
+const inputFirstName = new Input({
+  props: {
+    input: form.first_name
+  }
+})
+const inputSecondName = new Input({
+  props: {
+    input: form.second_name
+  }
+})
+const inputDisplayName = new Input({
+  props: {
+    input: form.display_name
+  }
+})
+const inputPhone = new Input({
+  props: {
+    input: form.phone
+  }
+})
+
 const buttons = {
   EditProfileButton: editProfileBtn.compile(),
   EditPasswordBtn: editPwdBtn.compile(),
@@ -46,30 +77,12 @@ const buttons = {
 }
 
 const inputs = {
-  InputEmail: Input.template({
-    ...Input.props,
-    input: form.email
-  }),
-  InputLogin: Input.template({
-    ...Input.props,
-    input: form.login
-  }),
-  InputFirstName: Input.template({
-    ...Input.props,
-    input: form.first_name
-  }),
-  InputSecondName: Input.template({
-    ...Input.props,
-    input: form.second_name
-  }),
-  InputDisplayName: Input.template({
-    ...Input.props,
-    input: form.display_name
-  }),
-  InputPhone: Input.template({
-    ...Input.props,
-    input: form.phone
-  })
+  InputEmail: inputEmail.compile(),
+  InputLogin: inputLogin.compile(),
+  InputFirstName: inputFirstName.compile(),
+  InputSecondName: inputSecondName.compile(),
+  InputDisplayName: inputDisplayName.compile(),
+  InputPhone: inputPhone.compile()
 }
 
 const profileAvatar = new ProfileAvatar()
@@ -89,7 +102,12 @@ export class ShowProfilePage extends Component {
         editProfileBtn,
         editPwdBtn,
         exitBtn,
-        Input
+        inputEmail,
+        inputLogin,
+        inputFirstName,
+        inputSecondName,
+        inputDisplayName,
+        inputPhone
       },
       attrs: {
         class: 'profile-show-page container full'

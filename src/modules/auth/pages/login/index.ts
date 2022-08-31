@@ -3,17 +3,19 @@ import './style.css'
 import Component from '../../../../lib/dom/Component'
 import { Button } from '../../../../components/ui/button/index'
 import { loading } from '../../../../lib/helpers/components'
-import Input from '../../../../components/ui/input/index'
+import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 
 const loginBtnId = 'login-submit'
 const registerBtnId = 'login-new-user'
 const loginLoadingId = 'login-submit-loading'
+
 const form = {
   email: { id: 'form-login-email', name: 'email', label: 'Email', helper: 'Email пользователя', rules: ['isEmail'] },
   password: { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'] }
 }
+
 const loginBtn = new Button({
   props: {
     class: 'bg-primary white',
@@ -35,15 +37,20 @@ const buttons = {
   LoginBtn: loginBtn.compile(),
   RegisterBtn: registerBtn.compile()
 }
-const inputs = {
-  InputEmail: Input.template({
-    ...Input.props,
+
+const inputEmail = new Input({
+  props: {
     input: form.email
-  }),
-  InputPassword: Input.template({
-    ...Input.props,
+  }
+})
+const inputPassword = new Input({
+  props: {
     input: form.password
-  })
+  }
+})
+const inputs = {
+  InputEmail: inputEmail.compile(),
+  InputPassword: inputPassword.compile()
 }
 
 export class LoginPage extends Component {
@@ -56,7 +63,7 @@ export class LoginPage extends Component {
         ...buttons,
         ...inputs
       },
-      components: { loginBtn, registerBtn, Input },
+      components: { loginBtn, registerBtn, inputEmail, inputPassword },
       ...options
     })
   }

@@ -3,7 +3,7 @@ import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
 import { ProfileAvatar } from '../../components/profile-avatar/index'
 import { Button } from '../../../../components/ui/button/index'
-import Input from '../../../../components/ui/input/index'
+import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 
@@ -33,31 +33,44 @@ const buttons = {
   SaveBtn: saveBtn.compile(),
   ExitBtn: exitBtn.compile()
 }
-const inputs = {
-  InputEmail: Input.template({
-    ...Input.props,
+
+const inputEmail = new Input({
+  props: {
     input: form.email
-  }),
-  InputLogin: Input.template({
-    ...Input.props,
+  }
+})
+const inputLogin = new Input({
+  props: {
     input: form.login
-  }),
-  InputFirstName: Input.template({
-    ...Input.props,
+  }
+})
+const inputFirstName = new Input({
+  props: {
     input: form.first_name
-  }),
-  InputSecondName: Input.template({
-    ...Input.props,
+  }
+})
+const inputSecondName = new Input({
+  props: {
     input: form.second_name
-  }),
-  InputDisplayName: Input.template({
-    ...Input.props,
+  }
+})
+const inputDisplayName = new Input({
+  props: {
     input: form.display_name
-  }),
-  InputPhone: Input.template({
-    ...Input.props,
+  }
+})
+const inputPhone = new Input({
+  props: {
     input: form.phone
-  })
+  }
+})
+const inputs = {
+  InputEmail: inputEmail.compile(),
+  InputLogin: inputLogin.compile(),
+  InputFirstName: inputFirstName.compile(),
+  InputSecondName: inputSecondName.compile(),
+  InputDisplayName: inputDisplayName.compile(),
+  InputPhone: inputPhone.compile()
 }
 
 const profileAvatar = new ProfileAvatar()
@@ -76,7 +89,12 @@ export class EditProfilePage extends Component {
         profileAvatar,
         saveBtn,
         exitBtn,
-        Input
+        inputEmail,
+        inputLogin,
+        inputFirstName,
+        inputSecondName,
+        inputDisplayName,
+        inputPhone
       },
       attrs: {
         class: 'profile-edit-page container full'
