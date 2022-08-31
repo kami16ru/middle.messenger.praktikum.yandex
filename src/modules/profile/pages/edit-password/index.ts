@@ -1,7 +1,7 @@
 import '../style.css'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
-import Button from '../../../../components/ui/button/index'
+import { Button } from '../../../../components/ui/button/index'
 import Input from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
@@ -26,22 +26,25 @@ const inputs = {
   })
 }
 
+const saveBtn = new Button({
+  props: {
+    class: 'bg-dark white',
+    value: 'Сохранить',
+    href: '/profile/show'
+  }
+})
+
 export class EditPwdPage extends Component {
-  constructor(options: ComponentOptions = {}) {
+  constructor(options: Omit<ComponentOptions, 'template'>) {
     super({
       template,
       props: {
         form,
-        SaveBtn: Button.template({
-          ...Button.props,
-          class: 'bg-dark white',
-          value: 'Сохранить',
-          href: '/profile/show'
-        }),
+        SaveBtn: saveBtn.compile(),
         ...inputs
       },
       components: {
-        Button,
+        saveBtn,
         Input
       },
       attrs: {

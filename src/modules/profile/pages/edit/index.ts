@@ -2,7 +2,7 @@ import '../style.css'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
 import { ProfileAvatar } from '../../components/profile-avatar/index'
-import Button from '../../../../components/ui/button/index'
+import { Button } from '../../../../components/ui/button/index'
 import Input from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
@@ -15,19 +15,23 @@ const form = {
   display_name: { id: 'form-profile-second-name', name: 'display_name', label: 'Имя в чате', value: 'superhero' },
   phone: { id: 'form-profile-phone', name: 'phone', label: 'Телефон', value: '89099999999', rules: ['isPhone'] }
 }
-const buttons = {
-  SaveBtn: Button.template({
-    ...Button.props,
+const saveBtn = new Button({
+  props: {
     class: 'bg-dark white',
     value: 'Сохранить',
     href: '/profile/show'
-  }),
-  ExitBtn: Button.template({
-    ...Button.props,
+  }
+})
+const exitBtn = new Button({
+  props: {
     class: 'bg-danger white',
     value: 'Выйти',
     href: '/logout'
-  })
+  }
+})
+const buttons = {
+  SaveBtn: saveBtn.compile(),
+  ExitBtn: exitBtn.compile()
 }
 const inputs = {
   InputEmail: Input.template({
@@ -59,7 +63,7 @@ const inputs = {
 const profileAvatar = new ProfileAvatar()
 
 export class EditProfilePage extends Component {
-  constructor(options: ComponentOptions = {}) {
+  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
       props: {
@@ -70,7 +74,8 @@ export class EditProfilePage extends Component {
       },
       components: {
         profileAvatar,
-        Button,
+        saveBtn,
+        exitBtn,
         Input
       },
       attrs: {

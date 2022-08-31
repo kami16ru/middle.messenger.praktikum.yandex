@@ -29,7 +29,7 @@ export interface IComponent {
 export type TemplateEngineProps = Record<string, unknown>
 
 export type ComponentOptions = {
-  template?: (props: TemplateEngineProps) => string
+  template: (props: TemplateEngineProps) => string
   selector?: string
   props?: TemplateEngineProps
   components?: Record<string, Component>

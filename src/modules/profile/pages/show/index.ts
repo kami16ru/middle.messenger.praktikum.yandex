@@ -2,7 +2,7 @@ import '../style.css'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
 import { ProfileAvatar } from '../../components/profile-avatar/index'
-import Button from '../../../../components/ui/button/index'
+import { Button } from '../../../../components/ui/button/index'
 import Input from '../../../../components/ui/input/index'
 import { ComponentOptions } from '../../../../lib/dom/types'
 
@@ -15,25 +15,34 @@ const form = {
   phone: { id: 'form-profile-phone', name: 'phone', label: 'Телефон', readOnly: 'readonly', value: '89099999999' }
 }
 
-const buttons = {
-  EditProfileBtn: Button.template({
-    ...Button.props,
+const editProfileBtn = new Button({
+  props: {
     class: 'bg-dark white',
     value: 'Изменить данные',
     href: '/profile/edit'
-  }),
-  EditPasswordBtn: Button.template({
-    ...Button.props,
+  }
+})
+
+const editPwdBtn = new Button({
+  props: {
     class: 'bg-dark white',
     value: 'Изменить пароль',
     href: '/profile/edit-password'
-  }),
-  ExitBtn: Button.template({
-    ...Button.props,
+  }
+})
+
+const exitBtn = new Button({
+  props: {
     class: 'bg-danger white',
     value: 'Выйти',
     href: '/logout'
-  })
+  }
+})
+
+const buttons = {
+  EditProfileButton: editProfileBtn.compile(),
+  EditPasswordBtn: editPwdBtn.compile(),
+  ExitBtn: exitBtn.compile()
 }
 
 const inputs = {
@@ -66,7 +75,7 @@ const inputs = {
 const profileAvatar = new ProfileAvatar()
 
 export class ShowProfilePage extends Component {
-  constructor(options: ComponentOptions = {}) {
+  constructor(options: Omit<ComponentOptions, 'template'>) {
     super({
       template,
       props: {
@@ -77,7 +86,9 @@ export class ShowProfilePage extends Component {
       },
       components: {
         profileAvatar,
-        Button,
+        editProfileBtn,
+        editPwdBtn,
+        exitBtn,
         Input
       },
       attrs: {

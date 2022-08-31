@@ -1,7 +1,7 @@
 import template from './template.hbs'
 import './style.css'
 import Component from '../../../../lib/dom/Component'
-import Button from '../../../../components/ui/button/index'
+import { Button } from '../../../../components/ui/button/index'
 import { loading } from '../../../../lib/helpers/components'
 import Input from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
@@ -14,22 +14,26 @@ const form = {
   email: { id: 'form-login-email', name: 'email', label: 'Email', helper: 'Email пользователя', rules: ['isEmail'] },
   password: { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'] }
 }
-const buttons = {
-  LoginBtn: Button.template({
-    ...Button.props,
+const loginBtn = new Button({
+  props: {
     class: 'bg-primary white',
     value: 'Войти',
     href: '/',
     id: loginBtnId
-  }),
-  RegisterBtn: Button.template({
-    ...Button.props,
+  }
+})
+const registerBtn = new Button({
+  props: {
     class: 'white',
     value: 'Регистрация',
     href: '/register',
     id: registerBtnId,
     outline: true
-  })
+  }
+})
+const buttons = {
+  LoginBtn: loginBtn.compile(),
+  RegisterBtn: registerBtn.compile()
 }
 const inputs = {
   InputEmail: Input.template({
@@ -43,7 +47,7 @@ const inputs = {
 }
 
 export class LoginPage extends Component {
-  constructor(options: ComponentOptions = {}) {
+  constructor(options: Omit<ComponentOptions, 'template'>) {
     super({
       template,
       props: {
@@ -52,7 +56,7 @@ export class LoginPage extends Component {
         ...buttons,
         ...inputs
       },
-      components: { Button, Input },
+      components: { loginBtn, registerBtn, Input },
       ...options
     })
   }

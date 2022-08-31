@@ -1,7 +1,7 @@
 import './style.css'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
-import Button from '../../../../components/ui/button/index'
+import { Button } from '../../../../components/ui/button/index'
 import { loading } from '../../../../lib/helpers/components'
 import Input from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
@@ -51,26 +51,31 @@ const inputs = {
   })
 }
 
-const buttons = {
-  RedirectLoginBtn: Button.template({
-    ...Button.props,
+const redirectLoginBtn = new Button({
+  props: {
     class: 'white',
     value: 'Уже зарегистрированы',
     href: '/login',
     id: redirectLoginBtnId,
     outline: true
-  }),
-  RegisterBtn: Button.template({
-    ...Button.props,
+  }
+})
+const registerBtn = new Button({
+  props: {
     class: 'bg-primary white',
     value: 'Создать аккаунт',
     href: '/',
     id: registerBtnId
-  })
+  }
+})
+
+const buttons = {
+  RedirectLoginBtn: redirectLoginBtn.compile(),
+  RegisterBtn: registerBtn.compile()
 }
 
 export class RegisterPage extends Component {
-  constructor(options: ComponentOptions = {}) {
+  constructor(options: Omit<ComponentOptions, 'template'>) {
     super({
       template,
       props: {
@@ -79,7 +84,7 @@ export class RegisterPage extends Component {
         ...buttons,
         ...inputs
       },
-      components: { Input },
+      components: { Input, redirectLoginBtn, registerBtn },
       ...options
     })
   }
