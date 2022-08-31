@@ -3,9 +3,12 @@ import './style.css'
 import Component from '../../../../lib/dom/Component'
 import { ComponentOptions } from '../../../../lib/dom/types'
 
-class NavDrawer extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+export class NavDrawer extends Component {
+  constructor(options: Omit<ComponentOptions, 'template'>) {
+    super({
+      template,
+      ...options
+    })
   }
 
   mounted() {
@@ -49,7 +52,3 @@ class NavDrawer extends Component {
     }
   }
 }
-
-export default new NavDrawer({
-  template
-})
