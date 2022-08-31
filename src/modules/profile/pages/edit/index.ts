@@ -1,7 +1,7 @@
 import '../style.css'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
-import ProfileAvatar from '../../components/profile-avatar/index'
+import { ProfileAvatar } from '../../components/profile-avatar/index'
 import Button from '../../../../components/ui/button/index'
 import Input from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
@@ -56,18 +56,20 @@ const inputs = {
   })
 }
 
+const profileAvatar = new ProfileAvatar()
+
 export class EditProfilePage extends Component {
   constructor(options: ComponentOptions = {}) {
     super({
       template,
       props: {
         form,
-        ProfileAvatar: ProfileAvatar.compile(),
+        ProfileAvatar: profileAvatar.compile(),
         ...buttons,
         ...inputs
       },
       components: {
-        ProfileAvatar,
+        profileAvatar,
         Button,
         Input
       },

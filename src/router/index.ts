@@ -1,4 +1,4 @@
-import { ChatPage } from '../modules/chat/pages/index'
+import { ChatPage } from '../modules/chat/pages/chat/index'
 import { LoginPage } from '../modules/auth/pages/login/index'
 import { RegisterPage } from '../modules/auth/pages/register/index'
 import { ShowProfilePage } from '../modules/profile/pages/show/index'
