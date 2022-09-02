@@ -2,53 +2,60 @@ import template from './template.hbs'
 import './style.css'
 import Component from '../../../../lib/dom/Component'
 import { ComponentOptions } from '../../../../lib/dom/types'
+import icons from '../../../../config/icons'
 
 export class NavDrawer extends Component {
+  collapsed: boolean
+  activatorMiddle: boolean
+  navDrawer: HTMLElement
+  navDrawerToggle: HTMLElement
+
   constructor(options: Omit<ComponentOptions, 'template'>) {
     super({
       template,
-      ...options
+      ...options,
+      props: {
+        activatorMidIcon: icons.toggleNav,
+        activatorTopIcon: icons.menu,
+        ...options.props
+      }
     })
+
+    this.collapsed = true
+    this.activatorMiddle = !!this.props?.activatorMiddle
   }
 
   mounted() {
     super.mounted()
 
-    let navCollapsed = false
+    this.navDrawer = document.querySelector('.nav-drawer') as HTMLElement
+    this.navDrawerToggle = document.querySelector(this.activatorMiddle ? '.nav-drawer__toggle-mid' : '.nav-drawer__toggle-top') as HTMLElement
 
-    const navDrawer = document.querySelector('.nav-drawer') as HTMLElement
-    const navDrawerToggle = document.querySelector('.nav-drawer__toggle-icon') as HTMLElement
+    this.navDrawerToggle.onclick = () => this.collapsed ? this.openNav() : this.closeNav()
+  }
 
-    navDrawerToggle.onclick = function () {
-      toggleNavDrawer()
-    }
+  openNav() {
+    this.navDrawer.classList.remove('nav-drawer_collapsed')
+    if (this.activatorMiddle) this.navDrawerToggle.classList.remove('nav-drawer__toggle-mid_collapsed')
+    else this.navDrawerToggle.classList.add('nav-drawer__toggle-top_expanded')
 
-    function toggleNavDrawer() {
-      navCollapsed ? openNav() : closeNav()
-    }
-
-    function openNav() {
-      navDrawer.classList.remove('nav-drawer_collapsed')
-      navDrawerToggle.classList.remove('nav-drawer__toggle-icon_collapsed')
-
-      setTimeout(() => {
-
-        for (const elem of document.getElementsByClassName('nav-menu-title')) {
-          elem.removeAttribute('hidden')
-        }
-      }, 500)
-      navCollapsed = false
-    }
-
-    function closeNav() {
-      navDrawer.classList.add('nav-drawer_collapsed')
-      navDrawerToggle.classList.add('nav-drawer__toggle-icon_collapsed')
+    setTimeout(() => {
 
       for (const elem of document.getElementsByClassName('nav-menu-title')) {
-        elem.setAttribute('hidden','true')
+        elem.removeAttribute('hidden')
       }
+    }, 500)
+    this.collapsed = false
+  }
+  closeNav() {
+    this.navDrawer.classList.add('nav-drawer_collapsed')
+    if (this.activatorMiddle) this.navDrawerToggle.classList.add('nav-drawer__toggle-mid_collapsed')
+    else this.navDrawerToggle.classList.remove('nav-drawer__toggle-top_expanded')
 
-      navCollapsed = true
+    for (const elem of document.getElementsByClassName('nav-menu-title')) {
+      elem.setAttribute('hidden','true')
     }
+
+    this.collapsed = true
   }
 }

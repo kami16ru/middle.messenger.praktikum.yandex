@@ -11,20 +11,32 @@
   transition: 0.5s;
 }
 
+.nav-drawer__toggle-top {
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
 .nav-drawer__toggle-icon {
   position: absolute;
   top: 50%;
   margin-left: 75%;
   overflow-x: hidden;
   transition: 0.5s;
-  color: var(--info);
+}
+
+.nav-drawer__menu {
+  width: 100%;
 }
 
 .nav-drawer__menu > li {
-  display: block;
   justify-content: center;
   align-content: center;
   margin-left: -2em;
+}
+
+.nav-drawer__menu > hr {
+  box-shadow: 0 0 5px 2px rgb(23 193 232 / 100%);
+  margin-left: -2.5em;
 }
 
 .nav-drawer__menu > li > a {
@@ -35,6 +47,10 @@
   width: 70px;
 }
 
-.nav-drawer__toggle-icon_collapsed {
+.nav-drawer__toggle-mid_collapsed {
   margin-left: 0.1em;
+}
+
+.nav-drawer__toggle-top_expanded {
+  margin-left: 3.7em;
 }
