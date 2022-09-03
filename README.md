@@ -290,8 +290,12 @@ https://lucky-centaur-1a1b81.netlify.app
     - [ ] `src/pages/error/404/template.hbs` задать картинку с помощью background
     - [ ] debounce mouseover avatar
     - [ ] Оптимизировать изображения
+    - [ ] Реализовать метод navigate у класса route
   - [ ] pcjs-57 - README.md update
   - [ ] pcjs-58 - store
   - [ ] pcjs-59 - Изменение container в зависимости от ширины nav
-  - [ ] pcjs-60 - Modules update
+  - [x] pcjs-60 - Modules update
   - [ ] pcjs-61 - Button click hooks router
+  - [ ] pcjs-62 - Children routes
+  - [ ] pcjs-63 - Router middleware
+  - [ ] pcjs-64 - Middleware pipeline

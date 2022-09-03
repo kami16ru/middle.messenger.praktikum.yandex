@@ -10,7 +10,7 @@ import { ChatLayout } from '../../layouts/chat/index'
 import { DefaultLayout } from '../../layouts/default/index'
 import { AuthLayout } from '../../layouts/auth/index'
 import { ErrorLayout } from '../../layouts/error/index'
-import { NotFoundRoute } from '../../router/index'
+import { notFoundRoute } from '../../router/index'
 
 const layouts: Record<string, IComponent> = {
   chatLayout: new ChatLayout(),
@@ -134,7 +134,7 @@ export class Router {
     if (route) {
       route.render()
       this._currentRoute = route
-    } else this.go(NotFoundRoute.path)
+    } else this.go(notFoundRoute.path)
   }
 
   go(pathname: string) {
