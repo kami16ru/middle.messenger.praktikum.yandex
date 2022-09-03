@@ -37,17 +37,28 @@ const saveBtn = new Button({
   props: {
     class: 'bg-dark white',
     value: 'Сохранить',
-    href: '/profile/show'
+    href: '/settings'
   }
 })
+const exitBtn = new Button({
+  props: {
+    class: 'bg-danger white',
+    value: 'Отменить',
+    href: '/settings'
+  }
+})
+const buttons = {
+  SaveBtn: saveBtn.compile(),
+  ExitBtn: exitBtn.compile()
+}
 
 export class EditPwdPage extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'>) {
+  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
       props: {
         form,
-        SaveBtn: saveBtn.compile(),
+        ...buttons,
         ...inputs
       },
       components: {

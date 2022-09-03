@@ -3,12 +3,12 @@ import EventBus from './EventBus'
 import { EVENTS } from '../../config/events'
 import templateEngine from './templateEngine'
 import  { v4 as makeUUID } from 'uuid'
-import { IComponent, ComponentOptions, TemplateEngineProps } from './types'
+import { ComponentOptions, TemplateEngineProps, IComponent } from './types'
 import ErrorHandler from '../error/ErrorHandler'
 
 export default class Component implements IComponent {
   components
-  _element: Element
+  _element: HTMLElement
   _options
   _id: string
   template
@@ -50,6 +50,14 @@ export default class Component implements IComponent {
 
   get selector() {
     return this._selector
+  }
+
+  show() {
+    this.getContent().style.display = 'block'
+  }
+
+  hide() {
+    this.getContent().style.display = 'none'
   }
 
   getContent() {
@@ -114,7 +122,7 @@ export default class Component implements IComponent {
     }
   }
 
-  private static _createElement(tagName: string): Element {
+  private static _createElement(tagName: string): HTMLElement {
     return document.createElement(tagName)
   }
 

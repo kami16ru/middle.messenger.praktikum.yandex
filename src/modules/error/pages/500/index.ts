@@ -14,7 +14,7 @@ const goBackBtn = new Button({
 })
 
 export class ServerErrorPage extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'>) {
+  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
       props: {

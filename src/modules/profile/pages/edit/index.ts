@@ -19,14 +19,14 @@ const saveBtn = new Button({
   props: {
     class: 'bg-dark white',
     value: 'Сохранить',
-    href: '/profile/show'
+    href: '/settings'
   }
 })
 const exitBtn = new Button({
   props: {
     class: 'bg-danger white',
-    value: 'Выйти',
-    href: '/logout'
+    value: 'Отменить',
+    href: '/settings'
   }
 })
 const buttons = {

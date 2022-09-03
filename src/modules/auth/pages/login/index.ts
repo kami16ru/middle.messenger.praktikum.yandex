@@ -54,7 +54,7 @@ const inputs = {
 }
 
 export class LoginPage extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'>) {
+  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
       props: {

@@ -17,6 +17,8 @@ export interface IComponent {
   readonly props: ComponentOptions['props']
   readonly options: ComponentOptions
   readonly selector: ComponentOptions['selector']
+  hide(): void
+  show(): void
   getContent(): Element
   mounted(): void
   compile(): string
@@ -42,4 +44,17 @@ export interface IEventBus {
   on(event: string, callback: () => void): void
   off(event: string, callback: () => void): void
   emit(event: string, ...args: unknown[]): void
+}
+
+export interface ComponentConstructor {
+  new (options?: Omit<ComponentOptions, 'template'>): Component;
+}
+
+export type RouteConfig = {
+  name: string
+  path: string
+  redirect?: string
+  layout?: string
+  props?: ComponentOptions['props']
+  component: ComponentConstructor
 }

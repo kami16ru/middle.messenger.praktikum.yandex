@@ -12,7 +12,7 @@ const navDrawer = new NavDrawer({
 })
 
 export class ChatLayout extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'>) {
+  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       selector: '.chat-layout',
       template: template,

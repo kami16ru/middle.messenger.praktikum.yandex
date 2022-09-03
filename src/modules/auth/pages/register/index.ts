@@ -62,7 +62,7 @@ const inputs = {
   InputLogin: inputLogin.compile(),
   InputFirstName: inputFirstName.compile(),
   InputSecondName: inputSecondName.compile(),
-  InputPhone: inputPhone,
+  InputPhone: inputPhone.compile(),
   InputPasswordConfirm: inputPasswordConfirm.compile()
 }
 
@@ -70,7 +70,7 @@ const redirectLoginBtn = new Button({
   props: {
     class: 'white',
     value: 'Уже зарегистрированы',
-    href: '/login',
+    href: '/sign-in',
     id: redirectLoginBtnId,
     outline: true
   }
@@ -90,7 +90,7 @@ const buttons = {
 }
 
 export class RegisterPage extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'>) {
+  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
       props: {

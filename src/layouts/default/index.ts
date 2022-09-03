@@ -12,7 +12,7 @@ const navDrawer = new NavDrawer({
 })
 
 export class DefaultLayout extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'>) {
+  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       selector: '.default-layout',
       template,

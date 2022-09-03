@@ -7,11 +7,11 @@ export default {
     icon: icons.home
   }, {
     title: 'Профайл',
-    href: '/profile/show',
+    href: '/settings',
     icon: icons.profile
   }, {
     title: 'Чат',
-    href: '/chat',
+    href: '/messenger',
     icon: icons.chat
   }, {
     title: 'Выход',

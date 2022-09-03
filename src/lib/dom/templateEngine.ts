@@ -5,11 +5,19 @@ export default {
   compile: (template: ComponentOptions['template'], props: TemplateEngineProps): string => {
     return template(props)
   },
-  render: (root: Element, component: IComponent) => {
+  render: (rootQuery: string, component: IComponent) => {
     try {
-      component.dispatchRender()
-      root.appendChild(component._element)
-      component.dispatchComponentDidMount()
+      const root = document.querySelector(rootQuery)
+
+      console.log(rootQuery)
+
+      if (!root) ErrorHandler.handle('Document not found!')
+
+      else {
+        component.dispatchRender()
+        root.appendChild(component._element)
+        component.dispatchComponentDidMount()
+      }
     } catch (e) {
       ErrorHandler.handle(e)
     }

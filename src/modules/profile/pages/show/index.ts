@@ -19,7 +19,7 @@ const editProfileBtn = new Button({
   props: {
     class: 'bg-dark white',
     value: 'Изменить данные',
-    href: '/profile/edit'
+    href: '/settings/edit'
   }
 })
 
@@ -27,7 +27,7 @@ const editPwdBtn = new Button({
   props: {
     class: 'bg-dark white',
     value: 'Изменить пароль',
-    href: '/profile/edit-password'
+    href: '/settings/edit-password'
   }
 })
 
@@ -71,7 +71,7 @@ const inputPhone = new Input({
 })
 
 const buttons = {
-  EditProfileButton: editProfileBtn.compile(),
+  EditProfileBtn: editProfileBtn.compile(),
   EditPasswordBtn: editPwdBtn.compile(),
   ExitBtn: exitBtn.compile()
 }
@@ -88,7 +88,7 @@ const inputs = {
 const profileAvatar = new ProfileAvatar()
 
 export class ShowProfilePage extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'>) {
+  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
       props: {
