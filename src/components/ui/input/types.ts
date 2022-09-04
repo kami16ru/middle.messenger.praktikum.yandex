@@ -4,4 +4,7 @@ export type FormConfig = {
   label?: string
   readOnly?: string
   value: string
+  rules?: string[]
+  helper?: string
+  type?: string
 }

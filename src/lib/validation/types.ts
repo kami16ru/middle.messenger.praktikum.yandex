@@ -3,7 +3,7 @@ export interface IValidator {
 }
 
 export type ValidatorOptions = {
-  form: Record<string, FormConfig>
+  form: FormConfig[]
   rules?: ValidationRuleConfig[]
 }
 
@@ -15,7 +15,7 @@ export type ValidationRuleConfig = {
 
 export type FormConfig = {
   id: string
-  name?: string
+  name: string
   label?: string
   rules?: string[]
   helper?: string

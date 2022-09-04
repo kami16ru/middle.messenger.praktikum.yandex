@@ -16,7 +16,6 @@ const form: FormConfig[] = [
   { id: 'form-profile-second-name', name: 'display_name', label: 'Имя в чате', readOnly: 'readonly', value: 'superhero' },
   { id: 'form-profile-phone', name: 'phone', label: 'Телефон', readOnly: 'readonly', value: '89099999999' }
 ]
-
 const inputComponents = createComponentsFromProps(form, Input)
 const inputTemplates = getTemplatesFromComponents(inputComponents)
 
@@ -25,7 +24,6 @@ const buttons: ButtonConfig[] = [
   { class: 'bg-dark white', value: 'Изменить пароль', href: '/settings/edit-password' },
   { class: 'bg-danger white', value: 'Выйти', href: '/logout' }
 ]
-
 const buttonComponents = createComponentsFromProps(buttons, Button)
 const buttonTemplates = getTemplatesFromComponents(buttonComponents)
 

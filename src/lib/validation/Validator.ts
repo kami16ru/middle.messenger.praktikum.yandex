@@ -17,8 +17,8 @@ export default class Validator implements IValidator {
 
     this.form = form
     this.rules = rules
-    this.errors = Object.keys(form).reduce((acc, cur) => {
-      return Object.assign(acc, { [cur]: [] })
+    this.errors = form.reduce((acc, cur) => {
+      return Object.assign(acc, { [cur.name]: [] })
     }, {})
   }
 
@@ -43,23 +43,24 @@ export default class Validator implements IValidator {
 
   initValidation() {
     const { form } = this
-    const formElements = Object.keys(form).reduce((acc, cur) => {
-      return Object.assign(acc, { [cur]: document.getElementById(form[cur].id) })
-    }, {})
 
-    Object.entries(formElements).forEach(([field, element]: [string, HTMLInputElement]) => {
-      if (form[field].rules) {
-        const closetsLabel = element.closest('label')
+    form.forEach((formConfig) => {
+      if (formConfig.rules) {
+        const element = document.getElementById(formConfig.id) as HTMLInputElement
 
-        if (closetsLabel) {
-          element.onblur = () => this.onBlurCallback({
-            target: element,
-            messageContainer: closetsLabel.querySelector('.input-helper') as HTMLElement,
-            defaultValue: form[field].helper ?? '',
-            fieldRules: form[field].rules ?? []
-          })
+        if (element) {
+          const closetsLabel = element.closest('label')
 
-          element.onfocus = element.onblur
+          if (closetsLabel) {
+            element.onblur = () => this.onBlurCallback({
+              target: element,
+              messageContainer: closetsLabel.querySelector('.input-helper') as HTMLElement,
+              defaultValue: formConfig.helper ?? '',
+              fieldRules: formConfig.rules ?? []
+            })
+
+            element.onfocus = element.onblur
+          }
         }
       }
     })

@@ -9,8 +9,6 @@ export default {
     try {
       const root = document.querySelector(rootQuery)
 
-      console.log(rootQuery)
-
       if (!root) ErrorHandler.handle('Document not found!')
 
       else {
