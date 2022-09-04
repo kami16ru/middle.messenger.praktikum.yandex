@@ -1,12 +1,12 @@
 import '../style.css'
 import template from './template.hbs'
-import Component, {createComponentsFromProps, getTemplatesFromComponents} from '../../../../lib/dom/Component'
+import Component, { createComponentsFromProps, getTemplatesFromComponents } from '../../../../lib/dom/Component'
 import { Button } from '../../../../components/ui/button/index'
 import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 import { FormConfig } from '../../../../components/ui/input/types'
-import {ButtonConfig} from "../../../../components/ui/button/types";
+import { ButtonConfig } from '../../../../components/ui/button/types'
 
 const form: FormConfig[] = [
   { id: 'form-edit-password-old_password', name: 'old_password', label: 'Старый пароль', value: '', type: 'password', rules: ['isPassword'] },

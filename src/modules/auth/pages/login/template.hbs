@@ -3,8 +3,9 @@
     <h3 class="card__title dark">Вход</h3>
     <form id="login-form" class="form login-form">
 
-        {{{ InputEmail }}}
-        {{{ InputPassword }}}
+      {{#each inputTemplates}}
+        {{{this}}}
+      {{/each}}
 
     </form>
 
