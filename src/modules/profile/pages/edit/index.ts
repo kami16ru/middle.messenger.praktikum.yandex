@@ -22,7 +22,7 @@ const inputTemplates = getTemplatesFromComponents(inputComponents)
 
 const buttons: ButtonConfig[] = [
   { class: 'bg-dark white', value: 'Сохранить', href: '/settings' },
-  { class: 'bg-danger white', value: 'Выйти', href: '/settings' }
+  { class: 'bg-danger white', value: 'Отменить', href: '/settings' }
 ]
 const buttonComponents = createComponentsFromProps(buttons, Button)
 const buttonTemplates = getTemplatesFromComponents(buttonComponents)
