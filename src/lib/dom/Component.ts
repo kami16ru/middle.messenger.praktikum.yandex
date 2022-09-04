@@ -3,7 +3,7 @@ import EventBus from './EventBus'
 import { EVENTS } from '../../config/events'
 import templateEngine from './templateEngine'
 import  { v4 as makeUUID } from 'uuid'
-import { ComponentOptions, TemplateEngineProps, IComponent } from './types'
+import { ComponentOptions, TemplateEngineProps, IComponent, ComponentConstructor } from './types'
 import ErrorHandler from '../error/ErrorHandler'
 
 export default class Component implements IComponent {
@@ -25,7 +25,7 @@ export default class Component implements IComponent {
     if (!template) throw new Error(errorMessages.classErrors.INVALID_CONSTRUCTOR_ARGS)
 
     this._options = options
-    this._id = makeUUID()
+    this._id = `${this.constructor.name}_${makeUUID()}`
     this.template = template
     this._props = this._makePropsProxy(props)
     this._selector = selector
@@ -156,4 +156,26 @@ export default class Component implements IComponent {
       this._element.setAttribute(key, value)
     })
   }
+}
+
+export const getTemplatesFromComponents = (components: Record<string, Component>) => {
+  return Object.values(components).map((component) => {
+    return component.compile()
+  })
+}
+
+export const createComponentsFromProps = (propsArr: Record<string, unknown>[], ComponentClass: ComponentConstructor) => {
+  const components: Record<string, Component> = {}
+
+  propsArr.forEach((prop) => {
+    const component = new ComponentClass({
+      props: {
+        ...prop
+      }
+    })
+
+    return Object.assign(components, { [component._id]: component })
+  })
+
+  return components
 }

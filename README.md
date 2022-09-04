@@ -259,7 +259,7 @@ https://lucky-centaur-1a1b81.netlify.app
   - [ ] pcjs-30 - шрифты из cdn в проект
   - [ ] pcjs-31 - иконки из cdn в проект
   - [ ] pcjs-40 - Компоненты через теневой DOM
-  - [ ] pcjs-44 - Inputs in cycle
+  - [x] pcjs-44 - Inputs in cycle
   - [x] pcjs-45 - Export default classes || Instances array elements
   - [ ] pcjs-46 - Loading element component
   - [x] pcjs-48 - Рефакторинг 4
