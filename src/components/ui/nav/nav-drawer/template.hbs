@@ -1,11 +1,14 @@
 <div class="nav-drawer nav-drawer_collapsed bg-dark">
+  {{#unless activatorMiddle}}
+    <div style="display: flex; flex-direction: row; align-items: center; margin-top: 15px;">
+      <span class="mdi mdi-backburger nav-menu-header-icon h2 accent pointer active" hidden></span>
+      <span class="mdi mdi-chat-processing nav-menu-header-icon h2 accent pointer" hidden></span>
+      <div class="spacer"></div>
+      <span class="mdi {{ activatorTopIcon }} h1 nav-drawer__toggle-top pointer primary"></span>
+    </div>
+  {{/unless}}
   <ul class="nav-drawer__menu">
-    {{#unless activatorMiddle}}
-    <li>
-      <span class="mdi {{ activatorTopIcon }} h1 accent nav-drawer__toggle-top pointer"></span>
-    </li>
     <hr>
-    {{/unless}}
     {{#each navList}}
     <li>
         <a href="{{ this.href }}">

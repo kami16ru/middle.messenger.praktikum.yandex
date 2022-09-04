@@ -44,6 +44,10 @@ export class NavDrawer extends Component {
       for (const elem of document.getElementsByClassName('nav-menu-title')) {
         elem.removeAttribute('hidden')
       }
+
+      for (const elem of document.getElementsByClassName('nav-menu-header-icon')) {
+        elem.removeAttribute('hidden')
+      }
     }, 500)
     this.collapsed = false
   }
@@ -53,6 +57,10 @@ export class NavDrawer extends Component {
     else this.navDrawerToggle.classList.remove('nav-drawer__toggle-top_expanded')
 
     for (const elem of document.getElementsByClassName('nav-menu-title')) {
+      elem.setAttribute('hidden','true')
+    }
+
+    for (const elem of document.getElementsByClassName('nav-menu-header-icon')) {
       elem.setAttribute('hidden','true')
     }
 

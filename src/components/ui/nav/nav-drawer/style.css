@@ -1,6 +1,6 @@
 .nav-drawer {
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   height: 100%;
   width: 250px;
   position: fixed;
@@ -11,9 +11,14 @@
   transition: 0.5s;
 }
 
+.nav-drawer > ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .nav-drawer__toggle-top {
+  margin-right: 54px;
   overflow-x: hidden;
-  transition: 0.5s;
 }
 
 .nav-drawer__toggle-icon {
@@ -25,6 +30,7 @@
 }
 
 .nav-drawer__menu {
+  flex-grow: 1;
   width: 100%;
 }
 
@@ -51,6 +57,11 @@
   margin-left: 0.1em;
 }
 
-.nav-drawer__toggle-top_expanded {
-  margin-left: 3.7em;
+.nav-menu-header-icon {
+  color: var(--info);
+  float: left;
+}
+
+.nav-menu-header-icon.active {
+  color: var(--accent);
 }

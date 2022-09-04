@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css');
+@import url('https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css');
 
 * {
   font-family: 'Roboto', monospace;
