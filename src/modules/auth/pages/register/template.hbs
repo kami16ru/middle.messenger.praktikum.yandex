@@ -4,13 +4,9 @@
       <h3 class="card__title dark">Регистрация</h3>
       <form id="register-form" class="register-form">
 
-        {{{ InputEmail }}}
-        {{{ InputLogin }}}
-        {{{ InputFirstName }}}
-        {{{ InputSecondName }}}
-        {{{ InputPhone }}}
-        {{{ InputPassword }}}
-        {{{ InputPasswordConfirm }}}
+        {{#each inputTemplates}}
+          {{{this}}}
+        {{/each}}
 
       </form>
 

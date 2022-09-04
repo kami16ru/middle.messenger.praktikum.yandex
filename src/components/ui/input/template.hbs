@@ -1,17 +1,15 @@
 <div class="input-item">
   <label>
-    {{#with input as | input |}}
-      <input
-        class="input input_underlined text-right"
-        required
-        id="{{ input.id }}"
-        name="{{ input.name }}"
-        type="{{ input.type }}"
-        value="{{ input.value }}"
-        {{ input.readOnly }}
-      >
-      <span class="input-label">{{ input.label }}</span>
-      <span class="input-helper">{{ input.helper }}</span>
-    {{/with}}
+    <input
+      class="input input_underlined text-right"
+      required
+      id="{{ id }}"
+      name="{{ name }}"
+      type="{{ type }}"
+      value="{{ value }}"
+      {{ readOnly }}
+    >
+    <span class="input-label">{{ label }}</span>
+    <span class="input-helper">{{ helper }}</span>
   </label>
 </div>

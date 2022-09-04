@@ -1,20 +1,23 @@
 import template from './template.hbs'
 import './style.css'
-import Component from '../../../../lib/dom/Component'
+import Component, {createComponentsFromProps, getTemplatesFromComponents} from '../../../../lib/dom/Component'
 import { Button } from '../../../../components/ui/button/index'
 import { loading } from '../../../../lib/helpers/components'
 import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
+import { FormConfig } from '../../../../components/ui/input/types'
 
 const loginBtnId = 'login-submit'
 const registerBtnId = 'login-new-user'
 const loginLoadingId = 'login-submit-loading'
 
-const form = {
-  email: { id: 'form-login-email', name: 'email', label: 'Email', helper: 'Email пользователя', rules: ['isEmail'] },
-  password: { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'] }
-}
+const form: FormConfig[] = [
+  { id: 'form-login-email', name: 'email', label: 'Email', helper: 'Email пользователя', rules: ['isEmail'], value: '' },
+  { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'], value: '' }
+]
+const inputComponents = createComponentsFromProps(form, Input)
+const inputTemplates = getTemplatesFromComponents(inputComponents)
 
 const loginBtn = new Button({
   props: {
@@ -38,21 +41,6 @@ const buttons = {
   RegisterBtn: registerBtn.compile()
 }
 
-const inputEmail = new Input({
-  props: {
-    input: form.email
-  }
-})
-const inputPassword = new Input({
-  props: {
-    input: form.password
-  }
-})
-const inputs = {
-  InputEmail: inputEmail.compile(),
-  InputPassword: inputPassword.compile()
-}
-
 export class LoginPage extends Component {
   constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
@@ -61,9 +49,13 @@ export class LoginPage extends Component {
         loadingId: loginLoadingId,
         form,
         ...buttons,
-        ...inputs
+        inputTemplates
       },
-      components: { loginBtn, registerBtn, inputEmail, inputPassword },
+      components: {
+        loginBtn,
+        registerBtn,
+        ...inputComponents
+      },
       ...options
     })
   }
