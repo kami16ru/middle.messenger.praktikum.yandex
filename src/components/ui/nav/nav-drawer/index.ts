@@ -3,12 +3,19 @@ import './style.css'
 import Component from '../../../../lib/dom/Component'
 import { ComponentOptions } from '../../../../lib/dom/types'
 import icons from '../../../../config/icons'
+import  { v4 as makeUUID } from 'uuid'
+
+const chatActiveId = makeUUID()
+const menuActiveId = makeUUID()
 
 export class NavDrawer extends Component {
-  collapsed: boolean
+  _collapsed: boolean
   activatorMiddle: boolean
   navDrawer: HTMLElement
   navDrawerToggle: HTMLElement
+  activateChatIcon: HTMLElement
+  activateMenuIcon: HTMLElement
+  chatActive: boolean
 
   constructor(options: Omit<ComponentOptions, 'template'>) {
     super({
@@ -17,12 +24,35 @@ export class NavDrawer extends Component {
       props: {
         activatorMidIcon: icons.toggleNav,
         activatorTopIcon: icons.menu,
-        ...options.props
+        ...options.props,
+        chatActiveId: chatActiveId,
+        menuActiveId: menuActiveId,
+        collapsed: true
       }
     })
 
-    this.collapsed = true
+    this._collapsed = !!this._props?.collapsed
     this.activatorMiddle = !!this.props?.activatorMiddle
+    this.chatActive = false
+  }
+
+  get collapsed() {
+    return this._collapsed
+  }
+
+  set collapsed(val: boolean) {
+    this._collapsed = val
+
+    if (!val) {
+      setTimeout(() => {
+        for (const elem of document.getElementsByClassName('nav-menu-title')) {
+          elem.removeAttribute('hidden')
+        }
+        for (const elem of document.getElementsByClassName('nav-menu-header-icon')) {
+          elem.removeAttribute('hidden')
+        }
+      }, 500)
+    }
   }
 
   mounted() {
@@ -30,8 +60,23 @@ export class NavDrawer extends Component {
 
     this.navDrawer = document.querySelector('.nav-drawer') as HTMLElement
     this.navDrawerToggle = document.querySelector(this.activatorMiddle ? '.nav-drawer__toggle-mid' : '.nav-drawer__toggle-top') as HTMLElement
+    this.activateChatIcon = document.getElementById(chatActiveId) as HTMLElement
+    this.activateMenuIcon = document.getElementById(menuActiveId) as HTMLElement
 
     this.navDrawerToggle.onclick = () => this.collapsed ? this.openNav() : this.closeNav()
+    this.eventBus.on('nav-drawer-toggle-menu', (args) => {
+      const { chatActive, collapsed } = args
+
+      this.dispatchComponentDidUpdate({
+        ...this._props,
+        chatActive,
+        collapsed
+      })
+      this.chatActive = chatActive
+      this.collapsed = collapsed
+    })
+    this.activateChatIcon.onclick = () => this.eventBus.emit('nav-drawer-toggle-menu', { chatActive: true, collapsed: false })
+    this.activateMenuIcon.onclick = () => this.eventBus.emit('nav-drawer-toggle-menu', { chatActive: false, collapsed: false })
   }
 
   openNav() {
@@ -41,13 +86,13 @@ export class NavDrawer extends Component {
 
     setTimeout(() => {
 
-      for (const elem of document.getElementsByClassName('nav-menu-title')) {
-        elem.removeAttribute('hidden')
-      }
+      // for (const elem of document.getElementsByClassName('nav-menu-title')) {
+      //   elem.removeAttribute('hidden')
+      // }
 
-      for (const elem of document.getElementsByClassName('nav-menu-header-icon')) {
-        elem.removeAttribute('hidden')
-      }
+      // for (const elem of document.getElementsByClassName('nav-menu-header-icon')) {
+      //   elem.removeAttribute('hidden')
+      // }
     }, 500)
     this.collapsed = false
   }

@@ -299,6 +299,7 @@ https://lucky-centaur-1a1b81.netlify.app
     - [ ] debounce mouseover avatar
     - [ ] Оптимизировать изображения
     - [ ] Реализовать метод navigate у класса route
+    - [ ] Refactor events
   - [ ] pcjs-57 - README.md update
   - [ ] pcjs-58 - store
   - [ ] pcjs-59 - Изменение container в зависимости от ширины nav
@@ -307,3 +308,4 @@ https://lucky-centaur-1a1b81.netlify.app
   - [ ] pcjs-62 - Children routes
   - [ ] pcjs-63 - Router middleware
   - [ ] pcjs-64 - Middleware pipeline
+  - [ ] pcjs-65 - Button icon component

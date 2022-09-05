@@ -19,5 +19,20 @@ export default {
     } catch (e) {
       ErrorHandler.handle(e)
     }
+  },
+  renderDom: (component: IComponent) => {
+    try {
+      const root = document.getElementById(component._id)
+
+      if (!root) ErrorHandler.handle('Document not found!')
+
+      else {
+        component.dispatchRender()
+        root.appendChild(component._element)
+        component.dispatchComponentDidMount()
+      }
+    } catch (e) {
+      ErrorHandler.handle(e)
+    }
   }
 }

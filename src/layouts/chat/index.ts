@@ -4,6 +4,7 @@ import nav from '../../config/nav'
 import Component from '../../lib/dom/Component'
 import { NavDrawer } from '../../components/ui/nav/nav-drawer/index'
 import { ComponentOptions } from '../../lib/dom/types'
+import templateEngine from '../../lib/dom/templateEngine'
 
 const navDrawer = new NavDrawer({
   props: {
@@ -17,10 +18,18 @@ export class ChatLayout extends Component {
       selector: '.chat-layout',
       template: template,
       props: {
-        NavDrawer: navDrawer.compile()
+        // NavDrawer: navDrawer.compile()
+        navDrawerId: navDrawer._id
       },
       components: { navDrawer },
       ...options
     })
+  }
+
+  mounted() {
+    super.mounted()
+
+    console.log(navDrawer)
+    templateEngine.renderDom(navDrawer)
   }
 }

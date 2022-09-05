@@ -25,9 +25,13 @@ export default class Component implements IComponent {
     if (!template) throw new Error(errorMessages.classErrors.INVALID_CONSTRUCTOR_ARGS)
 
     this._options = options
-    this._id = `${this.constructor.name}_${makeUUID()}`
+    this._id = makeUUID()
+    // this._id = `${this.constructor.name}_${makeUUID()}`
     this.template = template
-    this._props = this._makePropsProxy(props)
+    this._props = this._makePropsProxy({
+      ...props,
+      id: this._id
+    })
     this._selector = selector
     this.eventBus = new EventBus()
     this.components = components
@@ -80,8 +84,8 @@ export default class Component implements IComponent {
     this.eventBus.emit(EVENTS.FLOW_CDM)
   }
 
-  dispatchComponentDidUpdate() {
-    this.eventBus.emit(EVENTS.FLOW_CDU)
+  dispatchComponentDidUpdate(newProps: ComponentOptions['props']) {
+    this.eventBus.emit(EVENTS.FLOW_CDU, newProps)
   }
 
   componentMustReRender(oldProps: ComponentOptions['props'], newProps: ComponentOptions['props']) {
@@ -109,7 +113,14 @@ export default class Component implements IComponent {
   }
 
   private _updated(newProps: ComponentOptions['props']): void {
-    if (this.componentMustReRender(this._props, newProps)) this.eventBus.emit(EVENTS.FLOW_RENDER)
+    console.log(this._props, newProps)
+    this._props = this._makePropsProxy(newProps)
+
+    // if (this.componentMustReRender(this._props, newProps)) this.eventBus.emit(EVENTS.FLOW_RENDER)
+    this.eventBus.emit(EVENTS.FLOW_RENDER)
+    // const el = document.getElementById(this._id) as HTMLElement
+
+    templateEngine.renderDom(this)
   }
 
   private _render(): void {

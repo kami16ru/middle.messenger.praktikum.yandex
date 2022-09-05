@@ -1,24 +1,47 @@
-<div class="nav-drawer nav-drawer_collapsed bg-dark">
+<div class="nav-drawer {{#if collapsed}}nav-drawer_collapsed{{/if}} bg-dark">
   {{#unless activatorMiddle}}
-    <div style="display: flex; flex-direction: row; align-items: center; margin-top: 15px;">
-      <span class="mdi mdi-backburger nav-menu-header-icon h2 accent pointer active" hidden></span>
-      <span class="mdi mdi-chat-processing nav-menu-header-icon h2 accent pointer" hidden></span>
+    <div class="nav-drawer__header">
+      <span
+        id="{{ menuActiveId }}"
+        class="mdi mdi-backburger nav-menu-header-icon h2 accent pointer {{#unless chatActive}}active{{/unless}}"
+        {{#if collapsed}}hidden{{/if}}
+      ></span>
+      <span
+        id="{{ chatActiveId }}"
+        class="mdi mdi-chat-processing nav-menu-header-icon h2 accent pointer {{#if chatActive}}active{{/if}}"
+        {{#if collapsed}}hidden{{/if}}
+      ></span>
       <div class="spacer"></div>
       <span class="mdi {{ activatorTopIcon }} h1 nav-drawer__toggle-top pointer primary"></span>
     </div>
   {{/unless}}
-  <ul class="nav-drawer__menu">
-    <hr>
-    {{#each navList}}
-    <li>
-        <a href="{{ this.href }}">
+  {{#unless chatActive}}
+    <ul class="nav-drawer__menu">
+      <hr>
+      {{#each navList}}
+        <li>
+          <a href="{{ this.href }}">
             <span class="mdi {{ this.icon }} h1 info"></span>
             <span class="nav-menu-title info" hidden>{{ this.title }}</span>
-        </a>
-    </li>
-    {{/each}}
-  </ul>
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+  {{/unless}}
+  {{#if chatActive}}
+    <ul class="nav-drawer__menu">
+      <hr>
+      {{#each navList}}
+        <li>
+          <a href="{{ this.href }}">
+            <span class="mdi {{ this.icon }} h1 info"></span>
+            <span class="nav-menu-title info" hidden>новое меню</span>
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
   {{#if activatorMiddle}}
-  <span class="mdi {{ activatorMidIcon }} nav-drawer__toggle-icon nav-drawer__toggle-mid_collapsed accent display-4 nav-drawer__toggle-mid"></span>
+    <span class="mdi {{ activatorMidIcon }} nav-drawer__toggle-icon {{#if collapsed}}nav-drawer__toggle-mid_collapsed{{/if}} accent display-4 nav-drawer__toggle-mid"></span>
   {{/if}}
 </div>

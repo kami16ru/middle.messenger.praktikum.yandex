@@ -24,7 +24,7 @@ export interface IComponent {
   compile(): string
   dispatchRender(): void
   dispatchComponentDidMount(): void
-  dispatchComponentDidUpdate(): void
+  dispatchComponentDidUpdate(newProps: ComponentOptions['props']): void
   componentMustReRender(oldProps: ComponentOptions['props'], newProps: ComponentOptions['props']): boolean
 }
 
@@ -37,6 +37,7 @@ export type ComponentOptions = {
   components?: Record<string, Component>
   tagName?: string
   attrs?: Record<string, string>
+  collapsed?: boolean
 }
 
 export interface IEventBus {
