@@ -258,7 +258,7 @@ https://lucky-centaur-1a1b81.netlify.app
   - [x] pcjs-28 - chat page content
     - [x] - переключатель меню
     - [ ] - ChatList
-    - [ ] - ChatListItem
+    - [x] - ChatListItem
     - [ ] - MessageInput
     - [ ] - MessageList
     - [ ] - Message

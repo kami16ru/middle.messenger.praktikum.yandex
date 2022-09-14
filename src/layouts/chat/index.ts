@@ -29,7 +29,7 @@ export class ChatLayout extends Component {
   mounted() {
     super.mounted()
 
-    console.log(navDrawer)
     templateEngine.renderDom(navDrawer)
+    navDrawer.eventBus.on('nav-drawer-toggle-menu', (args) => console.log('emana', args))
   }
 }

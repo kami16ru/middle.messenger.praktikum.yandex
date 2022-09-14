@@ -118,8 +118,6 @@ export default class Component implements IComponent {
 
     // if (this.componentMustReRender(this._props, newProps)) this.eventBus.emit(EVENTS.FLOW_RENDER)
     this.eventBus.emit(EVENTS.FLOW_RENDER)
-    // const el = document.getElementById(this._id) as HTMLElement
-
     templateEngine.renderDom(this)
   }
 
