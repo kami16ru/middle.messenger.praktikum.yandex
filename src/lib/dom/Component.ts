@@ -72,6 +72,10 @@ export default class Component implements IComponent {
     console.log(`${this.constructor.name} mounted`)
   }
 
+  updated() {
+    console.log(`${this.constructor.name} updated`)
+  }
+
   compile() {
     return templateEngine.compile(this.template, this.props as TemplateEngineProps)
   }
@@ -119,6 +123,8 @@ export default class Component implements IComponent {
     // if (this.componentMustReRender(this._props, newProps)) this.eventBus.emit(EVENTS.FLOW_RENDER)
     this.eventBus.emit(EVENTS.FLOW_RENDER)
     templateEngine.renderDom(this)
+
+    this.updated()
   }
 
   private _render(): void {

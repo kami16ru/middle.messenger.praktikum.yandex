@@ -257,13 +257,13 @@ https://lucky-centaur-1a1b81.netlify.app
   - [ ] pcjs-23 - Компонент dialog
   - [x] pcjs-28 - chat page content
     - [x] - переключатель меню
-    - [ ] - ChatList
+    - [x] - ChatList
     - [x] - ChatListItem
     - [ ] - MessageInput
     - [ ] - MessageList
     - [ ] - Message
     - [ ] - Scroll messages
-    - [ ] - Scroll menu
+    - [] - Scroll menu
   - [ ] pcjs-30 - шрифты из cdn в проект
   - [ ] pcjs-31 - иконки из cdn в проект
   - [ ] pcjs-40 - Компоненты через теневой DOM

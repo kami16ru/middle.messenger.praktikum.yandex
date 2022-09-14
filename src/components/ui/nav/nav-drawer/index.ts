@@ -5,11 +5,19 @@ import { ComponentOptions } from '../../../../lib/dom/types'
 import icons from '../../../../config/icons'
 import  { v4 as makeUUID } from 'uuid'
 import data from '../../../../util/data'
+import { ChatList } from '../../../../modules/chat/components/index'
+import templateEngine from '../../../../lib/dom/templateEngine'
 
 const { chats } = data
 
 const chatActiveId = makeUUID()
 const menuActiveId = makeUUID()
+
+const chatList = new ChatList({
+  props: {
+    chats
+  }
+})
 
 export class NavDrawer extends Component {
   _collapsed: boolean
@@ -29,6 +37,7 @@ export class NavDrawer extends Component {
         ...options.props,
         chatActiveId: chatActiveId,
         menuActiveId: menuActiveId,
+        chatListId: chatList._id,
         collapsed: false,
         chats,
         chatActive: true
@@ -47,19 +56,19 @@ export class NavDrawer extends Component {
     this._collapsed = val
 
     if (!val) {
-      setTimeout(() => {
-        for (const elem of document.getElementsByClassName('nav-menu-title')) {
-          elem.removeAttribute('hidden')
-        }
-        for (const elem of document.getElementsByClassName('nav-drawer__header-icon')) {
-          elem.removeAttribute('hidden')
-        }
-      }, 500)
+      for (const elem of document.getElementsByClassName('nav-menu-title')) {
+        elem.removeAttribute('hidden')
+      }
+      for (const elem of document.getElementsByClassName('nav-drawer__header-icon')) {
+        elem.removeAttribute('hidden')
+      }
     }
   }
 
   mounted() {
     super.mounted()
+
+    templateEngine.renderDom(chatList)
 
     this.navDrawer = document.querySelector('.nav-drawer') as HTMLElement
     this.navDrawerToggle = document.querySelector('.nav-drawer__toggle-icon') as HTMLElement
@@ -79,6 +88,12 @@ export class NavDrawer extends Component {
     })
     this.activateChatIcon.onclick = () => this.eventBus.emit('nav-drawer-toggle-menu', { chatActive: true, collapsed: false })
     this.activateMenuIcon.onclick = () => this.eventBus.emit('nav-drawer-toggle-menu', { chatActive: false, collapsed: false })
+  }
+
+  updated() {
+    super.updated()
+
+    this.props?.chatActive ? chatList.show() : chatList.hide()
   }
 
   openNav() {
