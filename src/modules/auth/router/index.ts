@@ -1,6 +1,7 @@
 import { RouteConfig } from '../../../lib/dom/types'
 import { LoginPage } from '../pages/login/index'
 import { RegisterPage } from '../pages/register/index'
+import { LogoutPage } from '../pages/logout/index'
 
 export const authRoutes: RouteConfig[] = [{
   name: 'auth-login',
@@ -12,4 +13,8 @@ export const authRoutes: RouteConfig[] = [{
   path: '/register',
   component: RegisterPage,
   layout: 'auth'
+}, {
+  name: 'auth-logout',
+  path: '/logout',
+  component: LogoutPage
 }]

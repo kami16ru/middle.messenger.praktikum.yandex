@@ -7,11 +7,12 @@ import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 import { FormConfig } from '../../../../components/ui/input/types'
+import {signIn, SignInData, whoAmI} from '../../../../services/api/auth'
 
 const loginLoadingId = 'login-submit-loading'
 
 const form: FormConfig[] = [
-  { id: 'form-login-email', name: 'email', label: 'Email', helper: 'Email пользователя', rules: ['isEmail'], value: '' },
+  { id: 'form-login-login', name: 'login', label: 'Логин', helper: 'Имя пользователя', rules: ['isLogin'], value: '' },
   { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'], value: '' }
 ]
 const inputComponents = createComponentsFromProps(form, Input)
@@ -74,7 +75,7 @@ export class LoginPage extends Component {
 
         await this.submitLoginForm(submitBtn)
 
-        window.location = anchor.getAttribute('href')
+        // window.location = anchor.getAttribute('href')
       })
     }
   }
@@ -101,15 +102,24 @@ export class LoginPage extends Component {
     const form = document.getElementById('login-form') as HTMLFormElement
 
     const formData = new FormData(form)
-    const email = formData.get('email')
+    const login = formData.get('login')
     const password = formData.get('password')
 
     const credentials = {
-      email,
+      login,
       password
     }
 
     loading({ target: submitBtn, loadingElement, loading: true })
+
+    await signIn(credentials as SignInData)
+      .then(async (res) => {
+        console.log(res)
+        await whoAmI()
+          .then((res) => console.log(res))
+          .catch((e) => console.log(e))
+      })
+      .catch((e) => console.log(e))
 
     return new Promise((resolve) => {
       setTimeout(() => {
