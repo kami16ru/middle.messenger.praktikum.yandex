@@ -3,17 +3,8 @@
   overflow-y: auto;
 }
 
-.chat-list__item2 {
-  justify-content: start;
-  align-content: center;
-  margin-left: 6px;
-  -webkit-text-size-adjust: 100%;
-  display: flex;
-  flex: 1 1 100%;
-  text-decoration: none;
-}
-
 .chat-list__item {
+  cursor: pointer;
   height: 72px;
   display: flex;
   flex-direction: row;

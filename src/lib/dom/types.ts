@@ -36,9 +36,11 @@ export type ComponentOptions = {
   props?: TemplateEngineProps
   components?: Record<string, Component>
   tagName?: string
-  attrs?: Record<string, string>
+  attrs?: Record<string, unknown>
   collapsed?: boolean
 }
+
+export type ComponentOptionsWithoutTemplate = Omit<ComponentOptions, 'template'>
 
 export interface IEventBus {
   listeners: Record<string, Array<() => void>>

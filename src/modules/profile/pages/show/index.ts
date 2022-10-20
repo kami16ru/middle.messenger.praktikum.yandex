@@ -33,21 +33,20 @@ export class ShowProfilePage extends Component {
   constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
+      ...options,
       props: {
+        ...options.props,
         form,
-        ProfileAvatar: profileAvatar.compile(),
+        profileAvatarId: profileAvatar.id,
         buttonTemplates,
         inputTemplates
       },
       components: {
-        profileAvatar,
-        ...inputComponents,
-        ...buttonComponents
+        profileAvatar
       },
       attrs: {
         class: 'profile-show-page container full'
-      },
-      ...options
+      }
     })
   }
 }

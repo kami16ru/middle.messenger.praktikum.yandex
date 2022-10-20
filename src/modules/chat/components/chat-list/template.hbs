@@ -1,5 +1,5 @@
 {{#each chats}}
-  <div class="chat-list__item bg-accent">
+  <div data-id="{{ this.id }}" class="chat-list__item bg-accent">
     <div class="chat-list__item__avatar">
       <img src="{{this.avatar}}" alt="avatar" />
       <span class="chat-list__item__unread-count">{{this.unread_count}}</span>

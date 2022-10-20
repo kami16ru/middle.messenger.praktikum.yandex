@@ -18,8 +18,7 @@ export class NotFoundPage extends Component {
     super({
       template,
       props: {
-        goBackBtnId: 'return-back',
-        GoBackBtn: goBackBtn.compile()
+        goBackBtnId: goBackBtn.id
       },
       components: { goBackBtn },
       ...options

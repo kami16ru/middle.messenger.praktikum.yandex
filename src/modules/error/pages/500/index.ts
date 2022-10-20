@@ -17,11 +17,15 @@ export class ServerErrorPage extends Component {
   constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
+      ...options,
       props: {
-        goBackBtnId: 'return-back',
-        GoBackBtn: goBackBtn.compile()
+        ...options.props,
+        goBackBtnId: goBackBtn.id
       },
-      ...options
+      components: { goBackBtn },
+      attrs: {
+        class: 'server-error-page'
+      }
     })
   }
 }

@@ -1,10 +1,10 @@
 import './style.css'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
-import { ComponentOptions } from '../../../../lib/dom/types'
+import { ComponentOptionsWithoutTemplate } from '../../../../lib/dom/types'
 
 export class ProfileAvatar extends Component {
-  constructor(options: ComponentOptions = {}) {
+  constructor(options: ComponentOptionsWithoutTemplate = {}) {
     super({
       template,
       ...options

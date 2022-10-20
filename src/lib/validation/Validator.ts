@@ -44,6 +44,8 @@ export default class Validator implements IValidator {
   initValidation() {
     const { form } = this
 
+    console.log('validator', form)
+
     form.forEach((formConfig) => {
       if (formConfig.rules) {
         const element = document.getElementById(formConfig.id) as HTMLInputElement

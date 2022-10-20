@@ -1,13 +1,12 @@
 import template from './template.hbs'
 import './style.css'
-import nav from '../../config/nav'
 import Component from '../../lib/dom/Component'
-import { NavDrawer } from '../../components/ui/nav/nav-drawer/index'
+import { NavDrawer } from '../../components/ui/nav/drawer/index'
 import { ComponentOptions } from '../../lib/dom/types'
 
 const navDrawer = new NavDrawer({
   props: {
-    navList: nav.drawer
+    withHeaderMenu: false
   }
 })
 
@@ -16,14 +15,15 @@ export class DefaultLayout extends Component {
     super({
       selector: '.default-layout',
       template,
+      ...options,
       props: {
-        NavDrawer: navDrawer.compile()
+        ...options.props,
+        navDrawerId: navDrawer.id
       },
       components: { navDrawer },
       attrs: {
         class: 'default-layout container full'
-      },
-      ...options
+      }
     })
   }
 }

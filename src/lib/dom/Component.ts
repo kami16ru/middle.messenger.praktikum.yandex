@@ -7,7 +7,7 @@ import { ComponentOptions, TemplateEngineProps, IComponent, ComponentConstructor
 import ErrorHandler from '../error/ErrorHandler'
 
 export default class Component implements IComponent {
-  components
+  components: Record<string, Component>
   _element: HTMLElement
   _options
   _id: string
@@ -26,7 +26,6 @@ export default class Component implements IComponent {
 
     this._options = options
     this._id = makeUUID()
-    // this._id = `${this.constructor.name}_${makeUUID()}`
     this.template = template
     this._props = this._makePropsProxy({
       ...props,
@@ -34,7 +33,7 @@ export default class Component implements IComponent {
     })
     this._selector = selector
     this.eventBus = new EventBus()
-    this.components = components
+    this.components = components || {}
     this._meta = {
       tag: tagName ? tagName : 'div',
       props
@@ -42,6 +41,10 @@ export default class Component implements IComponent {
 
     this._registerEvents()
     this.eventBus.emit(EVENTS.INIT)
+  }
+
+  get id() {
+    return this._id
   }
 
   get props() {
@@ -112,7 +115,7 @@ export default class Component implements IComponent {
     this.mounted()
 
     if (this.components && Object.values(this.components).length) {
-      Object.values(this.components).map((component) => component.eventBus.emit(EVENTS.FLOW_CDM))
+      Object.values(this.components).forEach((component: Component) => templateEngine.renderDom(component))
     }
   }
 
@@ -133,7 +136,7 @@ export default class Component implements IComponent {
     if (this.components) {
       const components = Object.values(this.components)
 
-      if (components.length > 0) components.forEach((instance) => instance.eventBus.emit(EVENTS.FLOW_RENDER))
+      if (components.length > 0) components.forEach((instance) => instance.dispatchRender())
     }
   }
 
