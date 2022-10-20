@@ -32,10 +32,6 @@ export class EditPwdPage extends Component {
         buttonTemplates,
         inputTemplates
       },
-      components: {
-        ...buttonComponents,
-        ...inputComponents
-      },
       attrs: {
         class: 'profile-edit-password-page container full'
       },

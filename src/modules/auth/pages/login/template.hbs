@@ -3,25 +3,25 @@
     <h3 class="card__title dark">Вход</h3>
     <form id="login-form" class="form login-form">
 
-      {{#each inputTemplates}}
-        {{{this}}}
+      {{#each inputComponents}}
+        <div id="{{ this._id }}"></div>
       {{/each}}
 
     </form>
 
     <div class="spacer"></div>
 
-    {{{ LoginBtn }}}
+    <div id="{{ loginBtnId }}"></div>
 
     <img
-            id="{{ loadingId }}"
-            class="loading"
-            style="display: none"
-            src="/images/loading.gif"
-            alt="loading"
-            height="40px"
+      id="{{ loadingId }}"
+      class="loading"
+      style="display: none"
+      src="/images/loading.gif"
+      alt="loading"
+      height="40px"
     >
 
-    {{{ RegisterBtn }}}
+    <div id="{{registerBtnId}}"></div>
   </div>
 </div>

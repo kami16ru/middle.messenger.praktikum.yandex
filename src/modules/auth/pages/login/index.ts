@@ -1,15 +1,14 @@
 import template from './template.hbs'
 import './style.css'
-import Component, {createComponentsFromProps, getTemplatesFromComponents} from '../../../../lib/dom/Component'
+import Component, { createComponentsFromProps, getTemplatesFromComponents } from '../../../../lib/dom/Component'
 import { Button } from '../../../../components/ui/button/index'
 import { loading } from '../../../../lib/helpers/components'
 import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 import { FormConfig } from '../../../../components/ui/input/types'
+import rules from "../../../../lib/validation/rules";
 
-const loginBtnId = 'login-submit'
-const registerBtnId = 'login-new-user'
 const loginLoadingId = 'login-submit-loading'
 
 const form: FormConfig[] = [
@@ -17,14 +16,13 @@ const form: FormConfig[] = [
   { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'], value: '' }
 ]
 const inputComponents = createComponentsFromProps(form, Input)
-const inputTemplates = getTemplatesFromComponents(inputComponents)
+// const inputTemplates = getTemplatesFromComponents(inputComponents)
 
 const loginBtn = new Button({
   props: {
     class: 'bg-primary white',
     value: 'Войти',
-    href: '/',
-    id: loginBtnId
+    href: '/'
   }
 })
 const registerBtn = new Button({
@@ -32,13 +30,12 @@ const registerBtn = new Button({
     class: 'white',
     value: 'Регистрация',
     href: '/register',
-    id: registerBtnId,
     outline: true
   }
 })
 const buttons = {
-  LoginBtn: loginBtn.compile(),
-  RegisterBtn: registerBtn.compile()
+  loginBtnId: loginBtn.id,
+  registerBtnId: registerBtn.id
 }
 
 export class LoginPage extends Component {
@@ -49,7 +46,7 @@ export class LoginPage extends Component {
         loadingId: loginLoadingId,
         form,
         ...buttons,
-        inputTemplates
+        inputComponents: Object.values(inputComponents)
       },
       components: {
         loginBtn,
@@ -64,7 +61,7 @@ export class LoginPage extends Component {
     super.mounted()
     this.initValidation()
 
-    const submitBtn = document.getElementById(loginBtnId)
+    const submitBtn = document.getElementById(loginBtn.id)
 
     if (submitBtn) {
       submitBtn.addEventListener('click', async (e) => {
@@ -85,6 +82,17 @@ export class LoginPage extends Component {
   }
 
   initValidation() {
+    const form = Object.values(inputComponents).map((component) => ({
+      id: component.id,
+      name: component?.props?.name as string,
+      label: component?.props?.label as string,
+      helper: component?.props?.helper as string,
+      rules: component?.props?.rules as string[],
+      value: component?.props?.value as string
+    }))
+
+    console.log(form)
+
     const validator = new Validator({ form })
 
     validator.initValidation()

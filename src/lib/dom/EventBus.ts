@@ -7,7 +7,7 @@ export default class EventBus implements IEventBus {
     this.listeners = {}
   }
 
-  on(event: string, callback: () => void) {
+  on(event: string, callback: (args?: any) => void) {
     if (!this.listeners[event]) {
       this.listeners[event] = []
     }

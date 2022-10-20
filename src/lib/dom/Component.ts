@@ -7,7 +7,7 @@ import { ComponentOptions, TemplateEngineProps, IComponent, ComponentConstructor
 import ErrorHandler from '../error/ErrorHandler'
 
 export default class Component implements IComponent {
-  components
+  components: Record<string, Component>
   _element: HTMLElement
   _options
   _id: string
@@ -25,12 +25,15 @@ export default class Component implements IComponent {
     if (!template) throw new Error(errorMessages.classErrors.INVALID_CONSTRUCTOR_ARGS)
 
     this._options = options
-    this._id = `${this.constructor.name}_${makeUUID()}`
+    this._id = makeUUID()
     this.template = template
-    this._props = this._makePropsProxy(props)
+    this._props = this._makePropsProxy({
+      ...props,
+      id: this._id
+    })
     this._selector = selector
     this.eventBus = new EventBus()
-    this.components = components
+    this.components = components || {}
     this._meta = {
       tag: tagName ? tagName : 'div',
       props
@@ -38,6 +41,10 @@ export default class Component implements IComponent {
 
     this._registerEvents()
     this.eventBus.emit(EVENTS.INIT)
+  }
+
+  get id() {
+    return this._id
   }
 
   get props() {
@@ -68,6 +75,10 @@ export default class Component implements IComponent {
     console.log(`${this.constructor.name} mounted`)
   }
 
+  updated() {
+    console.log(`${this.constructor.name} updated`)
+  }
+
   compile() {
     return templateEngine.compile(this.template, this.props as TemplateEngineProps)
   }
@@ -80,8 +91,8 @@ export default class Component implements IComponent {
     this.eventBus.emit(EVENTS.FLOW_CDM)
   }
 
-  dispatchComponentDidUpdate() {
-    this.eventBus.emit(EVENTS.FLOW_CDU)
+  dispatchComponentDidUpdate(newProps: ComponentOptions['props']) {
+    this.eventBus.emit(EVENTS.FLOW_CDU, newProps)
   }
 
   componentMustReRender(oldProps: ComponentOptions['props'], newProps: ComponentOptions['props']) {
@@ -104,12 +115,19 @@ export default class Component implements IComponent {
     this.mounted()
 
     if (this.components && Object.values(this.components).length) {
-      Object.values(this.components).map((component) => component.eventBus.emit(EVENTS.FLOW_CDM))
+      Object.values(this.components).forEach((component: Component) => templateEngine.renderDom(component))
     }
   }
 
   private _updated(newProps: ComponentOptions['props']): void {
-    if (this.componentMustReRender(this._props, newProps)) this.eventBus.emit(EVENTS.FLOW_RENDER)
+    console.log(this._props, newProps)
+    this._props = this._makePropsProxy(newProps)
+
+    // if (this.componentMustReRender(this._props, newProps)) this.eventBus.emit(EVENTS.FLOW_RENDER)
+    this.eventBus.emit(EVENTS.FLOW_RENDER)
+    templateEngine.renderDom(this)
+
+    this.updated()
   }
 
   private _render(): void {
@@ -118,7 +136,7 @@ export default class Component implements IComponent {
     if (this.components) {
       const components = Object.values(this.components)
 
-      if (components.length > 0) components.forEach((instance) => instance.eventBus.emit(EVENTS.FLOW_RENDER))
+      if (components.length > 0) components.forEach((instance) => instance.dispatchRender())
     }
   }
 

@@ -33,22 +33,21 @@ export class EditProfilePage extends Component {
   constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
+      ...options,
       props: {
+        ...options.props,
         form,
-        ProfileAvatar: profileAvatar.compile(),
+        profileAvatarId: profileAvatar.id,
         ...buttons,
         inputTemplates,
         buttonTemplates
       },
       components: {
-        profileAvatar,
-        ...buttonComponents,
-        ...inputComponents
+        profileAvatar
       },
       attrs: {
         class: 'profile-edit-page container full'
-      },
-      ...options
+      }
     })
   }
 

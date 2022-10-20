@@ -1,3 +1,9 @@
+<div id="{{ navDrawerId }}"></div>
 <div class="container full content-center">
-    <h4 class="white">Выберите чат, чтобы отправить сообщение</h4>
+  {{#if chat}}
+  <h4 class="white">Выбран чат №{{ chat.id }}</h4>
+  {{/if}}
+  {{#unless chat}}
+  <h4 class="white">Выберите чат, чтобы отправить сообщение</h4>
+  {{/unless}}
 </div>

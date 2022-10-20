@@ -255,7 +255,16 @@ https://lucky-centaur-1a1b81.netlify.app
   - [ ] pcjs-10 - postcss
   - [ ] pcjs-22 - Компонент form
   - [ ] pcjs-23 - Компонент dialog
-  - [ ] pcjs-28 - chat page content
+  - [x] pcjs-28 - chat page content
+    - [x] - переключатель меню
+    - [x] - ChatList
+    - [x] - ChatListItem
+    - [x] - Рефакторинг отрисовки компонентов 
+    - [ ] - MessageInput
+    - [ ] - MessageList
+    - [ ] - Message
+    - [ ] - Scroll messages
+    - [ ] - Scroll menu
   - [ ] pcjs-30 - шрифты из cdn в проект
   - [ ] pcjs-31 - иконки из cdn в проект
   - [ ] pcjs-40 - Компоненты через теневой DOM
@@ -272,6 +281,8 @@ https://lucky-centaur-1a1b81.netlify.app
   - [ ] pcjs-54 - unit tests
   - [ ] pcjs-55 - helmet.js
   - [ ] pcjs-56 - Рефакторинг 5
+    - [ ] Все компоненты отрисовываются через renderDom
+    - [ ] Починить валидацию
     - [ ] Использовать деструкторизацию для импортов часто используемых модулей
     - [ ] Сделать класс Component дженериком
     - [ ] Сделать приватные свойства js классов приватными
@@ -291,6 +302,8 @@ https://lucky-centaur-1a1b81.netlify.app
     - [ ] debounce mouseover avatar
     - [ ] Оптимизировать изображения
     - [ ] Реализовать метод navigate у класса route
+    - [ ] Refactor events
+    - [ ] При схлопывании навигации оставлять только аватарку у чата
   - [ ] pcjs-57 - README.md update
   - [ ] pcjs-58 - store
   - [ ] pcjs-59 - Изменение container в зависимости от ширины nav
@@ -299,3 +312,4 @@ https://lucky-centaur-1a1b81.netlify.app
   - [ ] pcjs-62 - Children routes
   - [ ] pcjs-63 - Router middleware
   - [ ] pcjs-64 - Middleware pipeline
+  - [ ] pcjs-65 - Button icon component

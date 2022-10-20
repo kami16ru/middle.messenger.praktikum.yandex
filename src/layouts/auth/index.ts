@@ -8,7 +8,10 @@ export class AuthLayout extends Component {
     super({
       selector: '.auth-layout',
       template,
-      ...options
+      ...options,
+      attrs: {
+        class: 'container full auth-layout'
+      }
     })
   }
 }

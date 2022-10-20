@@ -24,7 +24,7 @@ export interface IComponent {
   compile(): string
   dispatchRender(): void
   dispatchComponentDidMount(): void
-  dispatchComponentDidUpdate(): void
+  dispatchComponentDidUpdate(newProps: ComponentOptions['props']): void
   componentMustReRender(oldProps: ComponentOptions['props'], newProps: ComponentOptions['props']): boolean
 }
 
@@ -36,8 +36,11 @@ export type ComponentOptions = {
   props?: TemplateEngineProps
   components?: Record<string, Component>
   tagName?: string
-  attrs?: Record<string, string>
+  attrs?: Record<string, unknown>
+  collapsed?: boolean
 }
+
+export type ComponentOptionsWithoutTemplate = Omit<ComponentOptions, 'template'>
 
 export interface IEventBus {
   listeners: Record<string, Array<() => void>>

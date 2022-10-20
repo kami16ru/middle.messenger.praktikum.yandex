@@ -1,7 +1,5 @@
 .card {
   position: relative;
-  display: box;
-  display: flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
