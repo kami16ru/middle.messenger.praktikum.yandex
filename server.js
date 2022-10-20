@@ -10,7 +10,7 @@ const staticPath = path.join(__dirname, './static')
 
 app.use(express.static(clientPath))
 app.use(express.static(staticPath))
-app.use(helmet)
+app.use(helmet())
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(clientPath, '/index.html'))
