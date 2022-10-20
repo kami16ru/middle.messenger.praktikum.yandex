@@ -273,7 +273,7 @@ Http запросы находятся в папке services/api.
     - [x] chat
     - [x] dynamic http requests
   - [ ] pcjs-53 - websockets
-  - [ ] pcjs-55 - helmet.js
+  - [x] pcjs-55 - helmet.js
   - [ ] pcjs-56 - Рефакторинг 5
     - [ ] Все компоненты отрисовываются через renderDom
     - [ ] Починить валидацию

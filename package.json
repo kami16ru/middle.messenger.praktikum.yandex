@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "express": "^4.17.3",
+    "helmet": "^6.0.0",
     "uuid": "^8.3.2"
   },
   "engines": {
