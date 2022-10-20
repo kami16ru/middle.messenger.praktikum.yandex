@@ -2,12 +2,12 @@ import { httpService } from '../httpService'
 
 const endpoint = '/auth'
 
-export interface SignInData {
+export interface SignInRequest {
   login: string;
   password: string;
 }
 
-export interface SignUpData {
+export interface SignUpRequest {
   first_name: string;
   second_name: string;
   login: string;
@@ -16,7 +16,7 @@ export interface SignUpData {
   phone: string;
 }
 
-export interface User {
+export interface UserResponse {
   id: number;
   first_name: string;
   second_name: string;
@@ -27,7 +27,8 @@ export interface User {
   avatar: string;
 }
 
-export const signUp = (data: SignUpData) => httpService(endpoint).post({ path: '/signup', params: { data } })
-export const signIn = (data: SignInData) => httpService(endpoint).post({ path: '/signin', params: { data } })
 export const whoAmI = () => httpService(endpoint).get({ path: '/user' })
+
+export const signUp = (data: SignUpRequest) => httpService(endpoint).post({ path: '/signup', params: { data } })
+export const signIn = (data: SignInRequest) => httpService(endpoint).post({ path: '/signin', params: { data } })
 export const logout = () => httpService(endpoint).post({ path: '/logout' })

@@ -1,46 +1,81 @@
 import { httpService } from '../httpService'
-import { User } from './auth'
+import { UserResponse } from './auth'
+import { ByIdRequest } from './types'
 
 const endpoint = '/chats'
 
-export interface LastMessage {
-  user: User,
+export interface LastMessageResponse {
+  user: UserResponse,
   time: string,
   content: string
 }
 
-export interface Chat {
+export interface ChatResponse {
   id: number,
   title: string,
   avatar: string,
   unread_count: number,
-  last_message: LastMessage
+  last_message: LastMessageResponse
 }
 
-export interface CreateChatData {
+export interface CreateChatRequest {
   title: string
 }
 
-export interface ChatByIdData {
+export interface ChatByIdRequest {
   chatId: number
 }
 
-export interface UploadAvatarData {
+export interface UploadAvatarRequest {
   chatId: number
-  avatar: unknown
+  avatar: File
 }
 
-export interface UsersByChatIdData {
+export interface UsersByChatIdRequest {
   user: number[]
   chatId: number
 }
 
+export interface FileResponse {
+  id: number,
+  user_id: number,
+  chat_id: number,
+  time: string,
+  type: string,
+  content: number,
+  file: {
+    id: number,
+    user_id: number,
+    path: string,
+    filename: string,
+    content_type: string,
+    content_size: number,
+    upload_date: string
+  }
+}
+
+export interface MessageCountResponse {
+  unread_count: number
+}
+
+export interface ChatTokenResponse {
+  token: string
+}
+
 export const getChats = () => httpService(endpoint).get({})
 export const getArchiveChats = () => httpService(endpoint).get({ path: '/archive' })
-export const createChat = (data: CreateChatData) => httpService(endpoint).post({ path: '', params: { data } })
-export const deleteChat = (data: ChatByIdData) => httpService(endpoint).delete({ path: '', params: { data } })
-export const archiveChat = (data: ChatByIdData) => httpService(endpoint).post({ path: '/archive', params: { data } })
-export const unArchiveChat = (data: ChatByIdData) => httpService(endpoint).post({ path: '/unarchive', params: { data } })
-export const uploadChatAvatar = (data: UploadAvatarData) => httpService(endpoint).put({ path: '/avatar', params: { data } })
-export const addUsersToChat = (data: UsersByChatIdData) => httpService(endpoint).put({ path: '/users', params: { data } })
-export const deleteUsersFromChat = (data: UsersByChatIdData) => httpService(endpoint).delete({ path: '/users', params: { data } })
+export const getChatSentFiles = (id: ByIdRequest) => httpService(endpoint).get({ path: `/${id}/files` })
+export const getCommonChats  = (id: ByIdRequest) => httpService(endpoint).get({ path: `/${id}/common` })
+export const getChatUsers = (id: ByIdRequest) => httpService(endpoint).get({ path: `/${id}/users` })
+export const getNewMessagesCount = (id: ByIdRequest) => httpService(endpoint).get({ path: `/new/${id}` })
+
+export const createChat = (data: CreateChatRequest) => httpService(endpoint).post({ path: '', params: { data } })
+export const archiveChat = (data: ChatByIdRequest) => httpService(endpoint).post({ path: '/archive', params: { data } })
+export const unArchiveChat = (data: ChatByIdRequest) => httpService(endpoint).post({ path: '/unarchive', params: { data } })
+export const getChatToken = (id: ByIdRequest) => httpService(endpoint).post({ path: `/token/${id}` })
+
+export const uploadChatAvatar = (data: UploadAvatarRequest) => httpService(endpoint).put({ path: '/avatar', params: { data } })
+export const addUsersToChat = (data: UsersByChatIdRequest) => httpService(endpoint).put({ path: '/users', params: { data } })
+
+export const deleteChat = (data: ChatByIdRequest) => httpService(endpoint).delete({ path: '', params: { data } })
+export const deleteUsersFromChat = (data: UsersByChatIdRequest) => httpService(endpoint).delete({ path: '/users', params: { data } })

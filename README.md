@@ -267,11 +267,11 @@ Http запросы находятся в папке services/api.
     - [x] nav-drawer по умолчанию collapsed
   - [x] pcjs-50 - readme sprint 3
   - [x] pcjs-51 - router update
-  - [ ] pcjs-52 - http api services
+  - [x] pcjs-52 - http api services
     - [x] auth
-    - [ ] profile
+    - [x] profile
     - [x] chat
-    - [ ] dynamic http requests
+    - [x] dynamic http requests
   - [ ] pcjs-53 - websockets
   - [ ] pcjs-55 - helmet.js
   - [ ] pcjs-56 - Рефакторинг 5
@@ -343,3 +343,4 @@ Http запросы находятся в папке services/api.
       с вашим кодом будет работать кто-то еще, то он сразу поймет, что данный класс не только про стили.
     - [ ] `src/pages/error/404/template.hbs` задать картинку с помощью background
     - [ ] Оптимизировать изображения
+  - [ ] pcjs-77 - http response types
