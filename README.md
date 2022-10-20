@@ -271,6 +271,7 @@ Http запросы находятся в папке services/api.
     - [x] auth
     - [ ] profile
     - [x] chat
+    - [ ] dynamic http requests
   - [ ] pcjs-53 - websockets
   - [ ] pcjs-55 - helmet.js
   - [ ] pcjs-56 - Рефакторинг 5
@@ -313,6 +314,8 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-72 - webpack
   - [ ] pcjs-73 - docker
   - [ ] pcjs-74 - heroku
+  - [ ] pcjs-75 - Entity types в отдельную папку
+  - [ ] pcjs-76 - Entity collection class
 
 #### Задачи релиза 1.0.0
 

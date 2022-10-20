@@ -22,7 +22,7 @@ export type RequestParams = {
 };
 
 export type RequestOptions = {
-  path: string
+  path?: string
   params?: ParamsWithoutMethod
 }
 
