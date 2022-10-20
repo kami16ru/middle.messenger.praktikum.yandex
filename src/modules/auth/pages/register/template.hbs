@@ -4,15 +4,15 @@
       <h3 class="card__title dark">Регистрация</h3>
       <form id="register-form" class="register-form">
 
-        {{#each inputTemplates}}
-          {{{this}}}
+        {{#each inputComponents}}
+          <div id="{{ this._id }}"></div>
         {{/each}}
 
       </form>
 
       <div class="spacer"></div>
 
-      {{{ RegisterBtn }}}
+      <div id="{{registerBtnId}}"></div>
 
       <img
               id="{{ loadingId }}"
@@ -23,7 +23,7 @@
               height="40px"
       >
 
-      {{{ RedirectLoginBtn }}}
+      <div id="{{redirectLoginBtnId}}"></div>
 
     </div>
   </div>

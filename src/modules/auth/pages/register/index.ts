@@ -1,15 +1,14 @@
 import './style.css'
 import template from './template.hbs'
-import Component, {createComponentsFromProps, getTemplatesFromComponents} from '../../../../lib/dom/Component'
+import Component, { createComponentsFromProps } from '../../../../lib/dom/Component'
 import { Button } from '../../../../components/ui/button/index'
 import { loading } from '../../../../lib/helpers/components'
 import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
-import {FormConfig} from '../../../../components/ui/input/types'
+import { FormConfig } from '../../../../components/ui/input/types'
+import {signUp, SignUpData} from '../../../../services/api/auth'
 
-const registerBtnId = 'register-submit'
-const redirectLoginBtnId = 'register-go-login'
 const registerLoadingId = 'register-submit-loading'
 
 const form: FormConfig[] = [
@@ -22,14 +21,13 @@ const form: FormConfig[] = [
   { id: 'form-register-password-confirm', name: 'passwordConfirm', label: 'Пароль еще раз', helper: 'Должны совпадать', type: 'password', rules: ['isPassword'], value: '' }
 ]
 const inputComponents = createComponentsFromProps(form, Input)
-const inputTemplates = getTemplatesFromComponents(inputComponents)
+// const inputTemplates = getTemplatesFromComponents(inputComponents)
 
 const redirectLoginBtn = new Button({
   props: {
     class: 'white',
     value: 'Уже зарегистрированы',
     href: '/sign-in',
-    id: redirectLoginBtnId,
     outline: true
   }
 })
@@ -37,14 +35,13 @@ const registerBtn = new Button({
   props: {
     class: 'bg-primary white',
     value: 'Создать аккаунт',
-    href: '/',
-    id: registerBtnId
+    href: '/'
   }
 })
 
 const buttons = {
-  RedirectLoginBtn: redirectLoginBtn.compile(),
-  RegisterBtn: registerBtn.compile()
+  redirectLoginBtnId: redirectLoginBtn.id,
+  registerBtnId: registerBtn.id
 }
 
 export class RegisterPage extends Component {
@@ -55,7 +52,7 @@ export class RegisterPage extends Component {
         form,
         loadingId: registerLoadingId,
         ...buttons,
-        inputTemplates
+        inputComponents: Object.values(inputComponents)
       },
       components: {
         ...inputComponents,
@@ -70,7 +67,7 @@ export class RegisterPage extends Component {
     super.mounted()
     this.initValidation()
 
-    const submitBtn = document.getElementById(registerBtnId) as HTMLElement
+    const submitBtn = document.getElementById(registerBtn.id) as HTMLElement
 
     submitBtn.addEventListener('click', async (e) => {
       e.preventDefault()
@@ -82,7 +79,7 @@ export class RegisterPage extends Component {
 
       await this.submitRegisterForm(submitBtn)
 
-      window.location = anchor.getAttribute('href')
+      // window.location = anchor.getAttribute('href')
     })
   }
 
@@ -93,7 +90,7 @@ export class RegisterPage extends Component {
     validator.initValidation()
   }
 
-  submitRegisterForm(submitBtn: HTMLElement) {
+  async submitRegisterForm(submitBtn: HTMLElement) {
     const loadingElement = document.getElementById(registerLoadingId) as HTMLElement
     const form = document.getElementById('register-form') as HTMLFormElement
 
@@ -117,6 +114,10 @@ export class RegisterPage extends Component {
     }
 
     loading({ target: submitBtn, loadingElement, loading: true })
+
+    await signUp(model as SignUpData)
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e))
 
     return new Promise((resolve) => {
       setTimeout(() => {

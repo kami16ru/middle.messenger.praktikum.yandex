@@ -17,10 +17,12 @@ export type RequestParams = {
   timeout?: number
   data?: unknown
   headers?: Record<string, string>
+  credentials?: string
+  mode?: string
 };
 
 export type RequestOptions = {
-  url: string
+  path?: string
   params?: ParamsWithoutMethod
 }
 
