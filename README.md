@@ -289,7 +289,7 @@ Http запросы находятся в папке services/api.
     - [ ] - Message
     - [ ] - Scroll messages
     - [ ] - Scroll menu
-  - [ ] pcjs-69 - Обновить ссылку netlify
+  - [x] pcjs-69 - Обновить ссылку netlify
 
 #### ТЗ 4 спринта
 
@@ -316,6 +316,7 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-74 - heroku
   - [ ] pcjs-75 - Entity types в отдельную папку
   - [ ] pcjs-76 - Entity collection class
+  - [ ] pcjs-77 - ChatService
 
 #### Задачи релиза 1.0.0
 
