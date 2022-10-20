@@ -227,7 +227,6 @@ https://lucky-centaur-1a1b81.netlify.app
 
 - [ ] Нарисовать прототип экранов проекта.
   - [ ] Список чатов и лента переписки (поле для ввода сообщения: message).
-- [ ] Выбрать препроцессор либо PostCSS. Использовать один из инструментов для стилей.
 - [ ] Добавьте роутинг в проект.
   - [x] У всех страниц должен быть собственный роут:
     - [x] /sign-up — страница регистрации,
@@ -252,44 +251,57 @@ https://lucky-centaur-1a1b81.netlify.app
 #### Задачи 3 спринта
 
 - [ ] v0.3.0 - sprint_3
-  - [ ] pcjs-10 - postcss
-  - [ ] pcjs-22 - Компонент form
-  - [ ] pcjs-23 - Компонент dialog
-  - [x] pcjs-28 - chat page content
+  - [x] pcjs-28 - chat nav menu
     - [x] - переключатель меню
     - [x] - ChatList
     - [x] - ChatListItem
-    - [x] - Рефакторинг отрисовки компонентов 
-    - [ ] - MessageInput
-    - [ ] - MessageList
-    - [ ] - Message
-    - [ ] - Scroll messages
-    - [ ] - Scroll menu
-  - [ ] pcjs-30 - шрифты из cdn в проект
-  - [ ] pcjs-31 - иконки из cdn в проект
-  - [ ] pcjs-40 - Компоненты через теневой DOM
+    - [x] - Рефакторинг отрисовки компонентов
   - [x] pcjs-44 - Inputs in cycle
   - [x] pcjs-45 - Export default classes || Instances array elements
-  - [ ] pcjs-46 - Loading element component
   - [x] pcjs-48 - Рефакторинг 4
     - [x] Иконка бургер для открытия меню. Переместить наверх
     - [x] nav-drawer по умолчанию collapsed
   - [x] pcjs-50 - readme sprint 3
   - [x] pcjs-51 - router update
-  - [ ] pcjs-52 - http api services
+  - [x] pcjs-52 - http api services
   - [ ] pcjs-53 - websockets
-  - [ ] pcjs-54 - unit tests
   - [ ] pcjs-55 - helmet.js
   - [ ] pcjs-56 - Рефакторинг 5
     - [ ] Все компоненты отрисовываются через renderDom
     - [ ] Починить валидацию
+    - [ ] Валидация всех полей
+    - [ ] Валидация подтверждения пароля
+    - [ ] Refactor events
+  - [ ] pcjs-57 - README.md update
+  - [ ] pcjs-58 - store
+  - [x] pcjs-60 - Modules update
+  - [ ] pcjs-66 - ChatWrapper component
+    - [ ] - MessageInput
+    - [ ] - MessageList
+    - [ ] - Message
+    - [ ] - Scroll messages
+    - [ ] - Scroll menu
+
+#### ТЗ 4 спринта
+
+#### Задачи 4 спринта
+
+- [ ] v0.4.0 - sprint_4
+  - [ ] pcjs-22 - Компонент form
+  - [ ] pcjs-23 - Компонент dialog
+  - [ ] pcjs-46 - Loading element component
+  - [ ] pcjs-54 - unit tests
+  - [ ] pcjs-59 - Изменение container в зависимости от ширины nav
+  - [ ] pcjs-61 - Button click hooks router
+  - [ ] pcjs-62 - Children routes
+  - [ ] pcjs-63 - Router middleware
+  - [ ] pcjs-64 - Middleware pipeline
+  - [ ] pcjs-66 - Рефакторинг 6
     - [ ] Использовать деструкторизацию для импортов часто используемых модулей
     - [ ] Сделать класс Component дженериком
     - [ ] Сделать приватные свойства js классов приватными
     - [ ] `src/pages/login/template.hbs` вход по enter
     - [ ] button убрать `<a>`
-    - [ ] Валидация всех полей
-    - [ ] Валидация подтверждения пароля
     - [ ] `src/components/input/style.css`
       Очищать состояние фокуса для интерактивных элементов - не самая хорошая практика, потому что в таком случае
       пользователям, которые пользуются вашим сайтом с помощью клавиатуры, труднее будет понять, на каком элементе
@@ -302,14 +314,15 @@ https://lucky-centaur-1a1b81.netlify.app
     - [ ] debounce mouseover avatar
     - [ ] Оптимизировать изображения
     - [ ] Реализовать метод navigate у класса route
-    - [ ] Refactor events
     - [ ] При схлопывании навигации оставлять только аватарку у чата
-  - [ ] pcjs-57 - README.md update
-  - [ ] pcjs-58 - store
-  - [ ] pcjs-59 - Изменение container в зависимости от ширины nav
-  - [x] pcjs-60 - Modules update
-  - [ ] pcjs-61 - Button click hooks router
-  - [ ] pcjs-62 - Children routes
-  - [ ] pcjs-63 - Router middleware
-  - [ ] pcjs-64 - Middleware pipeline
+    - [ ] Исправить отображение кнопок на страницах авторизации и регистрации
+
+#### Задачи релиза 1.0.0
+
+- [ ] v1.0.0 - develop
+  - [ ] pcjs-10 - postcss
+  - [ ] pcjs-30 - шрифты из cdn в проект
+  - [ ] pcjs-31 - иконки из cdn в проект
+  - [ ] pcjs-40 - Компоненты через теневой DOM
   - [ ] pcjs-65 - Button icon component
+  - [ ] pcjs-67 - .env

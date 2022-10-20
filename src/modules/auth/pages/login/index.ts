@@ -1,13 +1,12 @@
 import template from './template.hbs'
 import './style.css'
-import Component, { createComponentsFromProps, getTemplatesFromComponents } from '../../../../lib/dom/Component'
+import Component, { createComponentsFromProps } from '../../../../lib/dom/Component'
 import { Button } from '../../../../components/ui/button/index'
 import { loading } from '../../../../lib/helpers/components'
 import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 import { FormConfig } from '../../../../components/ui/input/types'
-import rules from "../../../../lib/validation/rules";
 
 const loginLoadingId = 'login-submit-loading'
 
@@ -16,7 +15,6 @@ const form: FormConfig[] = [
   { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'], value: '' }
 ]
 const inputComponents = createComponentsFromProps(form, Input)
-// const inputTemplates = getTemplatesFromComponents(inputComponents)
 
 const loginBtn = new Button({
   props: {
