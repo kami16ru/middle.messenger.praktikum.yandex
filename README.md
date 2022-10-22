@@ -291,6 +291,7 @@ Http запросы находятся в папке services/api.
     - [ ] - Scroll menu
   - [x] pcjs-69 - Обновить ссылку netlify
   - [x] pcjs-79 - npm audit fix
+  - [ ] pcjs-84 - auth module
 
 #### ТЗ 4 спринта
 
