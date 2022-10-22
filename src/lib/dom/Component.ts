@@ -6,7 +6,7 @@ import  { v4 as makeUUID } from 'uuid'
 import { ComponentOptions, TemplateEngineProps, IComponent, ComponentConstructor } from './types'
 import ErrorHandler from '../error/ErrorHandler'
 
-export default class Component implements IComponent {
+export default class Component<P extends ComponentOptions = any> implements IComponent {
   components: Record<string, Component>
   _element: HTMLElement
   _options
@@ -17,7 +17,7 @@ export default class Component implements IComponent {
   eventBus: EventBus
   _meta
 
-  constructor(options: ComponentOptions) {
+  constructor(options: P) {
     if (this.constructor === Component) throw new Error(errorMessages.classErrors.ABSTRACT_CLASS)
 
     const { template, selector, props = {}, components, tagName = 'div' } = options
@@ -58,6 +58,14 @@ export default class Component implements IComponent {
   get selector() {
     return this._selector
   }
+
+  setProps = (nextProps: P) => {
+    if (!nextProps) return
+
+    if (!this._props) this._props = {}
+
+    Object.assign(this._props, nextProps)
+  };
 
   show() {
     this.getContent().style.display = 'block'

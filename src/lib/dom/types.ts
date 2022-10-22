@@ -50,7 +50,7 @@ export interface IEventBus {
 }
 
 export interface ComponentConstructor {
-  new (options?: Omit<ComponentOptions, 'template'>): Component;
+  new (options?: ComponentOptionsWithoutTemplate): Component;
 }
 
 export type RouteConfig = {
