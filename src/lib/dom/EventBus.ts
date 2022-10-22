@@ -1,6 +1,6 @@
 import { IEventBus } from './types'
 
-export default class EventBus implements IEventBus {
+export class EventBus implements IEventBus {
   listeners: Record<string, Array<(args?: unknown) => void>>
 
   constructor() {
@@ -35,3 +35,5 @@ export default class EventBus implements IEventBus {
     })
   }
 }
+
+export default EventBus

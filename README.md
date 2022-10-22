@@ -281,7 +281,7 @@ Http запросы находятся в папке services/api.
     - [ ] Валидация подтверждения пароля
     - [ ] Refactor events
   - [x] pcjs-57 - README.md update
-  - [ ] pcjs-58 - store
+  - [x] pcjs-58 - store
   - [x] pcjs-60 - Modules update
   - [ ] pcjs-66 - ChatWrapper component
     - [ ] - MessageInput
@@ -291,6 +291,7 @@ Http запросы находятся в папке services/api.
     - [ ] - Scroll menu
   - [x] pcjs-69 - Обновить ссылку netlify
   - [x] pcjs-79 - npm audit fix
+  - [ ] pcjs-84 - auth module
 
 #### ТЗ 4 спринта
 
@@ -346,3 +347,7 @@ Http запросы находятся в папке services/api.
     - [ ] `src/pages/error/404/template.hbs` задать картинку с помощью background
     - [ ] Оптимизировать изображения
   - [ ] pcjs-77 - http response types
+  - [ ] pcjs-80 - заменить uuid на nano-id
+  - [ ] pcjs-81 - обновить eslint rules
+  - [ ] pcjs-82 - element replaceWith
+  - [ ] pcjs-83 - переписать compile
