@@ -22,27 +22,27 @@ class HTTPTransport implements IHTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`
   }
 
-  public get = ({ path, params = {} }: RequestOptions) => {
-    return this.request(this.endpoint + path, { ...params, method: METHODS.GET })
+  public get<Response>({ path, params = {} }: RequestOptions): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, { ...params, method: METHODS.GET })
   }
 
-  public post = ({ path, params = {} }: RequestOptions) => {
+  public post<Response = void>({ path, params = {} }: RequestOptions): Promise<Response> {
     return this.request(this.endpoint + path, { ...params, method: METHODS.POST })
   }
 
-  public put = ({ path, params = {} }: RequestOptions) => {
+  public put<Response = void>({ path, params = {} }: RequestOptions): Promise<Response> {
     return this.request(this.endpoint + path, { ...params, method: METHODS.PUT })
   }
 
-  public patch = ({ path, params = {} }: RequestOptions) => {
+  public patch<Response = void>({ path, params = {} }: RequestOptions): Promise<Response> {
     return this.request(this.endpoint + path, { ...params, method: METHODS.PATCH })
   }
 
-  public delete = ({ path, params = {} }: RequestOptions) => {
+  public delete<Response>({ path, params = {} }: RequestOptions): Promise<Response> {
     return this.request(this.endpoint + path, { ...params, method: METHODS.DELETE })
   }
 
-  request = (url: string, params: RequestParams) => {
+  request<Response>(url: string, params: RequestParams): Promise<Response> {
     const {
       method = METHODS.GET,
       headers = {},
@@ -50,7 +50,7 @@ class HTTPTransport implements IHTTPTransport {
       timeout = 5000
     } = params
 
-    const query = method === METHODS.GET ? queryStringify(data as RequestData) : ''
+    const query = method === METHODS.GET && !!data ? queryStringify(data as RequestData) : ''
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
@@ -65,7 +65,7 @@ class HTTPTransport implements IHTTPTransport {
         if (xhr.status >= 300) {
           reject(xhr)
         } else {
-          resolve(xhr)
+          resolve(xhr.response)
         }
       }
 
@@ -75,6 +75,7 @@ class HTTPTransport implements IHTTPTransport {
       xhr.ontimeout = reject
 
       xhr.setRequestHeader('Content-Type', 'application/json')
+      xhr.setRequestHeader('Content-Security-Policy', 'default-src \'self\'')
 
       xhr.withCredentials = true
       xhr.responseType = 'json'

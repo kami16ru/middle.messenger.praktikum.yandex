@@ -7,7 +7,9 @@ import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 import { FormConfig } from '../../../../components/ui/input/types'
-import {signIn, SignInData, whoAmI} from '../../../../services/api/auth'
+import { authController } from '../../services/AuthController'
+import { SignInRequest } from '../../services/authApi'
+import { withStore } from '../../../../lib/dom/Store'
 
 const loginLoadingId = 'login-submit-loading'
 
@@ -37,7 +39,7 @@ const buttons = {
   registerBtnId: registerBtn.id
 }
 
-export class LoginPage extends Component {
+class LoginPageComponent extends Component {
   constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
@@ -112,14 +114,7 @@ export class LoginPage extends Component {
 
     loading({ target: submitBtn, loadingElement, loading: true })
 
-    await signIn(credentials as SignInData)
-      .then(async (res) => {
-        console.log(res)
-        await whoAmI()
-          .then((res) => console.log(res))
-          .catch((e) => console.log(e))
-      })
-      .catch((e) => console.log(e))
+    await authController.signIn(credentials as SignInRequest)
 
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -134,3 +129,5 @@ export class LoginPage extends Component {
     })
   }
 }
+
+export const LoginPage = withStore((state) => ({ user: state.user }))(LoginPageComponent)

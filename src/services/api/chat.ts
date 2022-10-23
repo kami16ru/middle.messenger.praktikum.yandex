@@ -1,5 +1,5 @@
 import { httpService } from '../httpService'
-import { UserResponse } from './auth'
+import { UserResponse } from '../../modules/auth/services/authApi'
 import { ByIdRequest } from './types'
 
 const endpoint = '/chats'

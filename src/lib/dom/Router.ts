@@ -83,25 +83,22 @@ export class Route {
 export class Router {
   private static __instance: Router
   routes: Route[]
-  history: Window['history']
-  _currentRoute: Route | undefined
   _rootQuery: string
+  private history = window.history;
+  private currentRoute: Route | undefined = undefined;
 
-  constructor(rootQuery: string) {
+  constructor(private readonly rootQuery: string) {
     if (Router.__instance) {
       return Router.__instance
     }
 
     this.routes = []
-    this.history = window.history
-    this._currentRoute = undefined
-    this._rootQuery = rootQuery
 
     Router.__instance = this
   }
 
   use(routeConfig: RouteConfig): Router {
-    const route = new Route(this._rootQuery, routeConfig)
+    const route = new Route(this.rootQuery, routeConfig)
 
     if (route) this.routes.push(route)
 
@@ -119,8 +116,8 @@ export class Router {
   _onRoute(pathname: string): void {
     const route = this.getRoute(pathname)
 
-    if (this._currentRoute) {
-      this._currentRoute.leave()
+    if (this.currentRoute) {
+      this.currentRoute.leave()
     }
 
     if (route?._config.redirect) {
@@ -132,8 +129,8 @@ export class Router {
     }
 
     if (route) {
+      this.currentRoute = route
       route.render()
-      this._currentRoute = route
     } else this.go(notFoundRoute.path)
   }
 
@@ -154,3 +151,5 @@ export class Router {
     return this.routes.find((route) => route.match(pathname))
   }
 }
+
+export default new Router('#app')

@@ -12,7 +12,6 @@ export interface IComponent {
   eventBus: EventBus
   _meta: {
     tag: string
-    props: ComponentOptions['props']
   }
   readonly props: ComponentOptions['props']
   readonly options: ComponentOptions
@@ -38,6 +37,7 @@ export type ComponentOptions = {
   tagName?: string
   attrs?: Record<string, unknown>
   collapsed?: boolean
+  store?: Record<string, any>
 }
 
 export type ComponentOptionsWithoutTemplate = Omit<ComponentOptions, 'template'>

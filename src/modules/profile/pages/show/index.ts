@@ -7,6 +7,7 @@ import { Input } from '../../../../components/ui/input/index'
 import { ComponentOptions } from '../../../../lib/dom/types'
 import { FormConfig } from '../../../../components/ui/input/types'
 import { ButtonConfig } from '../../../../components/ui/button/types'
+import { withStore } from '../../../../lib/dom/Store'
 
 const form: FormConfig[] = [
   { id: 'form-profile-email', name: 'email', label: 'Почта', readOnly: 'readonly', value: 'example@example.com' },
@@ -29,7 +30,7 @@ const buttonTemplates = getTemplatesFromComponents(buttonComponents)
 
 const profileAvatar = new ProfileAvatar()
 
-export class ShowProfilePage extends Component {
+class ShowProfilePageComponent extends Component {
   constructor(options: Omit<ComponentOptions, 'template'> = {}) {
     super({
       template,
@@ -49,4 +50,12 @@ export class ShowProfilePage extends Component {
       }
     })
   }
+
+  mounted() {
+    super.mounted()
+
+    console.log(this._props, this._options)
+  }
 }
+
+export const ShowProfilePage = withStore((state) => ({ user: state.user }))(ShowProfilePageComponent)

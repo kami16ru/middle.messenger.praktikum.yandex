@@ -12,7 +12,7 @@ export class Store extends EventBus {
   public set(keypath: string, data: unknown) {
     set(this.state, keypath, data)
 
-    this.emit(StoreEvents.Updated, this.getState())
+    this.emit('updated', this.getState())
   }
 
   public getState() {
@@ -20,7 +20,7 @@ export class Store extends EventBus {
   }
 }
 
-const store = new Store()
+export const store = new Store()
 
 export function withStore(mapStateToProps: (state: any) => any) {
 
@@ -29,23 +29,26 @@ export function withStore(mapStateToProps: (state: any) => any) {
 
     return class WithStore extends ComponentWrapper {
 
-      constructor(props: any) {
+      constructor(options: any) {
         previousState = mapStateToProps(store.getState())
 
-        super({ ...props, ...previousState })
-
-        store.on(StoreEvents.Updated, () => {
-          const stateProps = mapStateToProps(store.getState())
-
-          previousState = stateProps
-
-          this.setProps({ ...stateProps })
+        super({
+          ...options,
+          store: previousState
         })
+
+        store.on('updated', this.onStoreUpdated.bind(this))
+      }
+
+      onStoreUpdated() {
+        const stateProps = mapStateToProps(store.getState())
+
+        previousState = stateProps
+
+        this.setProps({ ...stateProps })
       }
     }
-
   }
-
 }
 
 export default store

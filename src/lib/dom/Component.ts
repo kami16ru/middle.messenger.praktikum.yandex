@@ -20,18 +20,21 @@ export default class Component<P extends ComponentOptions = any> implements ICom
   constructor(options: P) {
     if (this.constructor === Component) throw new Error(errorMessages.classErrors.ABSTRACT_CLASS)
 
-    const { template, selector, props = {}, components, tagName = 'div' } = options
+    const { template, selector, props = {}, components, tagName = 'div', store } = options
 
     if (!template) throw new Error(errorMessages.classErrors.INVALID_CONSTRUCTOR_ARGS)
 
     this._options = options
     this._id = makeUUID()
     this.template = template
+
     this._props = this._makePropsProxy({
       ...props,
-      id: this._id
+      id: this._id,
+      ...store
     })
     this._selector = selector
+
     this.eventBus = new EventBus()
     this.components = components || {}
     this._meta = {

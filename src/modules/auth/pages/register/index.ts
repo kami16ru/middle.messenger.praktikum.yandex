@@ -7,7 +7,8 @@ import { Input } from '../../../../components/ui/input/index'
 import Validator from '../../../../lib/validation/Validator'
 import { ComponentOptions } from '../../../../lib/dom/types'
 import { FormConfig } from '../../../../components/ui/input/types'
-import {signUp, SignUpData} from '../../../../services/api/auth'
+import { authController } from '../../services/AuthController'
+import { SignUpRequest } from '../../services/authApi'
 
 const registerLoadingId = 'register-submit-loading'
 
@@ -115,7 +116,7 @@ export class RegisterPage extends Component {
 
     loading({ target: submitBtn, loadingElement, loading: true })
 
-    await signUp(model as SignUpData)
+    await authController.signUp(model as SignUpRequest)
       .then((res) => console.log(res))
       .catch((e) => console.log(e))
 

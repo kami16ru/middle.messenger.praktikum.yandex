@@ -28,7 +28,7 @@ export default {
 
       else {
         component.dispatchRender()
-        root.appendChild(component._element)
+        root.appendChild(component.getContent())
         component.dispatchComponentDidMount()
       }
     } catch (e) {

@@ -279,7 +279,6 @@ Http запросы находятся в папке services/api.
     - [ ] Починить валидацию
     - [ ] Валидация всех полей
     - [ ] Валидация подтверждения пароля
-    - [ ] Refactor events
   - [x] pcjs-57 - README.md update
   - [x] pcjs-58 - store
   - [x] pcjs-60 - Modules update
@@ -291,7 +290,8 @@ Http запросы находятся в папке services/api.
     - [ ] - Scroll menu
   - [x] pcjs-69 - Обновить ссылку netlify
   - [x] pcjs-79 - npm audit fix
-  - [ ] pcjs-84 - auth module
+  - [x] pcjs-84 - auth module
+  - [ ] pcjs-85 - Refactor events
 
 #### ТЗ 4 спринта
 
@@ -333,7 +333,6 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-67 - .env
   - [ ] pcjs-71 - Рефакторинг 7
     - [ ] Использовать деструкторизацию для импортов часто используемых модулей
-    - [ ] Сделать класс Component дженериком
     - [ ] Сделать приватные свойства js классов приватными
     - [ ] `src/pages/login/template.hbs` вход по enter
     - [ ] `src/components/input/style.css`
@@ -346,6 +345,7 @@ Http запросы находятся в папке services/api.
       с вашим кодом будет работать кто-то еще, то он сразу поймет, что данный класс не только про стили.
     - [ ] `src/pages/error/404/template.hbs` задать картинку с помощью background
     - [ ] Оптимизировать изображения
+    - [ ] Проверить везде Error handling. Убрать console.log
   - [ ] pcjs-77 - http response types
   - [ ] pcjs-80 - заменить uuid на nano-id
   - [ ] pcjs-81 - обновить eslint rules

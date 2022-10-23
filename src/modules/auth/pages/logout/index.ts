@@ -1,8 +1,9 @@
 import Component from '../../../../lib/dom/Component'
 import template from '../login/template.hbs'
-import { logout } from '../../../../services/api/auth'
+import { authController } from '../../services/AuthController'
+import { withStore } from '../../../../lib/dom/Store'
 
-export class LogoutPage extends Component {
+class LogoutPageComponent extends Component {
   constructor() {
     super({
       template
@@ -12,14 +13,8 @@ export class LogoutPage extends Component {
   async mounted() {
     super.mounted()
 
-    await logout()
-      .then((res) => {
-        console.log(res)
-        window.location.href = '/'
-      })
-      .catch((e) => {
-        console.log(e)
-        window.location.href = '/'
-      })
+    await authController.logout()
   }
 }
+
+export const LogoutPage = withStore((state) => ({ user: state.user }))(LogoutPageComponent)
