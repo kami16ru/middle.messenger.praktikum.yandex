@@ -56,6 +56,12 @@ export class Route {
   leave() {
     if (this._component) {
       this._component.hide()
+
+      if (this._config.layout) {
+        const elem = document.querySelector(getLayout(this._config.layout).selector || '')
+
+        if (elem) elem.remove()
+      }
     }
   }
 

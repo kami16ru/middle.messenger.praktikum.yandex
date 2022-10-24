@@ -18,6 +18,7 @@ export class AuthController {
       router.go('/settings')
     } catch (e: any) {
       console.error(e)
+      router.go('/')
     }
   }
 
@@ -27,9 +28,10 @@ export class AuthController {
 
       await this.fetchUser()
 
-      router.go('/profile')
+      router.go('/settings')
     } catch (e: any) {
       console.error(e.message)
+      router.go('/')
     }
   }
 
@@ -44,12 +46,11 @@ export class AuthController {
   async logout() {
     try {
       await this.api.logout()
-
-      router.go('/')
     } catch (e: any) {
       console.error(e.message)
     } finally {
       store.set('user', null)
+      router.go('/')
     }
   }
 }

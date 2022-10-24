@@ -290,6 +290,7 @@ Http запросы находятся в папке services/api.
     - [ ] - Scroll menu
   - [x] pcjs-69 - Обновить ссылку netlify
   - [x] pcjs-79 - npm audit fix
+  - [x] pcjs-82 - element replaceWith
   - [x] pcjs-84 - auth module
   - [ ] pcjs-85 - Refactor events
 
@@ -349,5 +350,4 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-77 - http response types
   - [ ] pcjs-80 - заменить uuid на nano-id
   - [ ] pcjs-81 - обновить eslint rules
-  - [ ] pcjs-82 - element replaceWith
   - [ ] pcjs-83 - переписать compile
