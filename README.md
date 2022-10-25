@@ -283,6 +283,8 @@ Http запросы находятся в папке services/api.
   - [x] pcjs-58 - store
   - [x] pcjs-60 - Modules update
   - [ ] pcjs-66 - ChatWrapper component
+    - [x] - ChatsController
+    - [x] - MessagingController
     - [ ] - MessageInput
     - [ ] - MessageList
     - [ ] - Message
