@@ -282,10 +282,10 @@ Http запросы находятся в папке services/api.
     - [x] переписать compile
     - [ ] Переписать отрисовку компонентов
       - [x] login page
-      - [ ] register page
+      - [x] register page
       - [ ] profile page
+      - [ ] messenger page
     - [x] Починить валидацию
-    - [ ] Пофиксить компонент messenger
   - [x] pcjs-57 - README.md update
   - [x] pcjs-58 - store
   - [x] pcjs-60 - Modules update

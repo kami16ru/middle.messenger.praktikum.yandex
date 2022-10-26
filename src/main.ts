@@ -1,5 +1,5 @@
 import { LoginPage } from './modules/auth/pages/login/index'
-// import { RegisterPage } from './pages/Register'
+import { RegisterPage } from './modules/auth/pages/register/index'
 import Router from './utils/Router'
 import { ProfilePage } from './modules/profile/pages/show/index'
 import { authController as AuthController } from './modules/auth/services/AuthController'
@@ -15,7 +15,7 @@ enum Routes {
 window.addEventListener('DOMContentLoaded', async () => {
   Router
     .use(Routes.Index, LoginPage)
-    // .use(Routes.Register, RegisterPage)
+    .use(Routes.Register, RegisterPage)
     .use(Routes.Profile, ProfilePage)
     // .use(Routes.Messenger, MessengerPage)
 

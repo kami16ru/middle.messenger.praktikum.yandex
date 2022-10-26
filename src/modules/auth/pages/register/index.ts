@@ -1,4 +1,5 @@
 import Block from '../../../../utils/Block'
+import '../style.css'
 import './style.css'
 import template from './template.hbs'
 import { Button } from '../../../../components/ui/button/index'

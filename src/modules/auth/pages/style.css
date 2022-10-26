@@ -1,0 +1,20 @@
+.auth-form {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+.auth-form__actions {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
