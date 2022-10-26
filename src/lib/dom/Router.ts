@@ -92,13 +92,15 @@ export class Router {
   _rootQuery: string
   private history = window.history;
   private currentRoute: Route | undefined = undefined;
+  beforeEach: () => void
 
-  constructor(private readonly rootQuery: string) {
+  constructor(private readonly rootQuery: string, beforeEach = () => true) {
     if (Router.__instance) {
       return Router.__instance
     }
 
     this.routes = []
+    this.beforeEach = beforeEach
 
     Router.__instance = this
   }
@@ -120,6 +122,8 @@ export class Router {
   }
 
   _onRoute(pathname: string): void {
+    this.beforeEach()
+
     const route = this.getRoute(pathname)
 
     if (this.currentRoute) {

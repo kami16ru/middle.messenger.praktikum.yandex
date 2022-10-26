@@ -28,6 +28,8 @@ class MessagesController {
 
     const userId = store.getState().user.id
 
+    console.log(userId, id, token)
+
     const wsTransport = new WSTransport(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`)
 
     this.sockets.set(id, wsTransport)
@@ -35,7 +37,7 @@ class MessagesController {
     await wsTransport.connect()
 
     this.subscribe(wsTransport, id)
-    this.fetchOldMessages(id)
+    // this.fetchOldMessages(id)
   }
 
   sendMessage(id: number, message: string) {

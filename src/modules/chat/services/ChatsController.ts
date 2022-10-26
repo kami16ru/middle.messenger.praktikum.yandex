@@ -21,6 +21,8 @@ class ChatsController {
     chats.map(async (chat: ChatResponse) => {
       const tokenResponse = await this.getToken(chat.id)
 
+      console.log(chat.id, tokenResponse.token)
+
       await MessagesController.connect(chat.id, tokenResponse.token)
     })
 
@@ -38,7 +40,7 @@ class ChatsController {
   }
 
   async getToken(id: number) {
-    return await this.api.getChatToken({ id })
+    return await this.api.getChatToken(id)
   }
 
   selectChat(id: number) {

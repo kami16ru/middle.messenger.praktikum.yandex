@@ -322,6 +322,7 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-75 - Entity types в отдельную папку
   - [ ] pcjs-76 - Entity collection class
   - [ ] pcjs-78 - ChatService
+  - [ ] pcjs-86 - props with children
 
 #### Задачи релиза 1.0.0
 

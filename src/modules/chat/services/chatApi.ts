@@ -62,7 +62,7 @@ export interface ChatTokenResponse {
   token: string
 }
 
-export const getChats = (): Promise<ChatResponse[]> => httpService(endpoint).get({})
+export const getChats = (): Promise<ChatResponse[]> => httpService(endpoint).get({ path: '' })
 export const getArchiveChats = () => httpService(endpoint).get({ path: '/archive' })
 export const getChatSentFiles = (id: ByIdRequest) => httpService(endpoint).get({ path: `/${id}/files` })
 export const getCommonChats  = (id: ByIdRequest) => httpService(endpoint).get({ path: `/${id}/common` })
