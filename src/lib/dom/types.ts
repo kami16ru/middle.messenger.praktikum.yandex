@@ -20,6 +20,7 @@ export interface IComponent {
   show(): void
   getContent(): Element
   mounted(): void
+  beforeUpdate(newProps: TemplateEngineProps): void
   compile(): string
   dispatchRender(): void
   dispatchComponentDidMount(): void

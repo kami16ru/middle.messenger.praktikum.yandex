@@ -6,6 +6,7 @@ import { NavDrawer } from '../../../../components/ui/nav/drawer/index'
 import store, { withStore } from '../../../../lib/dom/Store'
 import ChatsController from '../../services/ChatsController'
 import { ChatResponse } from '../../services/chatApi'
+import { Messenger } from '../../components/messenger/index'
 
 const navDrawer = new NavDrawer({
   props: {
@@ -14,6 +15,8 @@ const navDrawer = new NavDrawer({
   }
 })
 
+const messenger = new Messenger({})
+
 class ChatPageComponent extends Component {
   constructor(options: ComponentOptionsWithoutTemplate = {}) {
     super({
@@ -21,9 +24,10 @@ class ChatPageComponent extends Component {
       ...options,
       props: {
         ...options.props,
-        navDrawerId: navDrawer.id
+        navDrawerId: navDrawer.id,
+        messengerId: messenger.id
       },
-      components: { navDrawer },
+      components: { navDrawer, messenger },
       attrs: {
         class: 'chat-page'
       }
@@ -41,6 +45,10 @@ class ChatPageComponent extends Component {
     console.log(store.getState())
     ChatsController.selectChat(chatId)
     console.log(store.getState())
+
+    console.log(this.components.messenger)
+
+    this.components.messenger.dispatchComponentDidUpdate(messenger.props)
   }
 }
 

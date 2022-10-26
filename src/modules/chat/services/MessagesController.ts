@@ -1,7 +1,7 @@
 import WSTransport, { WSTransportEvents } from '../../../lib/chat/WSTransport'
 import store from '../../../lib/dom/Store'
 
-export interface Message {
+export type Message = {
   chat_id: number;
   time: string;
   type: string;
