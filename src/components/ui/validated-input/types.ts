@@ -1,4 +1,4 @@
-export interface InputProps {
+export interface ValidatedInputProps {
   name: string
   type: string
   placeholder?: string

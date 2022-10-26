@@ -8,6 +8,12 @@ export class Input extends Block<InputProps> {
     super(props)
   }
 
+  init() {
+    const element = document.querySelector(`input[name="${this.props.name}"]`) as HTMLInputElement
+
+    // element.addEventListener('blur', this.props.events?.blur?.bind(this))
+  }
+
   public setValue(value: string) {
     return (this.element as HTMLInputElement).value = value
   }

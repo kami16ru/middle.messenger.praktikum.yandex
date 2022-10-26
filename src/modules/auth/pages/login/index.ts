@@ -4,7 +4,7 @@ import { Button } from '../../../../components/ui/button/index'
 import { Input } from '../../../../components/ui/input/index'
 import './style.css'
 import { Link } from '../../../../components/ui/link/index'
-import { SignUpRequest } from '../../services/authApi'
+import { SignInRequest } from '../../services/authApi'
 import { authController } from '../../services/AuthController'
 import { Form } from '../../../../components/ui/form/index'
 
@@ -47,12 +47,13 @@ export class LoginPage extends Block {
   }
 
   async onSubmit() {
-    const inputs = form.children.inputs as Input[]
+    const validatedInputs = form.children.inputs as Input[]
+    const inputs = validatedInputs.map((input: Input) => input.children.input) as Input[]
     const values = inputs.map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
 
     const data = Object.fromEntries(values)
 
-    await authController.signIn(data as SignUpRequest)
+    await authController.signIn(data as SignInRequest)
   }
 
   render() {

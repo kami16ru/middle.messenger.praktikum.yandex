@@ -1,11 +1,10 @@
 import Block from '../../../utils/Block'
 import template from './template.hbs'
-import { Input } from '../input/index'
-// import './style.css'
 import Validator from '../../../lib/validation/Validator'
 import { OnBlurCallbackOptions, ValidationRuleConfig, ValidatorConfig } from '../../../lib/validation/types'
 import defaultRules from '../../../lib/validation/rules'
 import { InputProps } from '../input/types'
+import { ValidatedInput } from '../validated-input/index'
 
 export interface FormProps {
   inputs: Array<InputProps>
@@ -21,14 +20,10 @@ export class Form extends Block {
   }
 
   validate(inputProps: ValidatorConfig) {
-    console.log(inputProps)
-
     const element = document.querySelector(`input[name="${inputProps.name}"]`) as HTMLInputElement
 
     if (element) {
       const closetsLabel = element.closest('label')
-
-      console.log(closetsLabel)
 
       if (closetsLabel) {
         const messageContainer = closetsLabel.querySelector('.input-helper') as HTMLElement
@@ -44,13 +39,8 @@ export class Form extends Block {
   }
 
   onBlurCallback(options: OnBlurCallbackOptions) {
-    console.log(options)
-
     const rules = defaultRules
-
     const { target, messageContainer, defaultValue = '', fieldRules } = options
-
-    console.log(target.value)
 
     fieldRules.forEach((ruleName) => {
       const rule = rules.find((rule: ValidationRuleConfig) => rule.name === ruleName)
@@ -73,7 +63,7 @@ export class Form extends Block {
 
   createInputs(inputs: InputProps[]) {
     return inputs.map((props) => {
-      return new Input({
+      return new ValidatedInput({
         ...props,
         events: {
           blur: () => this.validate(props),

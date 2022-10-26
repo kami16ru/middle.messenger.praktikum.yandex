@@ -1,11 +1,5 @@
 <form>
   {{#each inputs}}
-    <div class="input-item">
-      <label>
-        {{{ this }}}
-        <span class="input-label">{{ this.label }}</span>
-        <span class="input-helper">{{ this.helper }}</span>
-      </label>
-    </div>
+    {{{ this }}}
   {{/each}}
 </form>

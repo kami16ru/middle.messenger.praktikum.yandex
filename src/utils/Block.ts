@@ -13,7 +13,7 @@ class Block<P extends Record<string, any> = any> {
   public id = makeUUID()
   protected props: P
   public children: Record<string, Block | Block[]>
-  protected eventBus: () => EventBus
+  public eventBus: () => EventBus
   private _element: HTMLElement | null = null
 
   constructor(propsWithChildren: P) {
