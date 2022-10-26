@@ -1,13 +1,14 @@
+import Block from '../../../utils/Block'
 import template from './template.hbs'
 import './style.css'
-import Component from '../../../lib/dom/Component'
-import { ComponentOptions } from '../../../lib/dom/types'
+import { ButtonProps } from './types'
 
-export class Button extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
-    super({
-      template,
-      ...options
-    })
+export class Button extends Block<ButtonProps> {
+  constructor(props: ButtonProps) {
+    super({ type: 'button', ...props })
+  }
+
+  render() {
+    return this.compile(template, { ...this.props })
   }
 }

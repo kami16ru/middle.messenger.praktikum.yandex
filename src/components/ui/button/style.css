@@ -1,12 +1,10 @@
-.btn {
-  display: block;
-  width: 80%;
+.button {
   border: none;
   background-color: #fff;
-  padding: 0.5em;
+  margin: 15px 0 10px;
+  padding: 5px 10px;
   font-size: 16px;
   cursor: pointer;
-  text-align: center;
   box-shadow: 0 0 6px #000;
   border-radius: 12px;
 }
@@ -14,20 +12,4 @@
 button a {
   text-decoration: none;
   color: inherit;
-}
-
-.btn_outline {
-  background-color: transparent;
-  box-shadow: none;
-  border-radius: unset;
-}
-
-.btn-group__row {
-  display: inline-flex;
-  width: 100%;
-}
-
-.btn-group__row > a,
-button {
-  margin: 1em;
 }

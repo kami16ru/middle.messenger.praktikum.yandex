@@ -1,61 +1,52 @@
-import '../style.css'
+import Block from '../../../../utils/Block'
 import template from './template.hbs'
-import Component, { getTemplatesFromComponents, createComponentsFromProps } from '../../../../lib/dom/Component'
-import { ProfileAvatar } from '../../components/profile-avatar/index'
+import { withStore } from '../../../../utils/Store'
+import { authController as AuthController } from '../../../../modules/auth/services/AuthController'
 import { Button } from '../../../../components/ui/button/index'
-import { Input } from '../../../../components/ui/input/index'
-import { ComponentOptions } from '../../../../lib/dom/types'
-import { FormConfig } from '../../../../components/ui/input/types'
-import { ButtonConfig } from '../../../../components/ui/button/types'
-import { withStore } from '../../../../lib/dom/Store'
+import { UserResponse } from '../../../auth/services/authApi'
+import { ProfileField } from '../../components/profile-field/index'
 
-const form: FormConfig[] = [
-  { id: 'form-profile-email', name: 'email', label: 'Почта', readOnly: 'readonly', value: 'example@example.com' },
-  { id: 'form-profile-login', name: 'login', label: 'Логин', readOnly: 'readonly', value: 'examplelogin' },
-  { id: 'form-profile-first-name', name: 'first_name', label: 'Имя', readOnly: 'readonly', value: 'Иван' },
-  { id: 'form-profile-second-name', name: 'second_name', label: 'Фамилия', readOnly: 'readonly', value: 'Иванов' },
-  { id: 'form-profile-second-name', name: 'display_name', label: 'Имя в чате', readOnly: 'readonly', value: 'superhero' },
-  { id: 'form-profile-phone', name: 'phone', label: 'Телефон', readOnly: 'readonly', value: '89099999999' }
-]
-const inputComponents = createComponentsFromProps(form, Input)
-const inputTemplates = getTemplatesFromComponents(inputComponents)
+type ProfileProps = UserResponse
 
-const buttons: ButtonConfig[] = [
-  { class: 'bg-dark white', value: 'Изменить данные', href: '/settings/edit' },
-  { class: 'bg-dark white', value: 'Изменить пароль', href: '/settings/edit-password' },
-  { class: 'bg-danger white', value: 'Выйти', href: '/logout' }
-]
-const buttonComponents = createComponentsFromProps(buttons, Button)
-const buttonTemplates = getTemplatesFromComponents(buttonComponents)
+const userFields = [
+  'id',
+  'first_name',
+  'second_name',
+  'display_name',
+  'login', 'avatar',
+  'email',
+  'phone'
+] as Array<keyof ProfileProps>
 
-const profileAvatar = new ProfileAvatar()
+class ProfilePageBase extends Block<ProfileProps> {
+  init() {
+    this.children.fields = userFields.map((name) => {
+      return new ProfileField({ name, value: this.props[name] })
+    })
 
-class ShowProfilePageComponent extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
-    super({
-      template,
-      ...options,
-      props: {
-        ...options.props,
-        form,
-        profileAvatarId: profileAvatar.id,
-        buttonTemplates,
-        inputTemplates
-      },
-      components: {
-        profileAvatar
-      },
-      attrs: {
-        class: 'profile-show-page container full'
+    this.children.logoutButton = new Button({
+      label: 'Выйти',
+      events: {
+        click: async () => {
+          await AuthController.logout()
+        }
       }
     })
   }
 
-  mounted() {
-    super.mounted()
+  protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
+    (this.children.fields as ProfileField[]).forEach((field, i) => {
+      field.setProps({  value: newProps[userFields[i]] })
+    })
 
-    console.log(this._props, this._options)
+    return false
+  }
+
+  render() {
+    return this.compile(template, this.props)
   }
 }
 
-export const ShowProfilePage = withStore((state) => ({ user: state.user }))(ShowProfilePageComponent)
+const withUser = withStore((state) => ({ ...state.user }))
+
+export const ProfilePage = withUser(ProfilePageBase)
