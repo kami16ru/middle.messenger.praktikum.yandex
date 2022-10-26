@@ -1,12 +1,14 @@
+<div id="{{ createChatInputId }}"></div>
+<div id="{{ createChatBtnId }}"></div>
 {{#each chats}}
-  <div data-id="{{ this.id }}" class="chat-list__item bg-accent">
-    <div class="chat-list__item__avatar">
-      <img src="{{this.avatar}}" alt="avatar" />
-      <span class="chat-list__item__unread-count">{{this.unread_count}}</span>
-    </div>
-    <div class="chat-list__item__details">
-      <span class="info">{{this.title}}</span>
-      <span class="chat-list__item__short-message dark">{{this.last_message.content}}</span>
-    </div>
+<div data-id="{{ this.id }}" class="chat-list__item bg-accent">
+  <div class="chat-list__item__avatar">
+    <img src="{{this.avatar}}" alt="avatar" />
+    <span class="chat-list__item__unread-count">{{this.unread_count}}</span>
   </div>
+  <div class="chat-list__item__details">
+    <span class="info">{{this.title}}</span>
+    <span class="chat-list__item__short-message dark">{{this.last_message.content}}</span>
+  </div>
+</div>
 {{/each}}

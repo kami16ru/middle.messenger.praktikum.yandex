@@ -12,3 +12,9 @@
 button {
   margin: 1em;
 }
+
+.messenger-page {
+  height: 100vh;
+  display: flex;
+  flex-flow: nowrap;
+}

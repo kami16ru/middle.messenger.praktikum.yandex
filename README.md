@@ -283,6 +283,8 @@ Http запросы находятся в папке services/api.
   - [x] pcjs-58 - store
   - [x] pcjs-60 - Modules update
   - [ ] pcjs-66 - ChatWrapper component
+    - [x] - ChatsController
+    - [x] - MessagingController
     - [ ] - MessageInput
     - [ ] - MessageList
     - [ ] - Message
@@ -306,20 +308,21 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-59 - Изменение container в зависимости от ширины nav
   - [ ] pcjs-61 - Button click hooks router
   - [ ] pcjs-63 - Router middleware
-  - [ ] pcjs-66 - Рефакторинг 6
+  - [ ] pcjs-68 - Http requests error handler
+  - [ ] pcjs-70 - Реализовать метод navigate у класса route
+  - [ ] pcjs-71 - Рефакторинг 6
     - [ ] button убрать `<a>`
     - [ ] debounce mouseover avatar
     - [ ] При схлопывании навигации оставлять только аватарку у чата
     - [ ] Исправить отображение кнопок на страницах авторизации и регистрации
     - [ ] Убрать лишнюю верстку из logout page
-  - [ ] pcjs-68 - Http requests error handler
-  - [ ] pcjs-70 - Реализовать метод navigate у класса route
   - [ ] pcjs-72 - webpack
   - [ ] pcjs-73 - docker
   - [ ] pcjs-74 - heroku
   - [ ] pcjs-75 - Entity types в отдельную папку
   - [ ] pcjs-76 - Entity collection class
   - [ ] pcjs-78 - ChatService
+  - [ ] pcjs-86 - props with children
 
 #### Задачи релиза 1.0.0
 
@@ -332,7 +335,11 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-64 - Middleware pipeline
   - [ ] pcjs-65 - Button icon component
   - [ ] pcjs-67 - .env
-  - [ ] pcjs-71 - Рефакторинг 7
+  - [ ] pcjs-77 - http response types
+  - [ ] pcjs-80 - заменить uuid на nano-id
+  - [ ] pcjs-81 - обновить eslint rules
+  - [ ] pcjs-83 - переписать compile
+  - [ ] pcjs-87 - Рефакторинг 7
     - [ ] Использовать деструкторизацию для импортов часто используемых модулей
     - [ ] Сделать приватные свойства js классов приватными
     - [ ] `src/pages/login/template.hbs` вход по enter
@@ -347,7 +354,3 @@ Http запросы находятся в папке services/api.
     - [ ] `src/pages/error/404/template.hbs` задать картинку с помощью background
     - [ ] Оптимизировать изображения
     - [ ] Проверить везде Error handling. Убрать console.log
-  - [ ] pcjs-77 - http response types
-  - [ ] pcjs-80 - заменить uuid на nano-id
-  - [ ] pcjs-81 - обновить eslint rules
-  - [ ] pcjs-83 - переписать compile

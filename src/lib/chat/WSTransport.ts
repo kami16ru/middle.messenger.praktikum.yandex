@@ -56,16 +56,23 @@ export default class WSTransport extends EventBus {
   private subscribe(socket: WebSocket) {
     socket.addEventListener('open', () => {
       this.emit(WSTransportEvents.Connected)
+      console.log('socket open')
     })
     socket.addEventListener('close', () => {
       this.emit(WSTransportEvents.Close)
+      console.log('socket close')
     })
 
     socket.addEventListener('error', (e) => {
       this.emit(WSTransportEvents.Error, e)
+      console.log('socket error')
     })
 
     socket.addEventListener('message', (message) => {
+      if (!message.data) return
+
+      console.log(message)
+
       const data = JSON.parse(message.data)
 
       if (data.type && data.type === 'pong') {

@@ -1,3 +1,1 @@
-export interface ByIdRequest {
-  id: number
-}
+export type ByIdRequest = number

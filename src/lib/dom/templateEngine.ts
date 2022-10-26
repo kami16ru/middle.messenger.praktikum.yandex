@@ -24,7 +24,10 @@ export default {
     try {
       const root = document.getElementById(component._id)
 
-      if (!root) ErrorHandler.handle('Document not found!')
+      if (!root) {
+        console.log(component)
+        ErrorHandler.handle('Document not found!')
+      }
 
       else {
         component.dispatchRender()
