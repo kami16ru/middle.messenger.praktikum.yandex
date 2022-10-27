@@ -110,7 +110,7 @@ class ProfileShowPageComponent extends Block<ProfileProps> {
   }
 
   protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
-    (this.children.fields as ProfileField[]).forEach((field, i) => {
+    (this.children.form as ProfileField[]).forEach((field, i) => {
       field.setProps({  value: newProps[userFields[i]] })
     })
 

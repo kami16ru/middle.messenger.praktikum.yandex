@@ -1,5 +1,5 @@
 import WSTransport, { WSTransportEvents } from '../../../lib/chat/WSTransport'
-import store from '../../../lib/dom/Store'
+import store from '../../../utils/Store'
 
 export type Message = {
   chat_id: number;

@@ -1,82 +1,51 @@
+import Block from '../../../../utils/Block'
 import template from './template.hbs'
+import { Chat } from '../chat/index'
 import './style.css'
-import Component from '../../../../lib/dom/Component'
-import { ComponentOptionsWithoutTemplate } from '../../../../lib/dom/types'
-import data from '../../../../util/data'
+import { withStore } from '../../../../utils/Store'
+import { ChatResponse } from '../../services/chatApi'
 import ChatsController from '../../services/ChatsController'
-import { withStore } from '../../../../lib/dom/Store'
-import { Input } from '../input/index'
-import { Button } from '../button/index'
+import { Link } from '../../../../components/ui/link/index'
 
-const input = new Input({
-  props: {
-    name: 'message-input',
-    type: 'text',
-    placeholder: 'Название нового чата...'
-  }
-})
+interface ChatsListProps {
+  chats: ChatResponse[];
+  isLoaded: boolean;
+}
 
-const button = new Button({
-  props: {
-    label: 'Создать',
-    type: 'button'
-  }
-})
-
-class ChatListComponent extends Component {
-  chatItem: HTMLElement
-
-  constructor(options: ComponentOptionsWithoutTemplate) {
-    super({
-      template,
-      ...options,
-      props: {
-        ...options.props,
-        chats: data.chats,
-        createChatInputId: input.id,
-        createChatBtnId: button.id
-      },
-      components: { input, button },
-      attrs: {
-        class: 'chat-list'
-      }
-    })
+class ChatsListBase extends Block<ChatsListProps> {
+  constructor(props: ChatsListProps) {
+    super({ ...props })
   }
 
-  async mounted() {
-    super.mounted()
+  protected init() {
+    this.children.chats = this.createChats(this.props)
+    this.children.profileLink = new Link({ to: '/profile', label: 'Профиль' })
+  }
 
-    // await MessagesController.closeAll()
+  protected componentDidUpdate(_oldProps: ChatsListProps, newProps: ChatsListProps): boolean {
+    this.children.chats = this.createChats(newProps)
 
-    if (!this.props?.chats) {
-      await ChatsController.fetchChats()
+    return true
+  }
 
-      this.dispatchComponentDidUpdate({ ...this.props })
-    }
-
-    const chatList = document.querySelectorAll('.chat-list__item')
-
-    if (chatList.length > 0) chatList.forEach( (chatItem) => {
-      if (chatItem instanceof HTMLElement) {
-        chatItem.onclick = (e) => {
-          const el = e.target as HTMLElement
-          const chatListItem = el.closest('.chat-list__item') as HTMLElement
-
-          this.eventBus.emit('chat:selected', chatListItem.dataset.id)
+  private createChats(props: ChatsListProps) {
+    return props.chats.map((data) => {
+      return new Chat({
+        ...data,
+        events: {
+          click: () => {
+            ChatsController.selectChat(data.id)
+          }
         }
-      }
+      })
     })
+  }
 
-    const btn = document.querySelector('button') as HTMLElement
-
-    btn.onclick = () => {
-      ChatsController.create('новый чат2')
-    }
+  protected render(): DocumentFragment {
+    return this.compile(template, { ...this.props })
   }
 }
 
-export const ChatList = withStore((state) => ({
-  chats: state.chats,
-  selectedChat: state.selectedChat,
-  user: state.user
-}))(ChatListComponent)
+const withChats = withStore((state) => ({ chats: [...(state.chats || [])] }))
+
+export const ChatsList = withChats(ChatsListBase)

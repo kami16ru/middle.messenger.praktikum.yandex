@@ -5,6 +5,8 @@ import { ProfileShowPage } from './modules/profile/pages/show/index'
 import { ProfileEditPage } from './modules/profile/pages/edit/index'
 import { ProfileEditPasswordPage } from './modules/profile/pages/edit-password/index'
 import { authController as AuthController } from './modules/auth/services/AuthController'
+import { MessengerPage } from './modules/chat/pages/messenger/index'
+
 // import { MessengerPage } from './pages/Messenger'
 
 export enum Routes {
@@ -23,7 +25,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(Routes.ProfileShow, ProfileShowPage)
     .use(Routes.ProfileEdit, ProfileEditPage)
     .use(Routes.ProfileEditPassword, ProfileEditPasswordPage)
-    // .use(Routes.Messenger, MessengerPage)
+    .use(Routes.Messenger, MessengerPage)
 
   let isProtectedRoute = true
 

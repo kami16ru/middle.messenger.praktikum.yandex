@@ -275,16 +275,16 @@ Http запросы находятся в папке services/api.
     - [x] dynamic http requests
   - [x] pcjs-53 - websockets
   - [x] pcjs-55 - helmet.js
-  - [ ] pcjs-56 - Рефакторинг 5
+  - [x] pcjs-56 - Рефакторинг 5
     - [x] Использовать деструкторизацию для импортов часто используемых модулей
     - [x] Исправить отображение кнопок на страницах авторизации и регистрации
     - [x] props with children
     - [x] переписать compile
-    - [ ] Переписать отрисовку компонентов
+    - [x] Переписать отрисовку компонентов
       - [x] login page
       - [x] register page
-      - [ ] profile page
-      - [ ] messenger page
+      - [x] profile page
+      - [x] messenger page
     - [x] Починить валидацию
   - [x] pcjs-57 - README.md update
   - [x] pcjs-58 - store

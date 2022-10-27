@@ -15,7 +15,7 @@ export class AuthController {
 
       await this.fetchUser()
 
-      router.go('/profile/show')
+      router.go('/messenger')
     } catch (e: any) {
       console.error(e)
       router.go('/')
@@ -28,7 +28,7 @@ export class AuthController {
 
       await this.fetchUser()
 
-      router.go('/settings')
+      router.go('/messenger')
     } catch (e: any) {
       console.error(e.message)
       router.go('/')
@@ -56,3 +56,5 @@ export class AuthController {
 }
 
 export const authController = new AuthController()
+
+// window.authController = authController
