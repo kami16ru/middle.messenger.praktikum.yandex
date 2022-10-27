@@ -1,45 +1,45 @@
 import icons from './icons'
-import { ChatList } from '../modules/chat/components/chat-list/index'
-import { NavDrawerList } from '../components/ui/nav/drawer/list/index'
-import Component from '../lib/dom/Component'
+import { ChatsList } from '../modules/chat/components/chat-list/index'
+// import { NavDrawerList } from '../components/ui/nav/drawer/list/index'
+import Block from '../utils/Block'
+import {State} from "../utils/Store";
 
 export const navDrawerList = [{
   title: 'На главную',
-  href: '/',
+  to: '/',
   icon: icons.home
 }, {
   title: 'Профайл',
-  href: '/settings',
+  to: '/settings',
   icon: icons.profile
 }, {
   title: 'Чат',
-  href: '/messenger',
+  to: '/messenger',
   icon: icons.chat
 }, {
   title: 'Выход',
-  href: '/logout',
+  to: '/logout',
   icon: icons.logout
 }]
 
 export type NavDrawerHeaderConfig = {
   name: string
   icon: string
-  component: Component
+  component: string,
   active: boolean,
-  class?: string,
-  iconId: string
+  class?: string
 }
 
 export const navDrawerHeader = [{
   name: 'chat',
   icon: 'mdi mdi-chat-processing',
-  component: ChatList,
+  component: 'chatList',
   active: true,
   class: 'chat-list'
 }, {
   name: 'nav',
   icon: 'mdi mdi-backburger',
-  component: NavDrawerList,
+  component: 'navList',
   active: false
 }]
 
@@ -63,11 +63,11 @@ export default {
   }],
   drawerHeader: [{
     icon: 'mdi mdi-chat-processing',
-    component: ChatList,
+    component: ChatsList,
     active: false
   }, {
     icon: 'mdi mdi-backburger',
-    component: NavDrawerList,
+    component: ChatsList,
     active: true
   }]
 }

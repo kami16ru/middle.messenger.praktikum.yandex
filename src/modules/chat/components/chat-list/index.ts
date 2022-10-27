@@ -9,7 +9,7 @@ import { Link } from '../../../../components/ui/link/index'
 
 interface ChatsListProps {
   chats: ChatResponse[];
-  isLoaded: boolean;
+  isLoaded?: boolean;
 }
 
 class ChatsListBase extends Block<ChatsListProps> {

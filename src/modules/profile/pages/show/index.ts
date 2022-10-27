@@ -7,6 +7,7 @@ import { ProfileField } from '../../components/profile-field/index'
 import { Form } from '../../../../components/ui/form/index'
 import Router from '../../../../utils/Router'
 import { Routes } from '../../../../main'
+import { NavDrawer } from '../../../../components/nav/drawer/index'
 
 type ProfileProps = UserResponse
 
@@ -66,6 +67,8 @@ const userFields = [
 
 class ProfileShowPageComponent extends Block<ProfileProps> {
   init() {
+    this.children.navDrawer = new NavDrawer({})
+
     const inputs = formConfig.inputs.map((formConfig) => {
       const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
 
