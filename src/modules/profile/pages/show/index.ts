@@ -3,7 +3,7 @@ import template from './template.hbs'
 import { withStore } from '../../../../utils/Store'
 import { Button } from '../../../../components/ui/button/index'
 import { UserResponse } from '../../../auth/services/authApi'
-import { ProfileField } from '../../components/profile-field/index'
+// import { ProfileField } from '../../components/profile-field/index'
 import { Form } from '../../../../components/ui/form/index'
 import Router from '../../../../utils/Router'
 import { Routes } from '../../../../main'
@@ -55,15 +55,15 @@ const formConfig = {
   }]
 }
 
-const userFields = [
-  'id',
-  'first_name',
-  'second_name',
-  'display_name',
-  'login', 'avatar',
-  'email',
-  'phone'
-] as Array<keyof ProfileProps>
+// const userFields = [
+//   'id',
+//   'first_name',
+//   'second_name',
+//   'display_name',
+//   'login', 'avatar',
+//   'email',
+//   'phone'
+// ] as Array<keyof ProfileProps>
 
 class ProfileShowPageComponent extends Block<ProfileProps> {
   init() {
@@ -113,9 +113,9 @@ class ProfileShowPageComponent extends Block<ProfileProps> {
   }
 
   protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
-    (this.children.form as ProfileField[]).forEach((field, i) => {
-      field.setProps({  value: newProps[userFields[i]] })
-    })
+    const form = this.children.form as Form
+
+    form.setProps({ ...newProps })
 
     return false
   }

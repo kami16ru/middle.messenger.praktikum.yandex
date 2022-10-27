@@ -1,69 +1,46 @@
 import template from './template.hbs'
 import './style.css'
-import { navDrawerList } from '../../../../config/nav'
 import Block from '../../../../utils/Block'
+import { NavDrawerListItem } from './item/index'
+import Router from '../../../../utils/Router'
 
 export interface NavDrawerListConfig {
-  navList?: {
-    title: string
-    to: string
-    icon: string,
-    events: {
-      click: (event: Event) => void
-    }
-  }[]
+  title: string
+  to: string
+  icon: string
+  events?: {
+    click: (event: Event) => void
+  }
 }
 
-export class NavDrawerList extends Block<NavDrawerListConfig> {
-  _collapsed: boolean
+export interface NavDrawerListProps {
+  navList: NavDrawerListConfig[]
+  collapsed?: boolean
+}
+
+export class NavDrawerList extends Block<NavDrawerListProps> {
   navDrawer: HTMLElement
   navDrawerToggle: HTMLElement
 
-  constructor(props: NavDrawerListConfig) {
+  constructor(props: NavDrawerListProps) {
     super({
-      navList: navDrawerList.map((item) => ({ ...item, events: { click: (event: Event) => this.onMenuItemClick(event) } })),
       ...props
     })
   }
 
   init() {
-    // this.eventBus.on('nav-drawer-toggle-menu', this.onNavDrawerToggle.bind(this))
+    this.children.items = this.createItems(this.props.navList)
   }
 
-  onMenuItemClick(event: Event) {
-    console.log(event)
-  }
-
-  // mounted() {
-  //   super.mounted()
-  //
-  //   this.showTitles()
-  //
-  //   this.eventBus.on('nav-drawer-toggle-menu', this.onNavDrawerToggle.bind(this))
-  // }
-
-  onNavDrawerToggle(args: Record<string, unknown>) {
-    const { collapsed } = args
-
-    if (!collapsed) {
-      this.showTitles()
-    } else {
-      this.hideTitles()
-    }
-  }
-
-  showTitles() {
-    setTimeout(() => {
-      for (const elem of document.getElementsByClassName('nav-menu-title')) {
-        elem.removeAttribute('hidden')
-      }
-    }, 500)
-  }
-
-  hideTitles() {
-    for (const elem of document.getElementsByClassName('nav-menu-title')) {
-      elem.setAttribute('hidden','true')
-    }
+  createItems(navList: NavDrawerListConfig[]) {
+    return navList.map((props) => {
+      return new NavDrawerListItem({
+        ...props,
+        events: {
+          click: () => Router.go(props.to)
+        }
+      })
+    })
   }
 
   render() {

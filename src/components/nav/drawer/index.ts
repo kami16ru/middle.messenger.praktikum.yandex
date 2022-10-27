@@ -5,6 +5,7 @@ import { NavDrawerHeader } from './header/index'
 import Block from '../../../utils/Block'
 import { NavDrawerList } from './list/index'
 import { withStore } from '../../../utils/Store'
+import { navDrawerList } from '../../../config/nav'
 // import { ChatResponse } from '../../../modules/chat/services/chatApi'
 
 export interface NavDrawerProps {
@@ -33,13 +34,13 @@ export class NavDrawerComponent extends Block<NavDrawerProps> {
   getActiveComponent(val: string) {
     switch (val) {
     case 'navList': {
-      return new NavDrawerList({})
+      return new NavDrawerList({ navList: navDrawerList })
     }
     case 'chatList': {
-      return new NavDrawerList({})
+      return new NavDrawerList({ navList: navDrawerList })
     }
     default: {
-      return new NavDrawerList({})
+      return new NavDrawerList({ navList: navDrawerList })
     }
     }
   }

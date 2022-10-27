@@ -8,13 +8,3 @@
   list-style-type: none;
   padding-left: 0;
 }
-
-.nav-drawer__menu-item {
-  justify-content: center;
-  align-content: center;
-  margin-left: 6px;
-}
-
-.nav-drawer__menu-item > a {
-  text-decoration: none;
-}

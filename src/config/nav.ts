@@ -1,8 +1,8 @@
 import icons from './icons'
 import { ChatsList } from '../modules/chat/components/chat-list/index'
 // import { NavDrawerList } from '../components/ui/nav/drawer/list/index'
-import Block from '../utils/Block'
-import {State} from "../utils/Store";
+// import Block from '../utils/Block'
+// import {State} from "../utils/Store";
 
 export const navDrawerList = [{
   title: 'На главную',

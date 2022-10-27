@@ -14,18 +14,9 @@ export interface State {
   chats: ChatResponse[]
   messages: Record<number, Message[]>
   selectedChat?: number
-  nav: {
-    collapsed: boolean
-  }
 }
 
 export class Store extends EventBus {
-  constructor() {
-    super()
-
-    this.state.nav = { collapsed: false }
-  }
-
   private state: any = {}
 
   public set(keypath: string, data: unknown) {

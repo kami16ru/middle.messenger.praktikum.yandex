@@ -1,0 +1,6 @@
+.nav-drawer__menu-item {
+  justify-content: center;
+  align-content: center;
+  margin-left: 6px;
+  cursor: pointer;
+}
