@@ -2,14 +2,15 @@ import '../style.css'
 import template from './template.hbs'
 import { Button } from '../../../../components/ui/button/index'
 import { Input } from '../../../../components/ui/input/index'
-import { SignUpRequest, UserResponse } from '../../../auth/services/authApi'
+import { UserResponse } from '../../../auth/services/authApi'
 import Block from '../../../../utils/Block'
 import { Form } from '../../../../components/ui/form/index'
 import Router from '../../../../utils/Router'
 import { ValidatedInput } from '../../../../components/ui/validated-input/index'
-import { authController } from '../../../auth/services/AuthController'
 import { ProfileField } from '../../components/profile-field/index'
 import { withStore } from '../../../../utils/Store'
+import { profileController } from '../../services/ProfileController'
+import { ProfileEditRequest } from '../../services/api'
 
 type ProfileProps = UserResponse
 
@@ -67,7 +68,7 @@ const userFields = [
   'phone'
 ] as Array<keyof ProfileProps>
 
-class ProfilePageBase extends Block<ProfileProps> {
+class ProfileEditPageComponent extends Block<ProfileProps> {
   init() {
     const inputs = formConfig.inputs.map((formConfig) => {
       const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
@@ -115,7 +116,7 @@ class ProfilePageBase extends Block<ProfileProps> {
 
     const data = Object.fromEntries(values)
 
-    await authController.signUp(data as SignUpRequest)
+    await profileController.edit(data as ProfileEditRequest)
   }
 
   onCancel() {
@@ -137,4 +138,4 @@ class ProfilePageBase extends Block<ProfileProps> {
 
 const withUser = withStore((state) => ({ ...state.user }))
 
-export const ProfileEditPage = withUser(ProfilePageBase)
+export const ProfileEditPage = withUser(ProfileEditPageComponent)
