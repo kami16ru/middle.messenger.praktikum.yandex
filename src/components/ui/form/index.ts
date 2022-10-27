@@ -70,8 +70,8 @@ export class Form extends Block {
         ...props,
         readonly,
         events: {
-          blur: () => this.validate(props),
-          focus: () => this.validate(props)
+          blur: () => this.props.readonly ? undefined : this.validate(props),
+          focus: () => this.props.readonly ? undefined : this.validate(props)
         }
       })
     })

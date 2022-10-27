@@ -2,6 +2,7 @@ import { LoginPage } from './modules/auth/pages/login/index'
 import { RegisterPage } from './modules/auth/pages/register/index'
 import Router from './utils/Router'
 import { ProfileShowPage } from './modules/profile/pages/show/index'
+import { ProfileEditPage } from './modules/profile/pages/edit/index'
 import { authController as AuthController } from './modules/auth/services/AuthController'
 // import { MessengerPage } from './pages/Messenger'
 
@@ -19,7 +20,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(Routes.Index, LoginPage)
     .use(Routes.Register, RegisterPage)
     .use(Routes.ProfileShow, ProfileShowPage)
-    .use(Routes.ProfileEdit, LoginPage)
+    .use(Routes.ProfileEdit, ProfileEditPage)
     .use(Routes.ProfileEditPassword, LoginPage)
     // .use(Routes.Messenger, MessengerPage)
 

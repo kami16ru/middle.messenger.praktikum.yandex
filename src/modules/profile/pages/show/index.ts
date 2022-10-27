@@ -2,12 +2,9 @@ import Block from '../../../../utils/Block'
 import template from './template.hbs'
 import { withStore } from '../../../../utils/Store'
 import { Button } from '../../../../components/ui/button/index'
-import { SignUpRequest, UserResponse } from '../../../auth/services/authApi'
+import { UserResponse } from '../../../auth/services/authApi'
 import { ProfileField } from '../../components/profile-field/index'
 import { Form } from '../../../../components/ui/form/index'
-import { Input } from '../../../../components/ui/input/index'
-import { authController } from '../../../auth/services/AuthController'
-import { ValidatedInput } from '../../../../components/ui/validated-input/index'
 import Router from '../../../../utils/Router'
 import { Routes } from '../../../../main'
 
@@ -67,7 +64,7 @@ const userFields = [
   'phone'
 ] as Array<keyof ProfileProps>
 
-class ProfilePageBase extends Block<ProfileProps> {
+class ProfileShowPageComponent extends Block<ProfileProps> {
   init() {
     const inputs = formConfig.inputs.map((formConfig) => {
       const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
@@ -112,23 +109,6 @@ class ProfilePageBase extends Block<ProfileProps> {
     })
   }
 
-  async onProfileEditClick() {
-    const form = this.children.form as Form
-    const validatedInputs = form.children.inputs as ValidatedInput[]
-
-    const values = validatedInputs.map((validatedInput) => {
-      const input = validatedInput.children.input as Input
-
-      return [input.getName(), input.getValue()]
-    })
-
-    const data = Object.fromEntries(values)
-
-    console.log(data)
-
-    await authController.signUp(data as SignUpRequest)
-  }
-
   protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
     (this.children.fields as ProfileField[]).forEach((field, i) => {
       field.setProps({  value: newProps[userFields[i]] })
@@ -144,4 +124,4 @@ class ProfilePageBase extends Block<ProfileProps> {
 
 const withUser = withStore((state) => ({ ...state.user }))
 
-export const ProfileShowPage = withUser(ProfilePageBase)
+export const ProfileShowPage = withUser(ProfileShowPageComponent)

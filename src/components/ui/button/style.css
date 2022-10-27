@@ -17,6 +17,7 @@ button a {
 .button-group__row {
   display: inline-flex;
   width: 100%;
+  justify-content: center;
 }
 
 .button-group__row button {

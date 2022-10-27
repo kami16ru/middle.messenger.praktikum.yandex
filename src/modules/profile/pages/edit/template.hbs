@@ -1,24 +1,16 @@
-<div id="{{ profileAvatarId }}"></div>
+<div class="container full default-layout">
+  <div class="card bordered profile__profile-card bg-success accent profile-form">
+    <h3 class="card__title dark">Профайл - редактирование</h3>
 
-<div class="break"></div>
+    {{{ form }}}
 
-<div class="card bordered profile__profile-card bg-success accent">
-  <h3 class="card__title dark">Профайл - редактирование</h3>
-  <form id="profile-form" class="form">
+    <div class="spacer"></div>
 
-    {{#each inputTemplates}}
-      {{{this}}}
-    {{/each}}
+    <div class="button-group__row">
 
-  </form>
+      {{{ save }}}
+      {{{ cancel }}}
 
-  <div class="spacer"></div>
-
-  <div class="btn-group__row">
-
-    {{#each buttonTemplates}}
-      {{{this}}}
-    {{/each}}
-
+    </div>
   </div>
 </div>
