@@ -1,0 +1,9 @@
+<div>
+  {{#each menuConfig}}
+  <span
+    id="{{ this.iconId }}"
+    class="{{ this.icon }} nav-drawer__header-icon h2 {{#if this.active}}active{{/if}}"
+    {{#if collapsed}}hidden{{/if}}
+  ></span>
+  {{/each}}
+</div>

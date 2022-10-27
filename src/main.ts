@@ -12,7 +12,7 @@ import { MessengerPage } from './modules/chat/pages/messenger/index'
 export enum Routes {
   Index = '/',
   Register = '/register',
-  ProfileShow = '/profile/show',
+  ProfileShow = '/settings',
   ProfileEdit = '/profile/edit',
   ProfileEditPassword = '/profile/edit/password',
   Messenger = '/messenger',
@@ -27,29 +27,29 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(Routes.ProfileEditPassword, ProfileEditPasswordPage)
     .use(Routes.Messenger, MessengerPage)
 
-  let isProtectedRoute = true
-
-  switch (window.location.pathname) {
-  case Routes.Index:
-  case Routes.Register:
-    isProtectedRoute = false
-    break
-  }
+  // let isProtectedRoute = true
+  //
+  // switch (window.location.pathname) {
+  // case Routes.Index:
+  // case Routes.Register:
+  //   isProtectedRoute = false
+  //   break
+  // }
 
   try {
     await AuthController.fetchUser()
 
     Router.start()
 
-    if (!isProtectedRoute) {
-      Router.go(Routes.ProfileShow)
-    }
+    // if (!isProtectedRoute) {
+    //   Router.go(Routes.ProfileShow)
+    // }
   } catch (e) {
     Router.start()
 
-    if (isProtectedRoute) {
-      Router.go(Routes.Index)
-    }
+    // if (isProtectedRoute) {
+    //   Router.go(Routes.Index)
+    // }
   }
 
 })
