@@ -1,1 +1,6 @@
-<input class="input input_underlined text-right" name="{{ name }}" type="{{ type }}" placeholder="{{placeholder}}"/>
+<input class="input input_underlined text-right"
+  name="{{ name }}"
+  type="{{ type }}"
+  placeholder="{{placeholder}}"
+  {{#if readonly}}readonly{{/if}}
+/>

@@ -13,3 +13,13 @@ button a {
   text-decoration: none;
   color: inherit;
 }
+
+.button-group__row {
+  display: inline-flex;
+  width: 100%;
+}
+
+.button-group__row button {
+  margin: 15px 5px 10px;
+  width: 200px;
+}

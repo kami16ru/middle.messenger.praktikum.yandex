@@ -8,6 +8,7 @@ import { ValidatedInput } from '../validated-input/index'
 
 export interface FormProps {
   inputs: Array<InputProps>
+  readonly?: boolean
 }
 
 export class Form extends Block {
@@ -16,7 +17,7 @@ export class Form extends Block {
   }
 
   init() {
-    this.children.inputs = this.createInputs(this.props.inputs)
+    this.children.inputs = this.createInputs(this.props)
   }
 
   validate(inputProps: ValidatorConfig) {
@@ -61,10 +62,13 @@ export class Form extends Block {
     })
   }
 
-  createInputs(inputs: InputProps[]) {
+  createInputs(props: FormProps) {
+    const { inputs, readonly } = props
+
     return inputs.map((props) => {
       return new ValidatedInput({
         ...props,
+        readonly,
         events: {
           blur: () => this.validate(props),
           focus: () => this.validate(props)

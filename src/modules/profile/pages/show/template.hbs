@@ -1,6 +1,17 @@
-<div>
-  {{#each fields}}
-    {{{this}}}
-  {{/each}}
-  {{{ logoutButton }}}
+<div class="container full default-layout">
+  <div class="card bordered profile__profile-card bg-success accent profile-form">
+    <h3 class="card__title dark">Профайл</h3>
+
+    {{{ form }}}
+
+    <div class="spacer"></div>
+
+    <div class="button-group__row">
+
+      {{{ editProfile }}}
+      {{{ editPassword }}}
+      {{{ exit }}}
+
+    </div>
+  </div>
 </div>

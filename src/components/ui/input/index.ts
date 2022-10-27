@@ -6,12 +6,8 @@ import { InputProps } from './types'
 export class Input extends Block<InputProps> {
   constructor(props: InputProps) {
     super(props)
-  }
 
-  init() {
-    const element = document.querySelector(`input[name="${this.props.name}"]`) as HTMLInputElement
-
-    // element.addEventListener('blur', this.props.events?.blur?.bind(this))
+    if (props.value) this.setValue(props.value)
   }
 
   public setValue(value: string) {

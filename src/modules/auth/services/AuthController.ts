@@ -15,7 +15,7 @@ export class AuthController {
 
       await this.fetchUser()
 
-      router.go('/messenger')
+      router.go('/profile/show')
     } catch (e: any) {
       console.error(e)
       router.go('/')
