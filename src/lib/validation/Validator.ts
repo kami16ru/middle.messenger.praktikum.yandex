@@ -1,25 +1,16 @@
-import ErrorHandler from '../error/ErrorHandler'
 import defaultRules from './rules'
-import { IValidator, ValidatorOptions, ValidationRuleConfig, OnBlurCallbackOptions } from './types'
+import { ValidatorConfig, ValidationRuleConfig, OnBlurCallbackOptions } from './types'
 
-export default class Validator implements IValidator {
-  _options
-  form
+export default class Validator {
+  _config
   rules
-  errors
+  errors: Array<unknown>
 
-  constructor(options: ValidatorOptions) {
-    this._options = options
+  constructor(config: ValidatorConfig) {
+    this._config = config
 
-    const { form, rules = defaultRules } = options
-
-    if (!form) ErrorHandler.handle('form must be defined!')
-
-    this.form = form
-    this.rules = rules
-    this.errors = form.reduce((acc, cur) => {
-      return Object.assign(acc, { [cur.name]: [] })
-    }, {})
+    this.rules = defaultRules
+    this.errors = []
   }
 
   static isDirty(value: string, rule: ValidationRuleConfig['check']) {
@@ -42,37 +33,37 @@ export default class Validator implements IValidator {
   // }
 
   initValidation() {
-    const { form } = this
+    const config = this._config
 
-    console.log('validator', form)
+    console.log('validator', config)
 
-    form.forEach((formConfig) => {
-      if (formConfig.rules) {
-        const element = document.getElementById(formConfig.id) as HTMLInputElement
+    if (config.rules) {
+      const element = document.getElementsByName(config.name)[0]
 
-        if (element) {
-          const closetsLabel = element.closest('label')
+      console.log(document.getElementsByName(config.name), config)
 
-          if (closetsLabel) {
-            element.onblur = () => this.onBlurCallback({
-              target: element,
-              messageContainer: closetsLabel.querySelector('.input-helper') as HTMLElement,
-              defaultValue: formConfig.helper ?? '',
-              fieldRules: formConfig.rules ?? []
-            })
+      if (element) {
+        const closetsLabel = element.closest('label')
 
-            element.onfocus = element.onblur
-          }
+        if (closetsLabel) {
+          element.onblur = () => this.onBlurCallback({
+            target: element,
+            messageContainer: closetsLabel.querySelector('.input-helper') as HTMLElement,
+            defaultValue: config.helper ?? '',
+            fieldRules: config.rules ?? []
+          })
+
+          element.onfocus = element.onblur
         }
       }
-    })
+    }
   }
 
   onBlurCallback(options: OnBlurCallbackOptions) {
     const { target, messageContainer, defaultValue = '', fieldRules } = options
 
     fieldRules.forEach((ruleName) => {
-      const rule = this.rules.find((rule: ValidationRuleConfig) => rule.name === ruleName)
+      const rule = this.rules?.find((rule: ValidationRuleConfig) => rule.name === ruleName)
 
       if (!rule) throw new Error(`No such rule: ${ruleName}`)
 

@@ -1,133 +1,63 @@
+import Block from '../../../../utils/Block'
 import template from './template.hbs'
-import './style.css'
-import Component, { createComponentsFromProps } from '../../../../lib/dom/Component'
 import { Button } from '../../../../components/ui/button/index'
-import { loading } from '../../../../lib/helpers/components'
 import { Input } from '../../../../components/ui/input/index'
-import Validator from '../../../../lib/validation/Validator'
-import { ComponentOptions } from '../../../../lib/dom/types'
-import { FormConfig } from '../../../../components/ui/input/types'
-import { authController } from '../../services/AuthController'
+import '../style.css'
+import './style.css'
+import { Link } from '../../../../components/ui/link/index'
 import { SignInRequest } from '../../services/authApi'
-import { withStore } from '../../../../lib/dom/Store'
+import { authController } from '../../services/AuthController'
+import { Form } from '../../../../components/ui/form/index'
 
-const loginLoadingId = 'login-submit-loading'
-
-const form: FormConfig[] = [
-  { id: 'form-login-login', name: 'login', label: 'Логин', helper: 'Имя пользователя', rules: ['isLogin'], value: '' },
-  { id: 'form-login-password', name: 'password', label: 'Пароль', helper: '', type: 'password', rules: ['isPassword'], value: '' }
-]
-const inputComponents = createComponentsFromProps(form, Input)
-
-const loginBtn = new Button({
-  props: {
-    class: 'bg-primary white',
-    value: 'Войти',
-    href: '/'
-  }
+const form = new Form({
+  inputs: [{
+    name: 'login',
+    type: 'text',
+    label: 'Логин',
+    helper: '',
+    rules: ['isLogin']
+  }, {
+    name: 'password',
+    type: 'password',
+    label: 'Пароль',
+    helper: '',
+    rules: ['isPassword']
+  }]
 })
-const registerBtn = new Button({
-  props: {
-    class: 'white',
-    value: 'Регистрация',
-    href: '/register',
-    outline: true
-  }
-})
-const buttons = {
-  loginBtnId: loginBtn.id,
-  registerBtnId: registerBtn.id
-}
 
-class LoginPageComponent extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
-    super({
-      template,
-      props: {
-        loadingId: loginLoadingId,
-        form,
-        ...buttons,
-        inputComponents: Object.values(inputComponents)
-      },
-      components: {
-        loginBtn,
-        registerBtn,
-        ...inputComponents
-      },
-      ...options
+export class LoginPage extends Block {
+  constructor() {
+    super({})
+  }
+
+  init() {
+    this.children.form = form
+
+    this.children.button = new Button({
+      label: 'Войти',
+      class: 'bg-primary white full-width',
+      events: {
+        click: () => this.onSubmit()
+      }
+    })
+
+    this.children.link = new Link({
+      label: 'Регистрация',
+      to: '/register'
     })
   }
 
-  async mounted() {
-    super.mounted()
-    this.initValidation()
+  async onSubmit() {
+    const validatedInputs = form.children.inputs as Input[]
+    const inputs = validatedInputs.map((input: Input) => input.children.input) as Input[]
+    const values = inputs.map((child) => ([(child as Input).getName(), (child as Input).getValue()]))
 
-    const submitBtn = document.getElementById(loginBtn.id)
+    const data = Object.fromEntries(values)
 
-    if (submitBtn) {
-      submitBtn.addEventListener('click', async (e) => {
-        e.preventDefault()
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const anchor = e.target.closest('a')
-
-        if (!anchor) return
-
-        console.log('btn clicked')
-
-        await this.submitLoginForm(submitBtn)
-
-        // window.location = anchor.getAttribute('href')
-      })
-    }
+    await authController.signIn(data as SignInRequest)
   }
 
-  initValidation() {
-    const form = Object.values(inputComponents).map((component) => ({
-      id: component.id,
-      name: component?.props?.name as string,
-      label: component?.props?.label as string,
-      helper: component?.props?.helper as string,
-      rules: component?.props?.rules as string[],
-      value: component?.props?.value as string
-    }))
-
-    console.log(form)
-
-    const validator = new Validator({ form })
-
-    validator.initValidation()
-  }
-
-  async submitLoginForm(submitBtn: HTMLElement) {
-    const loadingElement = document.getElementById(loginLoadingId) as HTMLElement
-    const form = document.getElementById('login-form') as HTMLFormElement
-
-    const formData = new FormData(form)
-    const login = formData.get('login')
-    const password = formData.get('password')
-
-    const credentials = {
-      login,
-      password
-    }
-
-    loading({ target: submitBtn, loadingElement, loading: true })
-
-    await authController.signIn(credentials as SignInRequest)
-
-    return new Promise((resolve) => {
-      setTimeout(() => {
-
-        form.reset()
-
-        loading({ target: submitBtn, loadingElement, loading: false })
-        console.log(credentials)
-
-        resolve(true)
-      }, 2000)
-    })
+  render() {
+    return this.compile(template, { ...this.props })
   }
 }
-
-export const LoginPage = withStore((state) => ({ user: state.user }))(LoginPageComponent)

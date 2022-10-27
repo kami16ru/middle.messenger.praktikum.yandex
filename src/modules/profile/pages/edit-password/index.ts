@@ -1,52 +1,112 @@
 import '../style.css'
 import template from './template.hbs'
-import Component, { createComponentsFromProps, getTemplatesFromComponents } from '../../../../lib/dom/Component'
 import { Button } from '../../../../components/ui/button/index'
 import { Input } from '../../../../components/ui/input/index'
-import Validator from '../../../../lib/validation/Validator'
-import { ComponentOptions } from '../../../../lib/dom/types'
-import { FormConfig } from '../../../../components/ui/input/types'
-import { ButtonConfig } from '../../../../components/ui/button/types'
+import Block from '../../../../utils/Block'
+import { Form } from '../../../../components/ui/form/index'
+import { ValidatedInput } from '../../../../components/ui/validated-input/index'
+import { profileController } from '../../services/ProfileController'
+import { ProfileEditPasswordRequest } from '../../services/api'
+import Router from '../../../../utils/Router'
+import { ProfileField } from '../../components/profile-field/index'
+import { withStore } from '../../../../utils/Store'
 
-const form: FormConfig[] = [
-  { id: 'form-edit-password-old_password', name: 'old_password', label: 'Старый пароль', value: '', type: 'password', rules: ['isPassword'] },
-  { id: 'form-edit-password-new_password', name: 'new_password', label: 'Новый пароль', value: '', type: 'password', rules: ['isPassword'] },
-  { id: 'form-edit-password-retype_new_password', name: 'retype_new_password', label: 'Повторите новый пароль', value: '', type: 'password', rules: ['isPassword'] }
-]
-const inputComponents = createComponentsFromProps(form, Input)
-const inputTemplates = getTemplatesFromComponents(inputComponents)
+const formConfig = {
+  inputs: [{
+    name: 'password',
+    type: 'password',
+    label: 'Пароль',
+    helper: 'Хотя бы одна заглавная буква, цифра, минимум 8 символов, максимум 40',
+    rules: ['isPassword']
+  }, {
+    name: 'passwordConfirm',
+    type: 'password',
+    label: 'Пароль еще раз',
+    helper: 'Должны совпадать',
+    rules: ['isPassword']
+  }]
+}
 
-const buttons: ButtonConfig[] = [
-  { class: 'bg-dark white', value: 'Сохранить', href: '/settings' },
-  { class: 'bg-danger white', value: 'Отменить', href: '/settings' }
-]
-const buttonComponents = createComponentsFromProps(buttons, Button)
-const buttonTemplates = getTemplatesFromComponents(buttonComponents)
+const userFields = [
+  'id',
+  'first_name',
+  'second_name',
+  'display_name',
+  'login', 'avatar',
+  'email',
+  'phone'
+] as Array<keyof ProfileEditPasswordRequest>
 
-export class EditPwdPage extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
-    super({
-      template,
-      props: {
-        form,
-        buttonTemplates,
-        inputTemplates
-      },
-      attrs: {
-        class: 'profile-edit-password-page container full'
-      },
-      ...options
+type ProfileProps = ProfileEditPasswordRequest
+
+class ProfileEditPasswordPageComponent extends Block<ProfileProps> {
+  init() {
+    const inputs = formConfig.inputs.map((formConfig) => {
+      const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const value = propKey ? this.props[propKey] : undefined
+
+      return {
+        ...formConfig,
+        value
+      }
+    })
+
+    this.children.form = new Form({
+      inputs
+    })
+
+    this.children.save = new Button({
+      label: 'Отправить',
+      class: 'bg-dark white',
+      events: {
+        click: () => this.onSubmit()
+      }
+    })
+
+    this.children.cancel = new Button({
+      label: 'Отменить',
+      class: 'bg-danger white',
+      events: {
+        click: () => this.onCancel()
+      }
     })
   }
 
-  mounted() {
-    super.mounted()
-    this.initValidation()
+  async onSubmit() {
+    const form = this.children.form as Form
+    const validatedInputs = form.children.inputs as ValidatedInput[]
+
+    const values = validatedInputs.map((validatedInput) => {
+      const input = validatedInput.children.input as Input
+
+      return [input.getName(), input.getValue()]
+    })
+
+    const data = Object.fromEntries(values)
+
+    await profileController.editPassword(data as ProfileEditPasswordRequest)
   }
 
-  initValidation() {
-    const validator = new Validator({ form })
+  onCancel() {
+    Router.back()
+  }
 
-    validator.initValidation()
+  protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
+    (this.children.form as ProfileField[]).forEach((field, i) => {
+      field.setProps({  value: newProps[userFields[i]] })
+    })
+
+    return false
+  }
+
+  render() {
+    return this.compile(template, this.props)
   }
 }
+
+const withUser = withStore((state) => ({ ...state.user }))
+
+export const ProfileEditPasswordPage = withUser(ProfileEditPasswordPageComponent)

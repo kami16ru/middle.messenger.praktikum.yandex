@@ -1,64 +1,141 @@
 import '../style.css'
 import template from './template.hbs'
-import Component, { createComponentsFromProps, getTemplatesFromComponents } from '../../../../lib/dom/Component'
-import { ProfileAvatar } from '../../components/profile-avatar/index'
 import { Button } from '../../../../components/ui/button/index'
 import { Input } from '../../../../components/ui/input/index'
-import Validator from '../../../../lib/validation/Validator'
-import { ComponentOptions } from '../../../../lib/dom/types'
-import { FormConfig } from '../../../../components/ui/input/types'
-import { ButtonConfig } from '../../../../components/ui/button/types'
+import { UserResponse } from '../../../auth/services/authApi'
+import Block from '../../../../utils/Block'
+import { Form } from '../../../../components/ui/form/index'
+import Router from '../../../../utils/Router'
+import { ValidatedInput } from '../../../../components/ui/validated-input/index'
+import { ProfileField } from '../../components/profile-field/index'
+import { withStore } from '../../../../utils/Store'
+import { profileController } from '../../services/ProfileController'
+import { ProfileEditRequest } from '../../services/api'
 
-const form: FormConfig[] = [
-  { id: 'form-profile-email', name: 'email', label: 'Почта', value: 'example@example.com', rules: ['isEmail'] },
-  { id: 'form-profile-login', name: 'login', label: 'Логин', value: 'examplelogin', rules: ['isLogin'] },
-  { id: 'form-profile-first-name', name: 'first_name', label: 'Имя', value: 'Иван', rules: ['isName'] },
-  { id: 'form-profile-second-name', name: 'second_name', label: 'Фамилия', value: 'Иванов', rules: ['isName'] },
-  { id: 'form-profile-second-name', name: 'display_name', label: 'Имя в чате', value: 'superhero' },
-  { id: 'form-profile-phone', name: 'phone', label: 'Телефон', value: '89099999999', rules: ['isPhone'] }
-]
-const inputComponents = createComponentsFromProps(form, Input)
-const inputTemplates = getTemplatesFromComponents(inputComponents)
+type ProfileProps = UserResponse
 
-const buttons: ButtonConfig[] = [
-  { class: 'bg-dark white', value: 'Сохранить', href: '/settings' },
-  { class: 'bg-danger white', value: 'Отменить', href: '/settings' }
-]
-const buttonComponents = createComponentsFromProps(buttons, Button)
-const buttonTemplates = getTemplatesFromComponents(buttonComponents)
+const formConfig = {
+  inputs: [{
+    name: 'email',
+    type: 'email',
+    label: 'Почта',
+    helper: 'Email пользователя',
+    rules: ['isEmail']
+  }, {
+    name: 'login',
+    type: 'text',
+    label: 'Логин',
+    rules: ['isLogin']
+  }, {
+    name: 'first_name',
+    type: 'text',
+    label: 'Имя',
+    helper: 'Как вас зовут?',
+    rules: ['isName']
+  }, {
+    name: 'second_name',
+    type: 'text',
+    label: 'Фамилия',
+    rules: ['isName']
+  }, {
+    name: 'phone',
+    type: 'text',
+    label: 'Телефон',
+    helper: 'От 10 до 15 символов, состоит из цифр, может начинается с плюса',
+    rules: ['isPhone']
+  }, {
+    name: 'password',
+    type: 'password',
+    label: 'Пароль',
+    helper: 'Хотя бы одна заглавная буква, цифра, минимум 8 символов, максимум 40',
+    rules: ['isPassword']
+  }, {
+    name: 'passwordConfirm',
+    type: 'password',
+    label: 'Пароль еще раз',
+    helper: 'Должны совпадать',
+    rules: ['isPassword']
+  }]
+}
 
-const profileAvatar = new ProfileAvatar()
+const userFields = [
+  'id',
+  'first_name',
+  'second_name',
+  'display_name',
+  'login', 'avatar',
+  'email',
+  'phone'
+] as Array<keyof ProfileProps>
 
-export class EditProfilePage extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
-    super({
-      template,
-      ...options,
-      props: {
-        ...options.props,
-        form,
-        profileAvatarId: profileAvatar.id,
-        ...buttons,
-        inputTemplates,
-        buttonTemplates
-      },
-      components: {
-        profileAvatar
-      },
-      attrs: {
-        class: 'profile-edit-page container full'
+class ProfileEditPageComponent extends Block<ProfileProps> {
+  init() {
+    const inputs = formConfig.inputs.map((formConfig) => {
+      const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const value = propKey ? this.props[propKey] : undefined
+
+      return {
+        ...formConfig,
+        value
+      }
+    })
+
+    this.children.form = new Form({
+      inputs
+    })
+
+    this.children.save = new Button({
+      label: 'Отправить',
+      class: 'bg-dark white',
+      events: {
+        click: () => this.onSubmit()
+      }
+    })
+
+    this.children.cancel = new Button({
+      label: 'Отменить',
+      class: 'bg-danger white',
+      events: {
+        click: () => this.onCancel()
       }
     })
   }
 
-  mounted() {
-    super.mounted()
-    this.initValidation()
+  async onSubmit() {
+    const form = this.children.form as Form
+    const validatedInputs = form.children.inputs as ValidatedInput[]
+
+    const values = validatedInputs.map((validatedInput) => {
+      const input = validatedInput.children.input as Input
+
+      return [input.getName(), input.getValue()]
+    })
+
+    const data = Object.fromEntries(values)
+
+    await profileController.edit(data as ProfileEditRequest)
   }
 
-  initValidation() {
-    const validator = new Validator({ form })
+  onCancel() {
+    Router.back()
+  }
 
-    validator.initValidation()
+  protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
+    (this.children.form as ProfileField[]).forEach((field, i) => {
+      field.setProps({  value: newProps[userFields[i]] })
+    })
+
+    return false
+  }
+
+  render() {
+    return this.compile(template, this.props)
   }
 }
+
+const withUser = withStore((state) => ({ ...state.user }))
+
+export const ProfileEditPage = withUser(ProfileEditPageComponent)

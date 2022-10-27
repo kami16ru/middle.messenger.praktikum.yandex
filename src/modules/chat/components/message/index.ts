@@ -1,17 +1,18 @@
-import Component from '../../../../lib/dom/Component'
+import Block from '../../../../utils/Block'
+import template from './template.hbs'
 import './style.css'
 
 interface MessageProps {
-  content: string
-  isMine?: boolean
+  content: string;
+  isMine: boolean;
 }
 
-interface MessageOptions {
-  props: MessageProps
-}
+export class Message extends Block<MessageProps> {
+  constructor(props: MessageProps) {
+    super(props)
+  }
 
-export class Message extends Component {
-  constructor(options: MessageOptions) {
-    super(options)
+  protected render(): DocumentFragment {
+    return this.compile(template, { ...this.props })
   }
 }

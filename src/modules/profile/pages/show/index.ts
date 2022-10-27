@@ -1,61 +1,127 @@
-import '../style.css'
+import Block from '../../../../utils/Block'
 import template from './template.hbs'
-import Component, { getTemplatesFromComponents, createComponentsFromProps } from '../../../../lib/dom/Component'
-import { ProfileAvatar } from '../../components/profile-avatar/index'
+import { withStore } from '../../../../utils/Store'
 import { Button } from '../../../../components/ui/button/index'
-import { Input } from '../../../../components/ui/input/index'
-import { ComponentOptions } from '../../../../lib/dom/types'
-import { FormConfig } from '../../../../components/ui/input/types'
-import { ButtonConfig } from '../../../../components/ui/button/types'
-import { withStore } from '../../../../lib/dom/Store'
+import { UserResponse } from '../../../auth/services/authApi'
+import { ProfileField } from '../../components/profile-field/index'
+import { Form } from '../../../../components/ui/form/index'
+import Router from '../../../../utils/Router'
+import { Routes } from '../../../../main'
 
-const form: FormConfig[] = [
-  { id: 'form-profile-email', name: 'email', label: 'Почта', readOnly: 'readonly', value: 'example@example.com' },
-  { id: 'form-profile-login', name: 'login', label: 'Логин', readOnly: 'readonly', value: 'examplelogin' },
-  { id: 'form-profile-first-name', name: 'first_name', label: 'Имя', readOnly: 'readonly', value: 'Иван' },
-  { id: 'form-profile-second-name', name: 'second_name', label: 'Фамилия', readOnly: 'readonly', value: 'Иванов' },
-  { id: 'form-profile-second-name', name: 'display_name', label: 'Имя в чате', readOnly: 'readonly', value: 'superhero' },
-  { id: 'form-profile-phone', name: 'phone', label: 'Телефон', readOnly: 'readonly', value: '89099999999' }
-]
-const inputComponents = createComponentsFromProps(form, Input)
-const inputTemplates = getTemplatesFromComponents(inputComponents)
+type ProfileProps = UserResponse
 
-const buttons: ButtonConfig[] = [
-  { class: 'bg-dark white', value: 'Изменить данные', href: '/settings/edit' },
-  { class: 'bg-dark white', value: 'Изменить пароль', href: '/settings/edit-password' },
-  { class: 'bg-danger white', value: 'Выйти', href: '/logout' }
-]
-const buttonComponents = createComponentsFromProps(buttons, Button)
-const buttonTemplates = getTemplatesFromComponents(buttonComponents)
+const formConfig = {
+  inputs: [{
+    name: 'email',
+    type: 'email',
+    label: 'Почта',
+    helper: 'Email пользователя',
+    rules: ['isEmail']
+  }, {
+    name: 'login',
+    type: 'text',
+    label: 'Логин',
+    rules: ['isLogin']
+  }, {
+    name: 'first_name',
+    type: 'text',
+    label: 'Имя',
+    helper: 'Как вас зовут?',
+    rules: ['isName']
+  }, {
+    name: 'second_name',
+    type: 'text',
+    label: 'Фамилия',
+    rules: ['isName']
+  }, {
+    name: 'phone',
+    type: 'text',
+    label: 'Телефон',
+    helper: 'От 10 до 15 символов, состоит из цифр, может начинается с плюса',
+    rules: ['isPhone']
+  }, {
+    name: 'password',
+    type: 'password',
+    label: 'Пароль',
+    helper: 'Хотя бы одна заглавная буква, цифра, минимум 8 символов, максимум 40',
+    rules: ['isPassword']
+  }, {
+    name: 'passwordConfirm',
+    type: 'password',
+    label: 'Пароль еще раз',
+    helper: 'Должны совпадать',
+    rules: ['isPassword']
+  }]
+}
 
-const profileAvatar = new ProfileAvatar()
+const userFields = [
+  'id',
+  'first_name',
+  'second_name',
+  'display_name',
+  'login', 'avatar',
+  'email',
+  'phone'
+] as Array<keyof ProfileProps>
 
-class ShowProfilePageComponent extends Component {
-  constructor(options: Omit<ComponentOptions, 'template'> = {}) {
-    super({
-      template,
-      ...options,
-      props: {
-        ...options.props,
-        form,
-        profileAvatarId: profileAvatar.id,
-        buttonTemplates,
-        inputTemplates
-      },
-      components: {
-        profileAvatar
-      },
-      attrs: {
-        class: 'profile-show-page container full'
+class ProfileShowPageComponent extends Block<ProfileProps> {
+  init() {
+    const inputs = formConfig.inputs.map((formConfig) => {
+      const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const value = propKey ? this.props[propKey] : undefined
+
+      return {
+        ...formConfig,
+        value
+      }
+    })
+
+    this.children.form = new Form({
+      inputs,
+      readonly: true
+    })
+
+    this.children.editProfile = new Button({
+      label: 'Изменить данные',
+      class: 'bg-dark white',
+      events: {
+        click: () => Router.go(Routes.ProfileEdit)
+      }
+    })
+
+    this.children.editPassword = new Button({
+      label: 'Изменить пароль',
+      class: 'bg-dark white',
+      events: {
+        click: () => Router.go(Routes.ProfileEditPassword)
+      }
+    })
+
+    this.children.exit = new Button({
+      label: 'Назад',
+      class: 'bg-danger white',
+      events: {
+        click: () => Router.back()
       }
     })
   }
 
-  mounted() {
-    super.mounted()
+  protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
+    (this.children.form as ProfileField[]).forEach((field, i) => {
+      field.setProps({  value: newProps[userFields[i]] })
+    })
 
-    console.log(this._props, this._options)
+    return false
+  }
+
+  render() {
+    return this.compile(template, this.props)
   }
 }
 
-export const ShowProfilePage = withStore((state) => ({ user: state.user }))(ShowProfilePageComponent)
+const withUser = withStore((state) => ({ ...state.user }))
+
+export const ProfileShowPage = withUser(ProfileShowPageComponent)

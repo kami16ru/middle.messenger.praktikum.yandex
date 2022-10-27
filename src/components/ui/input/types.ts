@@ -1,10 +1,14 @@
-export type FormConfig = {
-  id: string
+export interface InputProps {
   name: string
+  type: string
+  placeholder?: string
   label?: string
-  readOnly?: string
-  value: string
-  rules?: string[]
   helper?: string
-  type?: string
+  rules?: Array<string>
+  value?: string
+  readonly?: boolean
+  events?: {
+    blur?: () => void
+    focus?: () => void
+  }
 }

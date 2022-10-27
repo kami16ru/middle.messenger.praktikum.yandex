@@ -1,6 +1,6 @@
 import API, { SignInRequest, SignUpRequest } from './authApi'
-import store from '../../../lib/dom/Store'
-import router from '../../../lib/dom/Router'
+import store from '../../../utils/Store'
+import router from '../../../utils/Router'
 
 export class AuthController {
   private readonly api;
@@ -28,7 +28,7 @@ export class AuthController {
 
       await this.fetchUser()
 
-      router.go('/settings')
+      router.go('/messenger')
     } catch (e: any) {
       console.error(e.message)
       router.go('/')
@@ -56,3 +56,5 @@ export class AuthController {
 }
 
 export const authController = new AuthController()
+
+// window.authController = authController

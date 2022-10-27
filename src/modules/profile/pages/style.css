@@ -1,12 +1,8 @@
-form {
-  width: 90%;
+.profile-form {
+  width: 500px;
 }
 
 #app-profile-edit,
 #app-profile-show {
   background-image: url('../../../assets/images/people.png');
-}
-
-.btn-group__row {
-  width: 95%;
 }
