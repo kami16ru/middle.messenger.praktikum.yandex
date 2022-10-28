@@ -302,6 +302,8 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-88 - Chat list component
   - [x] pcjs-89 - Route config refactor
   - [ ] pcjs-90 - Messenger page styles
+  - [x] pcjs-91 - Fix project dev run
+  - [ ] pcjs-92 - Fix 404 history
 
 #### ТЗ 4 спринта
 

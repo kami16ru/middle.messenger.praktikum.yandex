@@ -3,10 +3,9 @@ import template from './template.hbs'
 import { withStore } from '../../../../lib/dom/Store'
 import { Button } from '../../../../components/ui/button/index'
 import { UserResponse } from '../../../auth/services/authApi'
-// import { ProfileField } from '../../components/profile-field/index'
 import { Form } from '../../../../components/ui/form/index'
 import Router from '../../../../lib/dom/Router'
-import { Routes } from '../../../../main'
+import { ProfileRoutes } from '../../config/routes'
 import { NavDrawer } from '../../../../components/nav/drawer/index'
 
 type ProfileProps = UserResponse
@@ -55,19 +54,9 @@ const formConfig = {
   }]
 }
 
-// const userFields = [
-//   'id',
-//   'first_name',
-//   'second_name',
-//   'display_name',
-//   'login', 'avatar',
-//   'email',
-//   'phone'
-// ] as Array<keyof ProfileProps>
-
 class ProfileShowPageComponent extends Block<ProfileProps> {
   init() {
-    this.children.navDrawer = new NavDrawer({})
+    this.children.navDrawer = new NavDrawer({ withHeaderMenu: false })
 
     const inputs = formConfig.inputs.map((formConfig) => {
       const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
@@ -91,7 +80,7 @@ class ProfileShowPageComponent extends Block<ProfileProps> {
       label: 'Изменить данные',
       class: 'bg-dark white',
       events: {
-        click: () => Router.go(Routes.ProfileEdit)
+        click: () => Router.go(ProfileRoutes.edit)
       }
     })
 
@@ -99,7 +88,7 @@ class ProfileShowPageComponent extends Block<ProfileProps> {
       label: 'Изменить пароль',
       class: 'bg-dark white',
       events: {
-        click: () => Router.go(Routes.ProfileEditPassword)
+        click: () => Router.go(ProfileRoutes.editPassword)
       }
     })
 

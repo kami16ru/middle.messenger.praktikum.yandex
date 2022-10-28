@@ -8,7 +8,7 @@ import { navDrawerList } from '../../../config/nav'
 
 export interface NavDrawerProps {
   withHeaderMenu?: boolean
-  collapsed: boolean
+  collapsed?: boolean
   activeComponent?: string
 }
 
