@@ -300,10 +300,10 @@ Http запросы находятся в папке services/api.
   - [x] pcjs-85 - Refactor events
   - [x] pcjs-86 - Обновить nav drawer. Починить роутинг
   - [ ] pcjs-88 - Chat list component
-  - [x] pcjs-89 - Route config refactor
+  - [x] pcjs-89 - Route config not found route fix
   - [ ] pcjs-90 - Messenger page styles
   - [x] pcjs-91 - Fix project dev run
-  - [ ] pcjs-92 - Fix 404 history
+  - [x] pcjs-92 - Fix 404 history
 
 #### ТЗ 4 спринта
 

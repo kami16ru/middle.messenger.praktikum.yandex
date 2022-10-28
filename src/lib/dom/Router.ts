@@ -101,24 +101,20 @@ class Router {
     const route = this.getRoute(pathname)
 
     if (!route) {
-      this.go(notFoundRoute.path)
+      if (!this.currentRoute?.match(notFoundRoute.path)) this.go(notFoundRoute.path)
+    } else if (route?.redirect) {
+      if (this.getRoute(route.redirect)) this.go(route.redirect)
+      else this.go(notFoundRoute.path)
+    } else if (!store.getState().user && pathname !== signInRoute.path) {
+      this.go(signInRoute.path)
     } else {
-      if (!store.getState().user && pathname !== signInRoute.path) {
-        this.go(signInRoute.path)
-      } else {
-        if (route.redirect) {
-          if (this.getRoute(route.redirect)) this.go(route.redirect)
-          else this.go(notFoundRoute.path)
-        } else {
-          if (this.currentRoute && this.currentRoute !== route) {
-            this.currentRoute.leave()
-          }
-
-          this.currentRoute = route
-
-          route.render()
-        }
+      if (this.currentRoute && this.currentRoute !== route) {
+        this.currentRoute.leave()
       }
+
+      this.currentRoute = route
+
+      route?.render()
     }
   }
 
