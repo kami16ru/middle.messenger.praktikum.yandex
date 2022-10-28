@@ -1,4 +1,4 @@
-import Block from '../../../utils/Block'
+import Block from '../../../lib/dom/Block'
 import template from './template.hbs'
 import Validator from '../../../lib/validation/Validator'
 import { OnBlurCallbackOptions, ValidationRuleConfig, ValidatorConfig } from '../../../lib/validation/types'

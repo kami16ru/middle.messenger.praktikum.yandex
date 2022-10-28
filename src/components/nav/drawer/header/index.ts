@@ -1,6 +1,6 @@
 import template from './template.hbs'
 import './style.css'
-import Block from '../../../../utils/Block'
+import Block from '../../../../lib/dom/Block'
 import { NavDrawerHeaderConfig, navDrawerHeader } from '../../../../config/nav'
 import { NavDrawerMenu } from './menu/index'
 import { NavDrawerHeaderIcon } from './icon/index'

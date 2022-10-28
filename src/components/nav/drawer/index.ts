@@ -2,11 +2,9 @@ import template from './template.hbs'
 import './style.css'
 // import { NavDrawerHeaderConfig } from '../../../config/nav'
 import { NavDrawerHeader } from './header/index'
-import Block from '../../../utils/Block'
+import Block from '../../../lib/dom/Block'
 import { NavDrawerList } from './list/index'
-import { withStore } from '../../../utils/Store'
 import { navDrawerList } from '../../../config/nav'
-// import { ChatResponse } from '../../../modules/chat/services/chatApi'
 
 export interface NavDrawerProps {
   withHeaderMenu?: boolean
@@ -14,7 +12,7 @@ export interface NavDrawerProps {
   activeComponent?: string
 }
 
-export class NavDrawerComponent extends Block<NavDrawerProps> {
+export class NavDrawer extends Block<NavDrawerProps> {
   activeComponent: string
 
   constructor(props: NavDrawerProps) {
@@ -75,7 +73,3 @@ export class NavDrawerComponent extends Block<NavDrawerProps> {
     return this.compile(template, this.props)
   }
 }
-
-const withNav = withStore((state) => ({ ...state.nav }))
-
-export const NavDrawer = withNav(NavDrawerComponent)

@@ -1,5 +1,5 @@
 import API, { ProfileEditRequest, ProfileEditPasswordRequest } from './api'
-import router from '../../../utils/Router'
+import router from '../../../lib/dom/Router'
 import { authController } from '../../auth/services/AuthController'
 
 export class ProfileController {

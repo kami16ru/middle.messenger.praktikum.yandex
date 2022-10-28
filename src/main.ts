@@ -1,11 +1,12 @@
-import { LoginPage } from './modules/auth/pages/login/index'
-import { RegisterPage } from './modules/auth/pages/register/index'
-import Router from './utils/Router'
-import { ProfileShowPage } from './modules/profile/pages/show/index'
-import { ProfileEditPage } from './modules/profile/pages/edit/index'
-import { ProfileEditPasswordPage } from './modules/profile/pages/edit-password/index'
+// import { LoginPage } from './modules/auth/pages/login/index'
+// import { RegisterPage } from './modules/auth/pages/register/index'
+import Router from './lib/dom/Router'
+// import { ProfileShowPage } from './modules/profile/pages/show/index'
+// import { ProfileEditPage } from './modules/profile/pages/edit/index'
+// import { ProfileEditPasswordPage } from './modules/profile/pages/edit-password/index'
 import { authController as AuthController } from './modules/auth/services/AuthController'
-import { MessengerPage } from './modules/chat/pages/messenger/index'
+// import { MessengerPage } from './modules/chat/pages/messenger/index'
+import { routes } from './config/routes'
 
 // import { MessengerPage } from './pages/Messenger'
 
@@ -19,13 +20,17 @@ export enum Routes {
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
-  Router
-    .use(Routes.Index, LoginPage)
-    .use(Routes.Register, RegisterPage)
-    .use(Routes.ProfileShow, ProfileShowPage)
-    .use(Routes.ProfileEdit, ProfileEditPage)
-    .use(Routes.ProfileEditPassword, ProfileEditPasswordPage)
-    .use(Routes.Messenger, MessengerPage)
+  routes.forEach((routeConfig) => {
+    Router.use(routeConfig)
+  })
+
+  // Router
+  //   .use(Routes.Index, LoginPage)
+  //   .use(Routes.Register, RegisterPage)
+  //   .use(Routes.ProfileShow, ProfileShowPage)
+  //   .use(Routes.ProfileEdit, ProfileEditPage)
+  //   .use(Routes.ProfileEditPassword, ProfileEditPasswordPage)
+  //   .use(Routes.Messenger, MessengerPage)
 
   // let isProtectedRoute = true
   //

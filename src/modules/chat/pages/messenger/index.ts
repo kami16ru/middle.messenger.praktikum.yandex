@@ -1,4 +1,4 @@
-import Block from '../../../../utils/Block'
+import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
 import { ChatsList } from '../../components/chat-list/index'
 import { Messenger } from '../../components/messenger/index'

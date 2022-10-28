@@ -2,14 +2,14 @@ import '../style.css'
 import template from './template.hbs'
 import { Button } from '../../../../components/ui/button/index'
 import { Input } from '../../../../components/ui/input/index'
-import Block from '../../../../utils/Block'
+import Block from '../../../../lib/dom/Block'
 import { Form } from '../../../../components/ui/form/index'
 import { ValidatedInput } from '../../../../components/ui/validated-input/index'
 import { profileController } from '../../services/ProfileController'
 import { ProfileEditPasswordRequest } from '../../services/api'
-import Router from '../../../../utils/Router'
+import Router from '../../../../lib/dom/Router'
 import { ProfileField } from '../../components/profile-field/index'
-import { withStore } from '../../../../utils/Store'
+import { withStore } from '../../../../lib/dom/Store'
 
 const formConfig = {
   inputs: [{

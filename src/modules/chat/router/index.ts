@@ -1,11 +1,11 @@
 import { RouteConfig } from '../../../lib/dom/types'
-import { ChatPage } from '../pages/chat/index'
+import { MessengerPage } from '../pages/messenger/index'
 
 export const chatRoutes: RouteConfig[] = [
   {
     name: 'chat',
     path: '/messenger',
-    component: ChatPage,
+    component: MessengerPage,
     layout: 'chat'
   }
 ]

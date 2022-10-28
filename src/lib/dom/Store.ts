@@ -1,9 +1,9 @@
-import { set } from './helpers'
+import { set } from '../helpers/myDash'
 import { EventBus } from './EventBus'
 import Block from './Block'
-import { UserResponse } from '../modules/auth/services/authApi'
-import { ChatResponse } from '../modules/chat/services/chatApi'
-import { Message } from '../modules/chat/services/MessagesController'
+import { UserResponse } from '../../modules/auth/services/authApi'
+import { ChatResponse } from '../../modules/chat/services/chatApi'
+import { Message } from '../../modules/chat/services/MessagesController'
 
 export enum StoreEvents {
   Updated = 'updated'

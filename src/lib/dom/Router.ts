@@ -1,8 +1,8 @@
 import Block from './Block'
-
-interface BlockConstructable<P = any> {
-  new(props: P): Block<P>;
-}
+import { BlockConstructable, RouteConfig } from './types'
+import { notFoundRoute } from '../../config/routes'
+import store from './Store'
+import { signInRoute } from '../../modules/auth/router/index'
 
 function isEqual(lhs: string, rhs: string): boolean {
   return lhs === rhs
@@ -17,18 +17,25 @@ function render(query: string, block: Block) {
 
   root.innerHTML = ''
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   root.append(block.getContent()!)
 
   return root
 }
 
 class Route {
-  private block: Block | null = null;
+  private block: Block | null = null
+  private readonly blockClass: BlockConstructable
+  private readonly pathname: string
+  public layout: string | undefined
+  public redirect: string | undefined
 
-  constructor(
-    private pathname: string,
-    private readonly blockClass: BlockConstructable,
-    private readonly query: string) {
+  constructor(routeConfig: RouteConfig, private readonly query: string) {
+
+    this.blockClass = routeConfig.component
+    this.pathname = routeConfig.path
+    this.layout = routeConfig.layout
+    this.redirect = routeConfig.redirect
   }
 
   leave() {
@@ -66,10 +73,16 @@ class Router {
     Router.__instance = this
   }
 
-  public use(pathname: string, block: BlockConstructable) {
-    const route = new Route(pathname, block, this.rootQuery)
+  public use(routeConfig: RouteConfig) {
+    const { path } = routeConfig
 
-    this.routes.push(route)
+    if (!this.getRoute(path)) {
+      const route = new Route(routeConfig, this.rootQuery)
+
+      this.routes.push(route)
+    }
+
+    console.log(this)
 
     return this
   }
@@ -88,16 +101,25 @@ class Router {
     const route = this.getRoute(pathname)
 
     if (!route) {
-      return
+      this.go(notFoundRoute.path)
+    } else {
+      if (!store.getState().user && pathname !== signInRoute.path) {
+        this.go(signInRoute.path)
+      } else {
+        if (route.redirect) {
+          if (this.getRoute(route.redirect)) this.go(route.redirect)
+          else this.go(notFoundRoute.path)
+        } else {
+          if (this.currentRoute && this.currentRoute !== route) {
+            this.currentRoute.leave()
+          }
+
+          this.currentRoute = route
+
+          route.render()
+        }
+      }
     }
-
-    if (this.currentRoute && this.currentRoute !== route) {
-      this.currentRoute.leave()
-    }
-
-    this.currentRoute = route
-
-    route.render()
   }
 
   public go(pathname: string) {
@@ -115,7 +137,7 @@ class Router {
   }
 
   private getRoute(pathname: string) {
-    return this.routes.find((route) => route.match(pathname))
+    return this.routes.find((route) => route.match(pathname)) || null
   }
 }
 

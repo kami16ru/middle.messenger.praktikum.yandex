@@ -1,5 +1,5 @@
 import API, { ChatResponse } from './chatApi'
-import store from '../../../utils/Store'
+import store from '../../../lib/dom/Store'
 import MessagesController from './MessagesController'
 
 class ChatsController {

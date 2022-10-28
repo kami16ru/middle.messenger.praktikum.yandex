@@ -1,4 +1,4 @@
-import Block from '../../../utils/Block'
+import Block from '../../../lib/dom/Block'
 import { PropsWithRouter, withRouter } from '../../../hocs/withRouter'
 import template from './template.hbs'
 import './style.css'

@@ -1,6 +1,6 @@
 import API, { SignInRequest, SignUpRequest } from './authApi'
-import store from '../../../utils/Store'
-import router from '../../../utils/Router'
+import store from '../../../lib/dom/Store'
+import router from '../../../lib/dom/Router'
 
 export class AuthController {
   private readonly api;

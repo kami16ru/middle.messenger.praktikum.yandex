@@ -1,8 +1,8 @@
 import template from './template.hbs'
 import './style.css'
-import Block from '../../../../utils/Block'
+import Block from '../../../../lib/dom/Block'
 import { NavDrawerListItem } from './item/index'
-import Router from '../../../../utils/Router'
+import Router from '../../../../lib/dom/Router'
 
 export interface NavDrawerListConfig {
   title: string

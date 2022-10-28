@@ -1,4 +1,4 @@
-import Block from '../../../../../utils/Block'
+import Block from '../../../../../lib/dom/Block'
 import template from './template.hbs'
 import { NavDrawerListConfig } from '../index'
 import './style.css'

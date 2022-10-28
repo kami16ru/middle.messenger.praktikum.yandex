@@ -4,8 +4,8 @@ import { Input } from '../../../../components/ui/input/index'
 import { Button } from '../../../../components/ui/button/index'
 import './style.css'
 import MessagesController, { Message as MessageInfo } from '../../services/MessagesController'
-import { withStore } from '../../../../utils/Store'
-import Block from '../../../../utils/Block'
+import { withStore } from '../../../../lib/dom/Store'
+import Block from '../../../../lib/dom/Block'
 import ChatsController from '../../services/ChatsController'
 
 interface MessengerProps {
