@@ -14,7 +14,7 @@ interface ChatProps {
   }
 }
 
-class ChatBase extends Block<ChatProps> {
+class ChatItemComponent extends Block<ChatProps> {
   constructor(props: ChatProps) {
     super(props)
   }
@@ -26,4 +26,4 @@ class ChatBase extends Block<ChatProps> {
 
 export const withSelectedChat = withStore((state) => ({ selectedChat: (state.chats || []).find(({ id }) => id === state.selectedChat) }))
 
-export const Chat = withSelectedChat(ChatBase)
+export const ChatItem = withSelectedChat(ChatItemComponent)

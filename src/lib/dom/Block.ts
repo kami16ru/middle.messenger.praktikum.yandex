@@ -1,5 +1,6 @@
 import { EventBus } from './EventBus'
 import { v4 as makeUUID } from 'uuid'
+import { isEqual } from '../helpers/myDash'
 
 // Нельзя создавать экземпляр данного класса
 class Block<P extends Record<string, any> = any> {
@@ -98,9 +99,11 @@ class Block<P extends Record<string, any> = any> {
   }
 
   protected componentDidUpdate(oldProps: P, newProps: P) {
-    console.log(oldProps, newProps)
+    return this.componentMustRerender(oldProps, newProps)
+  }
 
-    return true
+  private componentMustRerender(oldProps: P, newProps: P) {
+    return !isEqual(oldProps, newProps)
   }
 
   setProps = (nextProps: Partial<P>) => {

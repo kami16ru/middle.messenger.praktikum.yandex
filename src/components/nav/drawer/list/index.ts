@@ -19,9 +19,6 @@ export interface NavDrawerListProps {
 }
 
 export class NavDrawerList extends Block<NavDrawerListProps> {
-  navDrawer: HTMLElement
-  navDrawerToggle: HTMLElement
-
   constructor(props: NavDrawerListProps) {
     super({
       ...props

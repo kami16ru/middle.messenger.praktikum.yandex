@@ -1,6 +1,6 @@
 import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
-import { Chat } from '../chat/index'
+import { ChatItem } from '../chat-item/index'
 import './style.css'
 import { withStore } from '../../../../lib/dom/Store'
 import { ChatResponse } from '../../services/chatApi'
@@ -30,7 +30,7 @@ class ChatsListBase extends Block<ChatsListProps> {
 
   private createChats(props: ChatsListProps) {
     return props.chats.map((data) => {
-      return new Chat({
+      return new ChatItem({
         ...data,
         events: {
           click: () => {

@@ -1,32 +1,58 @@
 import template from './template.hbs'
 import './style.css'
-// import { NavDrawerHeaderConfig } from '../../../config/nav'
 import { NavDrawerHeader } from './header/index'
 import Block from '../../../lib/dom/Block'
 import { NavDrawerList } from './list/index'
 import { navDrawerList } from '../../../config/nav'
+import { ChatsList } from '../../../modules/chat/components/chat-list/index'
+import { ChatResponse } from '../../../modules/chat/services/chatApi'
+import { withStore } from '../../../lib/dom/Store'
+import ChatsController from '../../../modules/chat/services/ChatsController'
 
 export interface NavDrawerProps {
   withHeaderMenu?: boolean
   collapsed?: boolean
   activeComponent?: string
+  selectedNavList: string
+  chats: ChatResponse[]
 }
 
-export class NavDrawer extends Block<NavDrawerProps> {
+export class NavDrawerComponent extends Block<NavDrawerProps> {
   activeComponent: string
 
   constructor(props: NavDrawerProps) {
     super(props)
-
-    this.activeComponent = props.activeComponent || 'navList'
   }
 
   init() {
+    this.setActiveComponent(this.props.selectedNavList || 'navList')
     this.children.activeComponent = this.getActiveComponent(this.activeComponent) as Block
-
     this.children.header = new NavDrawerHeader({
-      withMenu: this.props.withHeaderMenu
+      withMenu: this.props.withHeaderMenu,
+      selectedNavList: this.activeComponent
     })
+  }
+
+  protected componentDidUpdate(oldProps: NavDrawerProps, newProps: NavDrawerProps): boolean {
+    if (super.componentDidUpdate(oldProps, newProps)) {
+      this.setActiveComponent(newProps.selectedNavList as string)
+
+      return true
+    } else return false
+  }
+
+  setActiveComponent(activeComponentName: string) {
+    this.activeComponent = activeComponentName
+
+    if (activeComponentName === 'chatList') {
+      ChatsController.fetchChats().finally(() => {
+        (this.children.activeComponent as Block).setProps({
+          isLoaded: true
+        })
+      })
+    }
+
+    this.children.activeComponent = this.getActiveComponent(this.activeComponent) as Block
   }
 
   getActiveComponent(val: string) {
@@ -35,7 +61,7 @@ export class NavDrawer extends Block<NavDrawerProps> {
       return new NavDrawerList({ navList: navDrawerList })
     }
     case 'chatList': {
-      return new NavDrawerList({ navList: navDrawerList })
+      return new ChatsList({ isLoaded: false })
     }
     default: {
       return new NavDrawerList({ navList: navDrawerList })
@@ -43,33 +69,11 @@ export class NavDrawer extends Block<NavDrawerProps> {
     }
   }
 
-  // mounted() {
-  //   super.mounted()
-  //
-  //   this.components.drawerHeader.eventBus.on('nav-drawer-toggle-menu', this.onNavDrawToggle.bind(this))
-  //   this.components.drawerHeader.components.navDrawerMenu.eventBus.on('nav-drawer-header-icon-click', this.onNavDrawHeaderIconClick.bind(this))
-  //   this.components.activeComponent.eventBus.on('chat:selected', this.onChatSelected.bind(this))
-  // }
-  //
-  // onNavDrawToggle(args: Record<string, boolean>) {
-  //   this.components.activeComponent.eventBus.emit('nav-drawer-toggle-menu', args)
-  // }
-  //
-  // onNavDrawHeaderIconClick(args: Record<string, string>) {
-  //   this.setActiveComponent(args.elemId)
-  //
-  //   this.dispatchComponentDidUpdate({
-  //     ...this.props,
-  //     activeMenuComponentId: args.elemId
-  //   })
-  //   templateEngine.renderDom(this.components.activeComponent)
-  // }
-  //
-  // onChatSelected(chat: ChatResponse) {
-  //   this.eventBus.emit('chat:selected', chat)
-  // }
-
   render() {
     return this.compile(template, this.props)
   }
 }
+
+export const withSelectedIcon = withStore((state) => ({ selectedNavList: state.nav?.selectedNavList }))
+
+export const NavDrawer = withSelectedIcon(NavDrawerComponent)
