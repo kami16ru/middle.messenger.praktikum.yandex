@@ -102,6 +102,8 @@ class ProfileShowPageComponent extends Block<ProfileProps> {
   }
 
   protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
+    super.componentDidUpdate(_oldProps, newProps)
+
     const form = this.children.form as Form
 
     form.setProps({ ...newProps })

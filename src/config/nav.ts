@@ -31,14 +31,13 @@ export type NavDrawerHeaderConfig = {
 }
 
 export const navDrawerHeader = [{
-  name: 'chat',
-  icon: 'mdi mdi-chat-processing',
+  name: 'chatList',
+  class: 'mdi mdi-chat-processing nav-drawer__header-icon h2',
   component: 'chatList',
-  active: true,
-  class: 'chat-list'
+  active: true
 }, {
-  name: 'nav',
-  icon: 'mdi mdi-backburger',
+  name: 'navList',
+  class: 'mdi mdi-backburger nav-drawer__header-icon h2',
   component: 'navList',
   active: false
 }]

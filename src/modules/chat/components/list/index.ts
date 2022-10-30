@@ -1,11 +1,10 @@
 import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
-import { ChatItem } from '../chat-item/index'
+import { ChatItem } from './item/index'
 import './style.css'
 import { withStore } from '../../../../lib/dom/Store'
 import { ChatResponse } from '../../services/chatApi'
 import ChatsController from '../../services/ChatsController'
-import { Link } from '../../../../components/ui/link/index'
 
 interface ChatsListProps {
   chats: ChatResponse[];
@@ -19,7 +18,6 @@ class ChatsListBase extends Block<ChatsListProps> {
 
   protected init() {
     this.children.chats = this.createChats(this.props)
-    this.children.profileLink = new Link({ to: '/profile', label: 'Профиль' })
   }
 
   protected componentDidUpdate(_oldProps: ChatsListProps, newProps: ChatsListProps): boolean {

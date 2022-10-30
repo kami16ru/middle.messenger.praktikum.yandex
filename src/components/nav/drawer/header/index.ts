@@ -1,26 +1,24 @@
 import template from './template.hbs'
 import './style.css'
 import Block from '../../../../lib/dom/Block'
-import { NavDrawerHeaderConfig, navDrawerHeader } from '../../../../config/nav'
+// import { NavDrawerHeaderConfig } from '../../../../config/nav'
 import { NavDrawerMenu } from './menu/index'
-import { NavDrawerHeaderIcon } from './icon/index'
-
+import { NavDrawerActivatorIcon } from './activator-icon/index'
 export interface NavDrawerHeaderProps {
   // collapsed?: boolean
-  menuConfig?: NavDrawerHeaderConfig[]
   withMenu?: boolean
+  selectedNavList: string
 }
 
 export class NavDrawerHeader extends Block {
   navDrawer: HTMLElement
-  menuConfig: NavDrawerHeaderConfig[]
-  navDrawerMenu: NavDrawerMenu
+  // menuConfig: NavDrawerHeaderConfig[]
   collapsed: boolean
 
   constructor(props: NavDrawerHeaderProps) {
     super({
       collapsed: false,
-      menuConfig: navDrawerHeader,
+      // menuConfig: navDrawerHeader,
       ...props
     })
 
@@ -28,8 +26,10 @@ export class NavDrawerHeader extends Block {
   }
 
   init() {
-    this.children.navDrawerMenu = new NavDrawerMenu({ menuConfig: this.props.menuConfig })
-    this.children.activatorIcon = new NavDrawerHeaderIcon({
+    this.children.navDrawerMenu = new NavDrawerMenu({ selectedNavList: this.props.selectedNavList })
+    this.children.activatorIcon = new NavDrawerActivatorIcon({
+      name: 'menu-activator',
+      class: 'mdi mdi-menu h1 nav-drawer__toggle-icon pointer info',
       events: {
         click: () => {
           this.collapsed ? this.openNav() : this.closeNav()

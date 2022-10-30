@@ -1,8 +1,8 @@
-import Block from '../../../../lib/dom/Block'
+import Block from '../../../../../lib/dom/Block'
 import template from './template.hbs'
 import './style.css'
-import { withStore } from '../../../../lib/dom/Store'
-import { ChatResponse } from '../../services/chatApi'
+import { withStore } from '../../../../../lib/dom/Store'
+import { ChatResponse } from '../../../services/chatApi'
 
 interface ChatProps {
   id: number
@@ -14,7 +14,7 @@ interface ChatProps {
   }
 }
 
-class ChatBase extends Block<ChatProps> {
+class ChatItemComponent extends Block<ChatProps> {
   constructor(props: ChatProps) {
     super(props)
   }
@@ -26,4 +26,4 @@ class ChatBase extends Block<ChatProps> {
 
 export const withSelectedChat = withStore((state) => ({ selectedChat: (state.chats || []).find(({ id }) => id === state.selectedChat) }))
 
-export const Chat = withSelectedChat(ChatBase)
+export const ChatItem = withSelectedChat(ChatItemComponent)

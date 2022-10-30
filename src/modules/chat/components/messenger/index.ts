@@ -30,6 +30,7 @@ class MessengerBase extends Block<MessengerProps> {
     this.children.button = new Button({
       label: 'Отправить',
       type: 'button',
+      class: 'bg-primary white',
       events: {
         click: () => {
           const input = this.children.input as Input

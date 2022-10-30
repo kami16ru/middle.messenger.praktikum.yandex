@@ -3,6 +3,7 @@ import './style.css'
 import Block from '../../../../lib/dom/Block'
 import { NavDrawerListItem } from './item/index'
 import Router from '../../../../lib/dom/Router'
+import {authController, AuthController} from "../../../../modules/auth/services/AuthController";
 
 export interface NavDrawerListConfig {
   title: string
@@ -19,9 +20,6 @@ export interface NavDrawerListProps {
 }
 
 export class NavDrawerList extends Block<NavDrawerListProps> {
-  navDrawer: HTMLElement
-  navDrawerToggle: HTMLElement
-
   constructor(props: NavDrawerListProps) {
     super({
       ...props
@@ -37,7 +35,10 @@ export class NavDrawerList extends Block<NavDrawerListProps> {
       return new NavDrawerListItem({
         ...props,
         events: {
-          click: () => Router.go(props.to)
+          click: async () => {
+            if (props.to === 'logout') await authController.logout()
+            else Router.go(props.to)
+          }
         }
       })
     })

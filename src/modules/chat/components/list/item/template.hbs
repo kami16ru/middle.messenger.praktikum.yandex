@@ -1,0 +1,12 @@
+<div class="chat-list__item bg-accent {{#if isSelected2 }}chat--selected{{/if}}">
+  <div class="chat-list__item__avatar">
+    <img src="{{this.avatar}}" alt="avatar" />
+    {{#if unread_count }}
+      <span class="chat-list__item__unread-count">{{unread_count}}</span>
+    {{/if}}
+  </div>
+  <div class="chat-list__item__details">
+    <span class="info">{{title}}</span>
+    <span class="chat-list__item__short-message dark">{{last_message.content}}</span>
+  </div>
+</div>
