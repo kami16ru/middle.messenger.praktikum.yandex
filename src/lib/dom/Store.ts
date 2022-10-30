@@ -4,7 +4,7 @@ import Block from './Block'
 import { UserResponse } from '../../modules/auth/services/authApi'
 import { ChatResponse } from '../../modules/chat/services/chatApi'
 import { Message } from '../../modules/chat/services/MessagesController'
-import { navDrawerHeader } from '../../config/nav'
+// import { navDrawerHeader } from '../../config/nav'
 
 export enum StoreEvents {
   Updated = 'updated'
@@ -26,7 +26,8 @@ export class Store extends EventBus {
   constructor() {
     super()
 
-    this.state.nav = { selectedNavList: navDrawerHeader.find((config) => config.active)?.name as string }
+    // this.state.nav = { selectedNavList: navDrawerHeader.find((config) => config.active)?.name as string }
+    this.state.nav = { selectedNavList: '' }
   }
 
   public set(keypath: string, data: unknown) {

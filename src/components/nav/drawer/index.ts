@@ -4,7 +4,7 @@ import { NavDrawerHeader } from './header/index'
 import Block from '../../../lib/dom/Block'
 import { NavDrawerList } from './list/index'
 import { navDrawerList } from '../../../config/nav'
-import { ChatsList } from '../../../modules/chat/components/chat-list/index'
+import { ChatsList } from '../../../modules/chat/components/list/index'
 import { ChatResponse } from '../../../modules/chat/services/chatApi'
 import { withStore } from '../../../lib/dom/Store'
 import ChatsController from '../../../modules/chat/services/ChatsController'
@@ -14,7 +14,7 @@ export interface NavDrawerProps {
   collapsed?: boolean
   activeComponent?: string
   selectedNavList: string
-  chats: ChatResponse[]
+  chats?: ChatResponse[]
 }
 
 export class NavDrawerComponent extends Block<NavDrawerProps> {

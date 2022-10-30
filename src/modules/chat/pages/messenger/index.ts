@@ -4,6 +4,8 @@ import { ChatsList } from '../../components/chat-list/index'
 import { Messenger } from '../../components/messenger/index'
 import './style.css'
 import ChatsController from '../../services/ChatsController'
+import { NavDrawer } from '../../../../components/nav/drawer/index'
+import store from '../../../../lib/dom/Store'
 
 export class MessengerPage extends Block {
   constructor() {
@@ -11,6 +13,8 @@ export class MessengerPage extends Block {
   }
 
   protected init() {
+    store.set('nav.selectedNavList', 'chatList')
+    this.children.navDrawer = new NavDrawer({ withHeaderMenu: true })
     this.children.chatsList = new ChatsList({ isLoaded: false })
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

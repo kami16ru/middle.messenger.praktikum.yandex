@@ -56,7 +56,7 @@ const formConfig = {
 
 class ProfileShowPageComponent extends Block<ProfileProps> {
   init() {
-    this.children.navDrawer = new NavDrawer({ withHeaderMenu: true })
+    this.children.navDrawer = new NavDrawer({ withHeaderMenu: false })
 
     const inputs = formConfig.inputs.map((formConfig) => {
       const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)

@@ -299,9 +299,8 @@ Http запросы находятся в папке services/api.
   - [x] pcjs-84 - auth module
   - [x] pcjs-85 - Refactor events
   - [x] pcjs-86 - Обновить nav drawer. Починить роутинг
-  - [x] pcjs-88 - Chat list component
+  - [x] pcjs-88 - Chat list component. Messenger page styles
   - [x] pcjs-89 - Route config not found route fix
-  - [ ] pcjs-90 - Messenger page styles
   - [x] pcjs-91 - Fix project dev run
   - [x] pcjs-92 - Fix 404 history
 
