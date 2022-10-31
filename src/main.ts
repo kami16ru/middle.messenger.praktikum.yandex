@@ -10,14 +10,14 @@ import { routes } from './config/routes'
 
 // import { MessengerPage } from './pages/Messenger'
 
-export enum Routes {
-  Index = '/',
-  Register = '/register',
-  ProfileShow = '/settings',
-  ProfileEdit = '/profile/edit',
-  ProfileEditPassword = '/profile/edit/password',
-  Messenger = '/messenger',
-}
+// export enum Routes {
+//   Index = '/',
+//   Register = '/register',
+//   ProfileShow = '/settings',
+//   ProfileEdit = '/profile/edit',
+//   ProfileEditPassword = '/profile/edit/password',
+//   Messenger = '/messenger',
+// }
 
 window.addEventListener('DOMContentLoaded', async () => {
   routes.forEach((routeConfig) => {

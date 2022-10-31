@@ -1,6 +1,6 @@
 import { RouteConfig } from '../../../lib/dom/types'
-import { NotFoundPage } from '../pages/404/index'
-import { ServerErrorPage } from '../pages/500/index'
+import { NotFoundPage } from '../pages/404'
+import { ServerErrorPage } from '../pages/500'
 
 export const NotFoundRoute: RouteConfig = {
   name: '404',

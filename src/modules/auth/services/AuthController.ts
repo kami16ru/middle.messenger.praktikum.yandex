@@ -50,7 +50,7 @@ export class AuthController {
       console.error(e.message)
     } finally {
       store.set('user', null)
-      router.go('/')
+      router.go('/sign-in')
     }
   }
 }

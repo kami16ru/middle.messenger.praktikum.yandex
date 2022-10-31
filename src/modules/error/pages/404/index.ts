@@ -1,6 +1,6 @@
 import template from './template.hbs'
 import './style.css'
-import { Link } from '../../../../components/ui/link/index'
+import { Link } from '../../../../components/ui/link'
 import Block from '../../../../lib/dom/Block'
 import Router from '../../../../lib/dom/Router'
 
