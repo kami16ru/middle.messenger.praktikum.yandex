@@ -1,10 +1,10 @@
 import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
-import { ChatsList } from '../../components/chat-list/index'
-import { Messenger } from '../../components/messenger/index'
+import { ChatsList } from '../../components/chat-list'
+import { Messenger } from '../../components/messenger'
 import './style.css'
 import ChatsController from '../../services/ChatsController'
-import { NavDrawer } from '../../../../components/nav/drawer/index'
+import { NavDrawer } from '../../../../components/nav/drawer'
 import store from '../../../../lib/dom/Store'
 
 export class MessengerPage extends Block {

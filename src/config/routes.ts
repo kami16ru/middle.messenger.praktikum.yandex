@@ -1,9 +1,9 @@
 import { RouteConfig } from '../lib/dom/types'
 import Block from '../lib/dom/Block'
-import { authRoutes } from '../modules/auth/router/index'
-import { chatRoutes } from '../modules/chat/router/index'
+import { authRoutes } from '../modules/auth/router'
+import { chatRoutes } from '../modules/chat/router'
 import { profileRoutes } from '../modules/profile/config/routes'
-import { NotFoundRoute } from '../modules/error/router/index'
+import { NotFoundRoute } from '../modules/error/router'
 
 class DummyComponent extends Block {}
 

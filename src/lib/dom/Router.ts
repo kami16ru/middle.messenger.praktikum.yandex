@@ -2,7 +2,7 @@ import Block from './Block'
 import { BlockConstructable, RouteConfig } from './types'
 import { notFoundRoute } from '../../config/routes'
 import store from './Store'
-import { signInRoute } from '../../modules/auth/router/index'
+import { signInRoute } from '../../modules/auth/router'
 
 function isEqual(lhs: string, rhs: string): boolean {
   return lhs === rhs
@@ -26,7 +26,7 @@ function render(query: string, block: Block) {
 class Route {
   private block: Block | null = null
   private readonly blockClass: BlockConstructable
-  private readonly pathname: string
+  public pathname: string
   public layout: string | undefined
   public redirect: string | undefined
 
@@ -62,6 +62,7 @@ class Router {
   private routes: Route[] = [];
   private currentRoute: Route | null = null;
   private history = window.history;
+  private middlewares: Record<string, (route: Route) => Route>
 
   constructor(private readonly rootQuery: string) {
     if (Router.__instance) {
@@ -71,6 +72,22 @@ class Router {
     this.routes = []
 
     Router.__instance = this
+
+    this.middlewares = {
+      authMiddleware: (route: Route) => {
+        if (!store.getState().user && this.currentRoute?.pathname !== signInRoute.path) this.go(signInRoute.path)
+
+        return route
+      },
+      redirectMiddleware: (route: Route) => {
+        if (route?.redirect && this.currentRoute?.pathname !== route.redirect) {
+          if (this.getRoute(route.redirect)) this.go(route.redirect)
+          else this.go(notFoundRoute.path)
+        }
+
+        return route
+      }
+    }
   }
 
   public use(routeConfig: RouteConfig) {
@@ -117,6 +134,41 @@ class Router {
       route?.render()
     }
   }
+
+  resolve(route: Route) {
+    if (this.currentRoute && this.currentRoute !== route) {
+      this.currentRoute.leave()
+    }
+
+    this.currentRoute = route
+
+    route?.render()
+  }
+
+  public beforeEach(route: Route) {
+    return Object.values(this.middlewares).reduce((acc: Route, cur: (route: Route) => Route) => {
+      return cur(acc)
+    }, route)
+
+    // Object.values(this.middlewares).forEach((middleware) => route = middleware(route))
+  }
+
+  // private redirectMiddleware(route: Route) {
+  //   if (route?.redirect) {
+  //     if (this.getRoute(route.redirect)) this.go(route.redirect)
+  //     else this.go(notFoundRoute.path)
+  //   }
+  //
+  //   return true
+  // }
+  //
+  // private authMiddleware(route: Route) {
+  //   if (!store.getState().user && route.pathname !== signInRoute.path) {
+  //     this.go(signInRoute.path)
+  //   }
+  //
+  //   return true
+  // }
 
   public go(pathname: string) {
     this.history.pushState({}, '', pathname)

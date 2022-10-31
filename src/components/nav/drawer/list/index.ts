@@ -1,9 +1,9 @@
 import template from './template.hbs'
 import './style.css'
 import Block from '../../../../lib/dom/Block'
-import { NavDrawerListItem } from './item/index'
+import { NavDrawerListItem } from './item'
 import Router from '../../../../lib/dom/Router'
-import {authController, AuthController} from "../../../../modules/auth/services/AuthController";
+import { authController } from '../../../../modules/auth/services/AuthController'
 
 export interface NavDrawerListConfig {
   title: string
