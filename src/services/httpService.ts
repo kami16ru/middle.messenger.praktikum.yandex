@@ -1,11 +1,13 @@
 import HTTPTransport from '../lib/http/HTTPTransport'
 import { RequestOptions } from '../lib/http/types'
 
-const httpTransport = new HTTPTransport()
+export const httpService = (endpoint: string) => {
+  const httpTransport = new HTTPTransport(endpoint)
 
-export const httpService = {
-  get: (options: RequestOptions) => httpTransport.get(options),
-  post: (options: RequestOptions) => httpTransport.post(options),
-  put: (options: RequestOptions) => httpTransport.put(options),
-  delete: (options: RequestOptions) => httpTransport.delete(options)
+  return {
+    get<Response>(options: RequestOptions): Promise<Response> { return httpTransport.get(options) },
+    post<Response = void>(options: RequestOptions): Promise<Response> { return httpTransport.post(options) },
+    put<Response = void>(options: RequestOptions): Promise<Response> { return httpTransport.put(options) },
+    delete<Response>(options: RequestOptions): Promise<Response> { return httpTransport.delete(options) }
+  }
 }

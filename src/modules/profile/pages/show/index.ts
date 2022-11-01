@@ -1,80 +1,121 @@
-import '../style.css'
+import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
-import Component from '../../../../lib/dom/Component'
-import ProfileAvatar from '../../components/profile-avatar/index'
-import Button from '../../../../components/ui/button/index'
-import Input from '../../../../components/ui/input/index'
-import { ComponentOptions } from '../../../../lib/dom/types'
+import { withStore } from '../../../../lib/dom/Store'
+import { Button } from '../../../../components/ui/button/index'
+import { UserResponse } from '../../../auth/services/authApi'
+import { Form } from '../../../../components/ui/form/index'
+import Router from '../../../../lib/dom/Router'
+import { ProfileRoutes } from '../../config/routes'
+import { NavDrawer } from '../../../../components/nav/drawer/index'
 
-const form = {
-  email: { id: 'form-profile-email', name: 'email', label: 'Почта', readOnly: 'readonly', value: 'example@example.com' },
-  login: { id: 'form-profile-login', name: 'login', label: 'Логин', readOnly: 'readonly', value: 'examplelogin' },
-  first_name: { id: 'form-profile-first-name', name: 'first_name', label: 'Имя', readOnly: 'readonly', value: 'Иван' },
-  second_name: { id: 'form-profile-second-name', name: 'second_name', label: 'Фамилия', readOnly: 'readonly', value: 'Иванов' },
-  display_name: { id: 'form-profile-second-name', name: 'display_name', label: 'Имя в чате', readOnly: 'readonly', value: 'superhero' },
-  phone: { id: 'form-profile-phone', name: 'phone', label: 'Телефон', readOnly: 'readonly', value: '89099999999' }
+type ProfileProps = UserResponse
+
+const formConfig = {
+  inputs: [{
+    name: 'email',
+    type: 'email',
+    label: 'Почта',
+    helper: 'Email пользователя',
+    rules: ['isEmail']
+  }, {
+    name: 'login',
+    type: 'text',
+    label: 'Логин',
+    rules: ['isLogin']
+  }, {
+    name: 'first_name',
+    type: 'text',
+    label: 'Имя',
+    helper: 'Как вас зовут?',
+    rules: ['isName']
+  }, {
+    name: 'second_name',
+    type: 'text',
+    label: 'Фамилия',
+    rules: ['isName']
+  }, {
+    name: 'phone',
+    type: 'text',
+    label: 'Телефон',
+    helper: 'От 10 до 15 символов, состоит из цифр, может начинается с плюса',
+    rules: ['isPhone']
+  }, {
+    name: 'password',
+    type: 'password',
+    label: 'Пароль',
+    helper: 'Хотя бы одна заглавная буква, цифра, минимум 8 символов, максимум 40',
+    rules: ['isPassword']
+  }, {
+    name: 'passwordConfirm',
+    type: 'password',
+    label: 'Пароль еще раз',
+    helper: 'Должны совпадать',
+    rules: ['isPassword']
+  }]
 }
 
-class ProfileShowPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
-  }
-}
+class ProfileShowPageComponent extends Block<ProfileProps> {
+  init() {
+    this.children.navDrawer = new NavDrawer({ withHeaderMenu: false })
 
-export default new ProfileShowPage({
-  template,
-  props: {
-    form,
-    ProfileAvatar: ProfileAvatar.compile(),
-    EditProfileBtn: Button.template({
-      ...Button.props,
-      class: 'bg-dark white',
-      value: 'Изменить данные',
-      href: '/profile/edit'
-    }),
-    EditPasswordBtn: Button.template({
-      ...Button.props,
-      class: 'bg-dark white',
-      value: 'Изменить пароль',
-      href: '/profile/edit-password'
-    }),
-    ExitBtn: Button.template({
-      ...Button.props,
-      class: 'bg-danger white',
-      value: 'Выйти',
-      href: '/logout'
-    }),
-    InputEmail: Input.template({
-      ...Input.props,
-      input: form.email
-    }),
-    InputLogin: Input.template({
-      ...Input.props,
-      input: form.login
-    }),
-    InputFirstName: Input.template({
-      ...Input.props,
-      input: form.first_name
-    }),
-    InputSecondName: Input.template({
-      ...Input.props,
-      input: form.second_name
-    }),
-    InputDisplayName: Input.template({
-      ...Input.props,
-      input: form.display_name
-    }),
-    InputPhone: Input.template({
-      ...Input.props,
-      input: form.phone
+    const inputs = formConfig.inputs.map((formConfig) => {
+      const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const value = propKey ? this.props[propKey] : undefined
+
+      return {
+        ...formConfig,
+        value
+      }
     })
-  },
-  components: {
-    ProfileAvatar,
-    Button,
-    Input
-  },
-  attrs: {
-    class: 'profile-show-page container full'
+
+    this.children.form = new Form({
+      inputs,
+      readonly: true
+    })
+
+    this.children.editProfile = new Button({
+      label: 'Изменить данные',
+      class: 'bg-dark white',
+      events: {
+        click: () => Router.go(ProfileRoutes.edit)
+      }
+    })
+
+    this.children.editPassword = new Button({
+      label: 'Изменить пароль',
+      class: 'bg-dark white',
+      events: {
+        click: () => Router.go(ProfileRoutes.editPassword)
+      }
+    })
+
+    this.children.exit = new Button({
+      label: 'Назад',
+      class: 'bg-danger white',
+      events: {
+        click: () => Router.back()
+      }
+    })
   }
-})
+
+  protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
+    super.componentDidUpdate(_oldProps, newProps)
+
+    const form = this.children.form as Form
+
+    form.setProps({ ...newProps })
+
+    return false
+  }
+
+  render() {
+    return this.compile(template, this.props)
+  }
+}
+
+const withUser = withStore((state) => ({ ...state.user }))
+
+export const ProfileShowPage = withUser(ProfileShowPageComponent)

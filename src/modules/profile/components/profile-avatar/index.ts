@@ -1,11 +1,14 @@
 import './style.css'
 import template from './template.hbs'
 import Component from '../../../../lib/dom/Component'
-import { ComponentOptions } from '../../../../lib/dom/types'
+import { ComponentOptionsWithoutTemplate } from '../../../../lib/dom/types'
 
-class ProfileAvatar extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
+export class ProfileAvatar extends Component {
+  constructor(options: ComponentOptionsWithoutTemplate = {}) {
+    super({
+      template,
+      ...options
+    })
   }
 
   mounted() {
@@ -37,7 +40,3 @@ class ProfileAvatar extends Component {
     avatar.onmouseout = () => setTimeout(hideEditImg, 500)
   }
 }
-
-export default new ProfileAvatar({
-  template
-})

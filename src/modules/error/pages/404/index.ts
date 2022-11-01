@@ -1,25 +1,21 @@
 import template from './template.hbs'
 import './style.css'
-import Component from '../../../../lib/dom/Component'
-import Button from '../../../../components/ui/button/index'
-import { ComponentOptions } from '../../../../lib/dom/types'
+import { Link } from '../../../../components/ui/link'
+import Block from '../../../../lib/dom/Block'
+import Router from '../../../../lib/dom/Router'
 
-class NotFoundPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
-  }
-}
-
-export default new NotFoundPage({
-  template,
-  props: {
-    goBackBtnId: 'return-back',
-    GoBackBtn: Button.template({
-      ...Button.props,
-      class: 'white mx-auto',
-      value: 'На главную',
-      href: '/',
-      outline: true
+export class NotFoundPage extends Block {
+  init() {
+    this.children.goBack = new Link({
+      label: 'На главную',
+      to: '/',
+      events: {
+        click: () => Router.go('/')
+      }
     })
   }
-})
+
+  render() {
+    return this.compile(template, { ...this.props })
+  }
+}

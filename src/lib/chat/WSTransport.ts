@@ -1,0 +1,87 @@
+import { EventBus } from '../dom/EventBus'
+
+export enum WSTransportEvents {
+  Connected = 'connected',
+  Error = 'error',
+  Message = 'message',
+  Close = 'close',
+}
+
+export default class WSTransport extends EventBus {
+  private socket: WebSocket | null = null;
+  private pingInterval = 0;
+
+  constructor(private url: string) {
+    super()
+  }
+
+  public send(data: unknown) {
+    if (!this.socket) {
+      throw new Error('Socket is not connected')
+    }
+
+    this.socket.send(JSON.stringify(data))
+  }
+
+  public connect(): Promise<void> {
+    this.socket = new WebSocket(this.url)
+
+    this.subscribe(this.socket)
+
+    this.setupPing()
+
+    return new Promise((resolve) => {
+      this.on(WSTransportEvents.Connected, () => {
+        resolve()
+      })
+    })
+  }
+
+  public close() {
+    this.socket?.close()
+  }
+
+  private setupPing() {
+    // eslint-disable-next-line
+    // @ts-ignore
+    this.pingInterval = setInterval(() => {
+      this.send({ type: 'ping' })
+    }, 5000)
+
+    this.on(WSTransportEvents.Close, () => {
+      clearInterval(this.pingInterval)
+
+      this.pingInterval = 0
+    })
+  }
+
+  private subscribe(socket: WebSocket) {
+    socket.addEventListener('open', () => {
+      this.emit(WSTransportEvents.Connected)
+      console.log('socket open')
+    })
+    socket.addEventListener('close', () => {
+      this.emit(WSTransportEvents.Close)
+      console.log('socket close')
+    })
+
+    socket.addEventListener('error', (e) => {
+      this.emit(WSTransportEvents.Error, e)
+      console.log('socket error')
+    })
+
+    socket.addEventListener('message', (message) => {
+      if (!message.data) return
+
+      console.log(message)
+
+      const data = JSON.parse(message.data)
+
+      if (data.type && data.type === 'pong') {
+        return
+      }
+
+      this.emit(WSTransportEvents.Message, data)
+    })
+  }
+}

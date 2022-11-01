@@ -1,25 +1,19 @@
-{{{ ProfileAvatar }}}
+<div class="container full default-layout">
+  {{{ navDrawer }}}
 
-<div class="break"></div>
+  <div class="card bordered profile__profile-card bg-success accent profile-form">
+    <h3 class="card__title dark">Профайл</h3>
 
-<div class="card bordered profile__profile-card bg-success accent">
-  <h3 class="card__title dark">Профайл</h3>
-  <form id="profile-form" class="form">
+    {{{ form }}}
 
-    {{{ InputEmail }}}
-    {{{ InputLogin }}}
-    {{{ InputFirstName }}}
-    {{{ InputSecondName }}}
-    {{{ InputDisplayName }}}
-    {{{ InputPhone }}}
+    <div class="spacer"></div>
 
-  </form>
+    <div class="button-group__row">
 
-  <div class="spacer"></div>
+      {{{ editProfile }}}
+      {{{ editPassword }}}
+      {{{ exit }}}
 
-  <div class="btn-group__row">
-    {{{ EditProfileBtn }}}
-    {{{ EditPasswordBtn }}}
-    {{{ ExitBtn }}}
+    </div>
   </div>
 </div>

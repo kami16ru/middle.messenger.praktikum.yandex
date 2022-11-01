@@ -1,92 +1,141 @@
 import '../style.css'
 import template from './template.hbs'
-import Component from '../../../../lib/dom/Component'
-import ProfileAvatar from '../../components/profile-avatar/index'
-import Button from '../../../../components/ui/button/index'
-import Input from '../../../../components/ui/input/index'
-import Validator from '../../../../lib/validation/Validator'
-import { ComponentOptions } from '../../../../lib/dom/types'
+import { Button } from '../../../../components/ui/button/index'
+import { Input } from '../../../../components/ui/input/index'
+import { UserResponse } from '../../../auth/services/authApi'
+import Block from '../../../../lib/dom/Block'
+import { Form } from '../../../../components/ui/form/index'
+import Router from '../../../../lib/dom/Router'
+import { ValidatedInput } from '../../../../components/ui/validated-input/index'
+import { ProfileField } from '../../components/profile-field/index'
+import { withStore } from '../../../../lib/dom/Store'
+import { profileController } from '../../services/ProfileController'
+import { ProfileEditRequest } from '../../services/api'
 
-const form = {
-  email: { id: 'form-profile-email', name: 'email', label: 'Почта', value: 'example@example.com', rules: ['isEmail'] },
-  login: { id: 'form-profile-login', name: 'login', label: 'Логин', value: 'examplelogin', rules: ['isLogin'] },
-  first_name: { id: 'form-profile-first-name', name: 'first_name', label: 'Имя', value: 'Иван', rules: ['isName'] },
-  second_name: { id: 'form-profile-second-name', name: 'second_name', label: 'Фамилия', value: 'Иванов', rules: ['isName'] },
-  display_name: { id: 'form-profile-second-name', name: 'display_name', label: 'Имя в чате', value: 'superhero' },
-  phone: { id: 'form-profile-phone', name: 'phone', label: 'Телефон', value: '89099999999', rules: ['isPhone'] }
-}
-const buttons = {
-  SaveBtn: Button.template({
-    ...Button.props,
-    class: 'bg-dark white',
-    value: 'Сохранить',
-    href: '/profile/show'
-  }),
-  ExitBtn: Button.template({
-    ...Button.props,
-    class: 'bg-danger white',
-    value: 'Выйти',
-    href: '/logout'
-  })
-}
-const inputs = {
-  InputEmail: Input.template({
-    ...Input.props,
-    input: form.email
-  }),
-  InputLogin: Input.template({
-    ...Input.props,
-    input: form.login
-  }),
-  InputFirstName: Input.template({
-    ...Input.props,
-    input: form.first_name
-  }),
-  InputSecondName: Input.template({
-    ...Input.props,
-    input: form.second_name
-  }),
-  InputDisplayName: Input.template({
-    ...Input.props,
-    input: form.display_name
-  }),
-  InputPhone: Input.template({
-    ...Input.props,
-    input: form.phone
-  })
-}
+type ProfileProps = UserResponse
 
-class ProfileEditPage extends Component {
-  constructor(options: ComponentOptions) {
-    super(options)
-  }
-
-  mounted() {
-    super.mounted()
-    this.initValidation()
-  }
-
-  initValidation() {
-    const validator = new Validator({ form })
-
-    validator.initValidation()
-  }
+const formConfig = {
+  inputs: [{
+    name: 'email',
+    type: 'email',
+    label: 'Почта',
+    helper: 'Email пользователя',
+    rules: ['isEmail']
+  }, {
+    name: 'login',
+    type: 'text',
+    label: 'Логин',
+    rules: ['isLogin']
+  }, {
+    name: 'first_name',
+    type: 'text',
+    label: 'Имя',
+    helper: 'Как вас зовут?',
+    rules: ['isName']
+  }, {
+    name: 'second_name',
+    type: 'text',
+    label: 'Фамилия',
+    rules: ['isName']
+  }, {
+    name: 'phone',
+    type: 'text',
+    label: 'Телефон',
+    helper: 'От 10 до 15 символов, состоит из цифр, может начинается с плюса',
+    rules: ['isPhone']
+  }, {
+    name: 'password',
+    type: 'password',
+    label: 'Пароль',
+    helper: 'Хотя бы одна заглавная буква, цифра, минимум 8 символов, максимум 40',
+    rules: ['isPassword']
+  }, {
+    name: 'passwordConfirm',
+    type: 'password',
+    label: 'Пароль еще раз',
+    helper: 'Должны совпадать',
+    rules: ['isPassword']
+  }]
 }
 
-export default new ProfileEditPage({
-  template,
-  props: {
-    form,
-    ProfileAvatar: ProfileAvatar.compile(),
-    ...buttons,
-    ...inputs
-  },
-  components: {
-    ProfileAvatar,
-    Button,
-    Input
-  },
-  attrs: {
-    class: 'profile-edit-page container full'
+const userFields = [
+  'id',
+  'first_name',
+  'second_name',
+  'display_name',
+  'login', 'avatar',
+  'email',
+  'phone'
+] as Array<keyof ProfileProps>
+
+class ProfileEditPageComponent extends Block<ProfileProps> {
+  init() {
+    const inputs = formConfig.inputs.map((formConfig) => {
+      const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const value = propKey ? this.props[propKey] : undefined
+
+      return {
+        ...formConfig,
+        value
+      }
+    })
+
+    this.children.form = new Form({
+      inputs
+    })
+
+    this.children.save = new Button({
+      label: 'Отправить',
+      class: 'bg-dark white',
+      events: {
+        click: () => this.onSubmit()
+      }
+    })
+
+    this.children.cancel = new Button({
+      label: 'Отменить',
+      class: 'bg-danger white',
+      events: {
+        click: () => this.onCancel()
+      }
+    })
   }
-})
+
+  async onSubmit() {
+    const form = this.children.form as Form
+    const validatedInputs = form.children.inputs as ValidatedInput[]
+
+    const values = validatedInputs.map((validatedInput) => {
+      const input = validatedInput.children.input as Input
+
+      return [input.getName(), input.getValue()]
+    })
+
+    const data = Object.fromEntries(values)
+
+    await profileController.edit(data as ProfileEditRequest)
+  }
+
+  onCancel() {
+    Router.back()
+  }
+
+  protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
+    (this.children.form as ProfileField[]).forEach((field, i) => {
+      field.setProps({  value: newProps[userFields[i]] })
+    })
+
+    return false
+  }
+
+  render() {
+    return this.compile(template, this.props)
+  }
+}
+
+const withUser = withStore((state) => ({ ...state.user }))
+
+export const ProfileEditPage = withUser(ProfileEditPageComponent)

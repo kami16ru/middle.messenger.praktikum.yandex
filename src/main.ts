@@ -1,46 +1,60 @@
-import { RouteConfig, routes, NotFoundRoute } from './router/index'
-import chatLayout from './layouts/chat/index'
-import defaultLayout from './layouts/default/index'
-import authLayout from './layouts/auth/index'
-import errorLayout from './layouts/error/index'
-import templateEngine from './lib/dom/templateEngine'
-import { IComponent } from './lib/dom/types'
+// import { LoginPage } from './modules/auth/pages/login/index'
+// import { RegisterPage } from './modules/auth/pages/register/index'
+import Router from './lib/dom/Router'
+// import { ProfileShowPage } from './modules/profile/pages/show/index'
+// import { ProfileEditPage } from './modules/profile/pages/edit/index'
+// import { ProfileEditPasswordPage } from './modules/profile/pages/edit-password/index'
+import { authController as AuthController } from './modules/auth/services/AuthController'
+// import { MessengerPage } from './modules/chat/pages/messenger/index'
+import { routes } from './config/routes'
 
-type Layouts = Record<string, IComponent>
+// import { MessengerPage } from './pages/Messenger'
 
-const layouts: Layouts = {
-  chatLayout,
-  defaultLayout,
-  authLayout,
-  errorLayout
-}
+// export enum Routes {
+//   Index = '/',
+//   Register = '/register',
+//   ProfileShow = '/settings',
+//   ProfileEdit = '/profile/edit',
+//   ProfileEditPassword = '/profile/edit/password',
+//   Messenger = '/messenger',
+// }
 
-function getLayout(name: string): IComponent {
-  return layouts[`${name}Layout`] ? layouts[`${name}Layout`] : layouts.defaultLayout
-}
+window.addEventListener('DOMContentLoaded', async () => {
+  routes.forEach((routeConfig) => {
+    Router.use(routeConfig)
+  })
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const app = document.getElementById('app')
+  // Router
+  //   .use(Routes.Index, LoginPage)
+  //   .use(Routes.Register, RegisterPage)
+  //   .use(Routes.ProfileShow, ProfileShowPage)
+  //   .use(Routes.ProfileEdit, ProfileEditPage)
+  //   .use(Routes.ProfileEditPassword, ProfileEditPasswordPage)
+  //   .use(Routes.Messenger, MessengerPage)
 
-  window.onload = function () {
-    const path = window.location.pathname
+  // let isProtectedRoute = true
+  //
+  // switch (window.location.pathname) {
+  // case Routes.Index:
+  // case Routes.Register:
+  //   isProtectedRoute = false
+  //   break
+  // }
 
-    const routeConfig: RouteConfig = routes.find((route) => route.path === path) ?? NotFoundRoute
+  try {
+    await AuthController.fetchUser()
 
-    if (routeConfig.redirect) window.location.href = routeConfig.redirect
+    Router.start()
 
-    const { component } = routeConfig
+    // if (!isProtectedRoute) {
+    //   Router.go(Routes.ProfileShow)
+    // }
+  } catch (e) {
+    Router.start()
 
-    if (routeConfig.layout) {
-      const layout = getLayout(routeConfig.layout)
-
-      templateEngine.render(app as HTMLElement, layout)
-
-      const layoutDOM = document.querySelector(layout.selector ?? '')
-
-      templateEngine.render(layoutDOM as HTMLElement, component)
-    } else {
-      templateEngine.render(app as HTMLElement, component)
-    }
+    // if (isProtectedRoute) {
+    //   Router.go(Routes.Index)
+    // }
   }
+
 })

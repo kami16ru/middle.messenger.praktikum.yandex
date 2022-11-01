@@ -1,5 +1,6 @@
 import ErrorHandler from '../error/ErrorHandler'
 import { RequestData, METHODS, RequestParams, IHTTPTransport, RequestOptions } from './types'
+import { apiBaseUrl } from '../../config/api'
 
 function queryStringify(data: RequestData) {
   if (typeof data !== 'object') {
@@ -14,27 +15,34 @@ function queryStringify(data: RequestData) {
 }
 
 class HTTPTransport implements IHTTPTransport {
-  public get = ({ url, params = {} }: RequestOptions) => {
-    return this.request(url, { ...params, method: METHODS.GET })
+  static API_URL = apiBaseUrl
+  protected endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`
   }
 
-  public post = ({ url, params = {} }: RequestOptions) => {
-    return this.request(url, { ...params, method: METHODS.POST })
+  public get<Response>({ path, params = {} }: RequestOptions): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, { ...params, method: METHODS.GET })
   }
 
-  public put = ({ url, params = {} }: RequestOptions) => {
-    return this.request(url, { ...params, method: METHODS.PUT })
+  public post<Response = void>({ path, params = {} }: RequestOptions): Promise<Response> {
+    return this.request(this.endpoint + path, { ...params, method: METHODS.POST })
   }
 
-  public patch = ({ url, params = {} }: RequestOptions) => {
-    return this.request(url, { ...params, method: METHODS.PATCH })
+  public put<Response = void>({ path, params = {} }: RequestOptions): Promise<Response> {
+    return this.request(this.endpoint + path, { ...params, method: METHODS.PUT })
   }
 
-  public delete = ({ url, params = {} }: RequestOptions) => {
-    return this.request(url, { ...params, method: METHODS.DELETE })
+  public patch<Response = void>({ path, params = {} }: RequestOptions): Promise<Response> {
+    return this.request(this.endpoint + path, { ...params, method: METHODS.PATCH })
   }
 
-  request = (url: string, params: RequestParams) => {
+  public delete<Response>({ path, params = {} }: RequestOptions): Promise<Response> {
+    return this.request(this.endpoint + path, { ...params, method: METHODS.DELETE })
+  }
+
+  request<Response>(url: string, params: RequestParams): Promise<Response> {
     const {
       method = METHODS.GET,
       headers = {},
@@ -42,7 +50,7 @@ class HTTPTransport implements IHTTPTransport {
       timeout = 5000
     } = params
 
-    const query = method === METHODS.GET ? queryStringify(data as RequestData) : ''
+    const query = method === METHODS.GET && !!data ? queryStringify(data as RequestData) : ''
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
@@ -57,7 +65,7 @@ class HTTPTransport implements IHTTPTransport {
         if (xhr.status >= 300) {
           reject(xhr)
         } else {
-          resolve(xhr)
+          resolve(xhr.response)
         }
       }
 
@@ -65,6 +73,12 @@ class HTTPTransport implements IHTTPTransport {
       xhr.onerror = reject
       xhr.timeout = timeout
       xhr.ontimeout = reject
+
+      xhr.setRequestHeader('Content-Type', 'application/json')
+      xhr.setRequestHeader('Content-Security-Policy', 'default-src \'self\'')
+
+      xhr.withCredentials = true
+      xhr.responseType = 'json'
 
       if (method === METHODS.GET || !data) {
         xhr.send()
