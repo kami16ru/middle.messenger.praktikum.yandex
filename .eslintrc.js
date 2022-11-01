@@ -54,7 +54,7 @@ module.exports = {
         object: true
       }
     }, {
-      enforceForRenamedProperties: false,
+      enforceForRenamedProperties: false
     }],
     'arrow-parens': [2, 'always'],
     'arrow-spacing': 2,
