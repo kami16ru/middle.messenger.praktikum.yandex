@@ -1,13 +1,13 @@
 import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
-import { Button } from '../../../../components/ui/button/index'
-import { Input } from '../../../../components/ui/input/index'
+import { Button } from '../../../../components/ui/button'
+import { Input } from '../../../../components/ui/input'
 import '../style.css'
 import './style.css'
-import { Link } from '../../../../components/ui/link/index'
+import { Link } from '../../../../components/ui/link'
 import { SignInRequest } from '../../services/authApi'
 import { authController } from '../../services/AuthController'
-import { Form } from '../../../../components/ui/form/index'
+import { Form } from '../../../../components/ui/form'
 
 const form = new Form({
   inputs: [{

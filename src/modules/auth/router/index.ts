@@ -1,7 +1,7 @@
 import { RouteConfig } from '../../../lib/dom/types'
-import { LoginPage } from '../pages/login/index'
-import { RegisterPage } from '../pages/register/index'
-import { LogoutPage } from '../pages/logout/index'
+import { LoginPage } from '../pages/login'
+import { RegisterPage } from '../pages/register'
+import { LogoutPage } from '../pages/logout'
 
 export const signInRoute = {
   name: 'auth-login',

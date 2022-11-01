@@ -17,17 +17,18 @@ describe('Router', () => {
   }
 
   const getContentFake = fake.returns(document.createElement('div'))
+  const template = fake.returns(document.createElement('div'))
 
   const DummyComponent = class {
-    getContent(): HTMLElement {
-      return document.createElement('div')
-    }
+    getContent = getContentFake
+
+    render() { return template }
   } as unknown as BlockConstructable
   // class DummyComponent extends Block {}
 
   const routeConfig = {
-    name: 'home',
-    path: '/',
+    name: 'profile',
+    path: '/settings',
     // redirect: '/settings',
     component: DummyComponent
   }

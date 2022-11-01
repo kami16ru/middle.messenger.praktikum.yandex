@@ -42,6 +42,8 @@ export default class WSTransport extends EventBus {
   }
 
   private setupPing() {
+    // eslint-disable-next-line
+    // @ts-ignore
     this.pingInterval = setInterval(() => {
       this.send({ type: 'ping' })
     }, 5000)

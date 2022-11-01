@@ -3,7 +3,7 @@ const Handlebars = require('handlebars')
 const fs = require('fs')
 
 const { window } = new JSDOM('<div id="app"></div>', {
-  url: 'http://localhost:1234'
+  url: 'http://localhost:3000'
 })
 
 global.window = window
