@@ -1,14 +1,14 @@
 import '../style.css'
 import template from './template.hbs'
-import { Button } from '../../../../components/ui/button/index'
-import { Input } from '../../../../components/ui/input/index'
+import { Button } from '../../../../components/ui/button'
+import { Input } from '../../../../components/ui/input'
 import Block from '../../../../lib/dom/Block'
-import { Form } from '../../../../components/ui/form/index'
-import { ValidatedInput } from '../../../../components/ui/validated-input/index'
+import { Form } from '../../../../components/ui/form'
+import { ValidatedInput } from '../../../../components/ui/validated-input'
 import { profileController } from '../../services/ProfileController'
 import { ProfileEditPasswordRequest } from '../../services/api'
 import Router from '../../../../lib/dom/Router'
-import { ProfileField } from '../../components/profile-field/index'
+import { ProfileField } from '../../components/profile-field'
 import { withStore } from '../../../../lib/dom/Store'
 
 const formConfig = {
@@ -39,7 +39,7 @@ const userFields = [
 
 type ProfileProps = ProfileEditPasswordRequest
 
-class ProfileEditPasswordPageComponent extends Block<ProfileProps> {
+class ProfileEditPasswordPageComponent extends Block {
   init() {
     const inputs = formConfig.inputs.map((formConfig) => {
       const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)

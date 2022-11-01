@@ -38,7 +38,8 @@ export default class Validator {
     console.log('validator', config)
 
     if (config.rules) {
-      const element = document.getElementsByName(config.name)[0]
+      // eslint-disable-next-line prefer-destructuring
+      const element = document.getElementsByName(config.name)[0] as HTMLInputElement
 
       console.log(document.getElementsByName(config.name), config)
 
