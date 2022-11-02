@@ -278,11 +278,10 @@ Http запросы находятся в папке services/api.
     - [x] chat
     - [x] dynamic http requests
   - [x] pcjs-53 - websockets
-  - [ ] pcjs-54 - unit tests
-    - [ ] шаблонизатор
-    - [ ] роутер
-    - [ ] компонент
-    - [ ] http service
+  - [x] pcjs-54 - unit tests
+    - [x] компонент
+    - [x] сервис обмена сообщениями
+    - [x] helpers
   - [x] pcjs-55 - helmet.js
   - [x] pcjs-56 - Рефакторинг 5
     - [x] Использовать деструкторизацию для импортов часто используемых модулей
@@ -321,10 +320,10 @@ Http запросы находятся в папке services/api.
     - [x] модуля отправки запросов.
   - [x] Настройте Webpack в вашем проекте. Настройте loader для работы с:
     - [x] TypeScript
-    - [ ] вашим препроцессором
+    - [x] вашим препроцессором
     - [x] вашим шаблонизатором
   - [x] Настройте Docker-сборку статического приложения.
-  - [ ] Разместите в Heroku проект с Docker-сборкой.
+  - [x] Разместите в Heroku проект с Docker-сборкой.
   - [x] Настройте precommit на проект.
   - [x] Проведите аудит пакетов, обновите их и приведите в актуальное и безопасное состояние.
   - [ ] Обновите README.md проекта. Обновите описание функциональности и использованных технологий, проверьте
@@ -333,12 +332,7 @@ Http запросы находятся в папке services/api.
 #### Задачи 4 спринта
 
 - [ ] v0.4.0 - sprint_4
-  - [ ] pcjs-46 - Loading element component
-  - [ ] pcjs-59 - Изменение container в зависимости от ширины nav
-  - [ ] pcjs-61 - Button click hooks router
   - [ ] pcjs-63 - Router middleware
-  - [ ] pcjs-68 - Http requests error handler
-  - [ ] pcjs-70 - Реализовать метод navigate у класса route
   - [x] pcjs-71 - Рефакторинг 6
     - [x] починить webpack
     - [x] ошибка консоли call
@@ -346,18 +340,19 @@ Http запросы находятся в папке services/api.
   - [x] pcjs-72 - webpack
   - [x] pcjs-73 - docker
   - [x] pcjs-74 - heroku
-  - [ ] pcjs-75 - Entity types в отдельную папку
-  - [ ] pcjs-76 - Entity collection class
+  - [ ] pcjs-87 - Рефакторинг 7
+    - [ ] История сообщений в чатах
+    - [ ] Отображение автара
+    - [ ] Заглушка аватара
+    - [ ] Валидация инпута чата на пустоту
+    - [ ] После изменения данных в профиле нельзя попасть в чаты
+    - [ ] Нельзя переключиться на страницу регистрации со страницы логина
+    - [ ] Обработчик сабмита нужно навешивать только на тег form с событием submit, а не на кнопку сабмита с событием
+          click, так как сабмит формы происходит ещё при нажатии Enter, и он не будет работать, если навесить обработчик
+          клика на кнопку только. Это нужно исправить везде, где есть инпуты и форма
   - [x] pcjs-93 - precommit
   - [x] pcjs-94 - аудит пакетов
   - [ ] pcjs-95 - обновить readme
-  - [ ] pcjs-96 - Рефакторинг 7
-    - [ ] button убрать `<a>`
-    - [ ] debounce mouseover avatar
-    - [ ] При схлопывании навигации оставлять только аватарку у чата
-    - [ ] Убрать лишнюю верстку из logout page
-    - [ ] Валидация всех полей
-    - [ ] Валидация подтверждения пароля
 
 #### Задачи релиза 1.0.0
 
@@ -367,14 +362,25 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-30 - шрифты из cdn в проект
   - [ ] pcjs-31 - иконки из cdn в проект
   - [ ] pcjs-40 - Компоненты через теневой DOM
+  - [ ] pcjs-46 - Loading element component
+  - [ ] pcjs-59 - Изменение container в зависимости от ширины nav
   - [ ] pcjs-62 - Children routes
   - [ ] pcjs-64 - Middleware pipeline
   - [ ] pcjs-65 - Button icon component
   - [ ] pcjs-67 - .env
+  - [ ] pcjs-68 - Http requests error handler
+  - [ ] pcjs-75 - Entity types в отдельную папку
+  - [ ] pcjs-76 - Entity collection class
   - [ ] pcjs-77 - http response types
   - [ ] pcjs-80 - заменить uuid на nano-id
   - [ ] pcjs-81 - обновить eslint rules
-  - [ ] pcjs-87 - Рефакторинг 7
+  - [ ] pcjs-96 - Рефакторинг 8
+    - [ ] button убрать `<a>`
+    - [ ] debounce mouseover avatar
+    - [ ] При схлопывании навигации оставлять только аватарку у чата
+    - [ ] Убрать лишнюю верстку из logout page
+    - [ ] Валидация всех полей
+    - [ ] Валидация подтверждения пароля
     - [ ] Сделать приватные свойства js классов приватными
     - [ ] `src/pages/login/template.hbs` вход по enter
     - [ ] `src/components/input/style.css`
@@ -388,3 +394,4 @@ Http запросы находятся в папке services/api.
     - [ ] `src/pages/error/404/template.hbs` задать картинку с помощью background
     - [ ] Оптимизировать изображения
     - [ ] Проверить везде Error handling. Убрать console.log
+    - [ ] Unit test Router fix
