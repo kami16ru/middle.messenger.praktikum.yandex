@@ -20,7 +20,11 @@ class ChatItemComponent extends Block<ChatProps> {
   }
 
   protected render(): DocumentFragment {
-    return this.compile(template, { ...this.props, isSelected: this.props.id === this.props.selectedChat?.id })
+    return this.compile(template, {
+      ...this.props,
+      isSelected: this.props.id === this.props.selectedChat?.id,
+      avatar: '/images/avatars/avatar1.svg'
+    })
   }
 }
 
