@@ -7,6 +7,7 @@ export interface InputProps {
   rules?: Array<string>
   value?: string
   readonly?: boolean
+  required?: boolean
   events?: {
     blur?: () => void
     focus?: () => void

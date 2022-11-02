@@ -2,7 +2,7 @@ import Block from '../../../lib/dom/Block'
 import template from './template.hbs'
 import './style.css'
 import { InputProps } from '../input/types'
-import { Input } from '../input/index'
+import { Input } from '../input'
 
 export class ValidatedInput extends Block<InputProps> {
   constructor(props: InputProps) {

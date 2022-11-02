@@ -1,4 +1,4 @@
-import defaultRules from './rules'
+import defaultRules from '../../config/validationRules'
 import { ValidatorConfig, ValidationRuleConfig, OnBlurCallbackOptions } from './types'
 
 export default class Validator {
