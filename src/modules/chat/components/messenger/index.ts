@@ -1,12 +1,13 @@
 import template from './template.hbs'
-import { Message } from '../message/index'
-import { Input } from '../../../../components/ui/input/index'
-import { Button } from '../../../../components/ui/button/index'
+import { Message } from '../message'
+import { Input } from '../../../../components/ui/input'
+import { Button } from '../../../../components/ui/button'
 import './style.css'
 import MessagesController, { Message as MessageInfo } from '../../services/MessagesController'
 import { withStore } from '../../../../lib/dom/Store'
 import Block from '../../../../lib/dom/Block'
 import ChatsController from '../../services/ChatsController'
+import { isEmpty } from '../../../../lib/helpers/myDash'
 
 interface MessengerProps {
   selectedChat: number | undefined
@@ -24,7 +25,8 @@ class MessengerBase extends Block<MessengerProps> {
     this.children.input = new Input({
       type: 'text',
       placeholder: 'Сообщение',
-      name: 'message'
+      name: 'message',
+      required: true
     })
 
     this.children.button = new Button({
@@ -38,7 +40,8 @@ class MessengerBase extends Block<MessengerProps> {
 
           input.setValue('')
 
-          MessagesController.sendMessage(this.props.selectedChat!, message)
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          if (!isEmpty(message)) MessagesController.sendMessage(this.props.selectedChat!, message)
         }
       }
     })

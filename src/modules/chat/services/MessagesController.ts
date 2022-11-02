@@ -37,7 +37,7 @@ class MessagesController {
     await wsTransport.connect()
 
     this.subscribe(wsTransport, id)
-    // this.fetchOldMessages(id)
+    this.fetchOldMessages(id)
   }
 
   sendMessage(id: number, message: string) {

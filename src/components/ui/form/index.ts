@@ -2,9 +2,9 @@ import Block from '../../../lib/dom/Block'
 import template from './template.hbs'
 import Validator from '../../../lib/validation/Validator'
 import { OnBlurCallbackOptions, ValidationRuleConfig, ValidatorConfig } from '../../../lib/validation/types'
-import defaultRules from '../../../lib/validation/rules'
+import defaultRules from '../../../config/validationRules'
 import { InputProps } from '../input/types'
-import { ValidatedInput } from '../validated-input/index'
+import { ValidatedInput } from '../validated-input'
 
 export interface FormProps {
   inputs: Array<InputProps>
