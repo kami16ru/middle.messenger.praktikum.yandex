@@ -1,7 +1,7 @@
 import template from './template.hbs'
-import { Message } from '../message/index'
-import { Input } from '../../../../components/ui/input/index'
-import { Button } from '../../../../components/ui/button/index'
+import { Message } from '../message'
+import { Input } from '../../../../components/ui/input'
+import { Button } from '../../../../components/ui/button'
 import './style.css'
 import MessagesController, { Message as MessageInfo } from '../../services/MessagesController'
 import { withStore } from '../../../../lib/dom/Store'
@@ -38,6 +38,7 @@ class MessengerBase extends Block<MessengerProps> {
 
           input.setValue('')
 
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           MessagesController.sendMessage(this.props.selectedChat!, message)
         }
       }
