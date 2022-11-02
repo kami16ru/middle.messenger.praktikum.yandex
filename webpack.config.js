@@ -56,14 +56,14 @@ module.exports = {
         type: 'asset/inline'
       },
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.(sa|sc|c|pc)ss$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
             options: {}
           },
-          'css-loader'
-          // 'postcss-loader',
+          'css-loader',
+          'postcss-loader'
           // 'sass-loader'
         ]
       }, {
