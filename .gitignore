@@ -13,3 +13,5 @@ dist
 # Cache
 .parcel-cache
 .cache
+
+.env

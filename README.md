@@ -4,6 +4,7 @@
 
 - [Figma](#figma)
 - [Netlify](#netlify)
+- [Heroku](#heroku)
 - [Описание проекта](#описание-проекта)
   - [Используемые технологии](#используемые-технологии)
   - [Архитектура](#архитектура)
@@ -23,6 +24,9 @@ https://www.figma.com/file/CA7wA3xpoIsKt4jieXv2QL/Yandex-Chat?node-id=0%3A1
 
 ### Netlify
 https://lucky-centaur-1a1b81.netlify.app
+
+### Heroku
+https://prodev-chat.herokuapp.com/
 
 ### Описание проекта
 Приложение чат с возможностью переключаться между чатами.
