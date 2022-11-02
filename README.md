@@ -341,7 +341,7 @@ Http запросы находятся в папке services/api.
     - [x] починить импорт стилей компонентов
   - [x] pcjs-72 - webpack
   - [x] pcjs-73 - docker
-  - [ ] pcjs-74 - heroku
+  - [x] pcjs-74 - heroku
   - [ ] pcjs-75 - Entity types в отдельную папку
   - [ ] pcjs-76 - Entity collection class
   - [x] pcjs-93 - precommit
