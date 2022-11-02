@@ -1,60 +1,23 @@
-// import { LoginPage } from './modules/auth/pages/login/index'
-// import { RegisterPage } from './modules/auth/pages/register/index'
 import Router from './lib/dom/Router'
-// import { ProfileShowPage } from './modules/profile/pages/show/index'
-// import { ProfileEditPage } from './modules/profile/pages/edit/index'
-// import { ProfileEditPasswordPage } from './modules/profile/pages/edit-password/index'
 import { authController as AuthController } from './modules/auth/services/AuthController'
-// import { MessengerPage } from './modules/chat/pages/messenger/index'
 import { routes } from './config/routes'
 
-// import { MessengerPage } from './pages/Messenger'
-
-// export enum Routes {
-//   Index = '/',
-//   Register = '/register',
-//   ProfileShow = '/settings',
-//   ProfileEdit = '/profile/edit',
-//   ProfileEditPassword = '/profile/edit/password',
-//   Messenger = '/messenger',
-// }
-
 window.addEventListener('DOMContentLoaded', async () => {
-  routes.forEach((routeConfig) => {
-    Router.use(routeConfig)
-  })
-
-  // Router
-  //   .use(Routes.Index, LoginPage)
-  //   .use(Routes.Register, RegisterPage)
-  //   .use(Routes.ProfileShow, ProfileShowPage)
-  //   .use(Routes.ProfileEdit, ProfileEditPage)
-  //   .use(Routes.ProfileEditPassword, ProfileEditPasswordPage)
-  //   .use(Routes.Messenger, MessengerPage)
-
-  // let isProtectedRoute = true
-  //
-  // switch (window.location.pathname) {
-  // case Routes.Index:
-  // case Routes.Register:
-  //   isProtectedRoute = false
-  //   break
-  // }
-
   try {
-    await AuthController.fetchUser()
+    routes.forEach((routeConfig) => {
+      Router.use(routeConfig)
+    })
 
-    Router.start()
+    try {
+      await AuthController.fetchUser()
 
-    // if (!isProtectedRoute) {
-    //   Router.go(Routes.ProfileShow)
-    // }
+      Router.start()
+
+    } catch (e) {
+      console.log(e)
+      Router.start()
+    }
   } catch (e) {
-    Router.start()
-
-    // if (isProtectedRoute) {
-    //   Router.go(Routes.Index)
-    // }
+    console.log(e)
   }
-
 })
