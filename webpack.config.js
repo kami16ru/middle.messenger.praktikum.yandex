@@ -1,6 +1,6 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -8,6 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'prodev-chat.bundle.js'
+    // publicPath: '/'
   },
   resolve: {
     extensions: ['.ts', '.js', '.json']
@@ -16,14 +17,18 @@ module.exports = {
     // }
   },
   devServer: {
-    contentBase: 'dist',
     compress: true,
-    port: 3000
+    port: 3000,
+    open: true,
+    historyApiFallback: true,
+    static: {
+      directory: path.join(__dirname, 'public')
+    }
   },
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html'
+      template: './public/index.html'
     })
   ],
   module: {
@@ -40,15 +45,25 @@ module.exports = {
         ],
         exclude: /(node_modules)/
       },
+      //images
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: 'asset/resource'
+      },
+      // fonts and SVG
+      {
+        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        type: 'asset/inline'
+      },
+      {
+        test: /\.(sa|sc|c|pc)ss$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
             options: {}
           },
-          'css-loader'
-          // 'postcss-loader',
+          'css-loader',
+          'postcss-loader'
           // 'sass-loader'
         ]
       }, {

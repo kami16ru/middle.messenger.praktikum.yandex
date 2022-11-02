@@ -2,8 +2,7 @@ import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
 import { Button } from '../../../../components/ui/button'
 import { Input } from '../../../../components/ui/input'
-import '../style.css'
-import './style.css'
+import styles from '../styles.module.pcss'
 import { Link } from '../../../../components/ui/link'
 import { SignInRequest } from '../../services/authApi'
 import { authController } from '../../services/AuthController'
@@ -58,6 +57,6 @@ export class LoginPage extends Block {
   }
 
   render() {
-    return this.compile(template, { ...this.props })
+    return this.compile(template, { ...this.props, styles })
   }
 }

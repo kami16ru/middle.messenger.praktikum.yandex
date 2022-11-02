@@ -1,10 +1,10 @@
 import template from './template.hbs'
 import './style.css'
-import { NavDrawerHeader } from './header/index'
+import { NavDrawerHeader } from './header'
 import Block from '../../../lib/dom/Block'
-import { NavDrawerList } from './list/index'
+import { NavDrawerList } from './list'
 import { navDrawerList } from '../../../config/nav'
-import { ChatsList } from '../../../modules/chat/components/list/index'
+import { ChatsList } from '../../../modules/chat/components/list'
 import { ChatResponse } from '../../../modules/chat/services/chatApi'
 import { withStore } from '../../../lib/dom/Store'
 import ChatsController from '../../../modules/chat/services/ChatsController'
@@ -27,7 +27,7 @@ export class NavDrawerComponent extends Block<NavDrawerProps> {
   init() {
     this.setActiveComponent(this.props.selectedNavList || 'navList')
     this.children.activeComponent = this.getActiveComponent(this.activeComponent) as Block
-    this.children.header = new NavDrawerHeader({
+    this.children.navHeader = new NavDrawerHeader({
       withMenu: this.props.withHeaderMenu,
       selectedNavList: this.activeComponent
     })

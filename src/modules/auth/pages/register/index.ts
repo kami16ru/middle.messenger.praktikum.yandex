@@ -1,13 +1,13 @@
 import Block from '../../../../lib/dom/Block'
-import '../style.css'
+import styles from '../styles.module.pcss'
 import './style.css'
 import template from './template.hbs'
-import { Button } from '../../../../components/ui/button/index'
-import { Input } from '../../../../components/ui/input/index'
+import { Button } from '../../../../components/ui/button'
+import { Input } from '../../../../components/ui/input'
 import { authController } from '../../services/AuthController'
 import { SignUpRequest } from '../../services/authApi'
-import { Form } from '../../../../components/ui/form/index'
-import { Link } from '../../../../components/ui/link/index'
+import { Form } from '../../../../components/ui/form'
+import { Link } from '../../../../components/ui/link'
 
 const form = new Form({
   inputs: [{
@@ -85,6 +85,6 @@ export class RegisterPage extends Block {
   }
 
   render() {
-    return this.compile(template, { ...this.props })
+    return this.compile(template, { ...this.props, styles })
   }
 }
