@@ -2,7 +2,7 @@ import Block from './Block'
 import { BlockConstructable, RouteConfig } from './types'
 import { notFoundRoute } from '../../config/routes'
 import store from './Store'
-import { signInRoute } from '../../modules/auth/router'
+import { signInRoute } from '../../modules/auth/config/routes'
 
 function isEqual(lhs: string, rhs: string): boolean {
   return lhs === rhs
