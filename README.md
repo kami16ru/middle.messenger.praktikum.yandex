@@ -335,10 +335,10 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-63 - Router middleware
   - [ ] pcjs-68 - Http requests error handler
   - [ ] pcjs-70 - Реализовать метод navigate у класса route
-  - [ ] pcjs-71 - Рефакторинг 6
+  - [x] pcjs-71 - Рефакторинг 6
     - [x] починить webpack
-    - [ ] ошибка консоли call
-    - [ ] починить импорт стилей компонентов
+    - [x] ошибка консоли call
+    - [x] починить импорт стилей компонентов
   - [x] pcjs-72 - webpack
   - [x] pcjs-73 - docker
   - [ ] pcjs-74 - heroku
