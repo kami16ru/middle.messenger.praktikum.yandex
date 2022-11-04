@@ -1,6 +1,8 @@
 import HTTPTransport from '../lib/http/HTTPTransport'
 import { RequestOptions } from '../lib/http/types'
 
+export type ByIdRequest = number
+
 export const httpService = (endpoint: string) => {
   const httpTransport = new HTTPTransport(endpoint)
 

@@ -1,5 +1,4 @@
-import { httpService } from '../httpService'
-import { ByIdRequest } from './types'
+import { ByIdRequest, httpService } from '../../../services/http.service'
 
 const endpoint = '/user'
 
