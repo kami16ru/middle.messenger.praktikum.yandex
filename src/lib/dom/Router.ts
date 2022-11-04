@@ -99,8 +99,6 @@ class Router {
       this.routes.push(route)
     }
 
-    console.log(this)
-
     return this
   }
 

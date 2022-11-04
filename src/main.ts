@@ -4,21 +4,9 @@ import { routes } from './config/routes'
 import './assets/css/app.css'
 
 window.addEventListener('DOMContentLoaded', async () => {
-  try {
-    routes.forEach((routeConfig) => {
-      Router.use(routeConfig)
-    })
-
-    try {
-      await AuthController.fetchUser()
-
-      Router.start()
-
-    } catch (e) {
-      console.log(e)
-      Router.start()
-    }
-  } catch (e) {
-    console.log(e)
-  }
+  routes.forEach((routeConfig) => {
+    Router.use(routeConfig)
+  })
+  await AuthController.fetchUser()
+  Router.start()
 })
