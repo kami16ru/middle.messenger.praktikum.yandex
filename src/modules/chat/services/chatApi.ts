@@ -1,6 +1,5 @@
-import { httpService } from '../../../services/httpService'
+import { ByIdRequest, httpService } from '../../../services/http.service'
 import { UserResponse } from '../../auth/services/authApi'
-import { ByIdRequest } from '../../../services/api/types'
 
 const endpoint = '/chats'
 

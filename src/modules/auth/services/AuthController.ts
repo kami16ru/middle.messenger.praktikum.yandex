@@ -1,6 +1,7 @@
 import API, { SignInRequest, SignUpRequest } from './authApi'
 import store from '../../../lib/dom/Store'
 import router from '../../../lib/dom/Router'
+import { HTTPErrorHandler } from '../../../lib/http/HTTPErrorHandler'
 
 export class AuthController {
   private readonly api;
@@ -16,9 +17,8 @@ export class AuthController {
       await this.fetchUser()
 
       router.go('/messenger')
-    } catch (e: any) {
-      console.error(e)
-      router.go('/')
+    } catch (e) {
+      HTTPErrorHandler.handleHttp(e)
     }
   }
 
@@ -29,25 +29,26 @@ export class AuthController {
       await this.fetchUser()
 
       router.go('/messenger')
-    } catch (e: any) {
-      console.error(e.message)
-      router.go('/')
+    } catch (e) {
+      HTTPErrorHandler.handleHttp(e)
     }
   }
 
   async fetchUser() {
-    const user = await this.api.whoAmI()
+    try {
+      const user = await this.api.whoAmI()
 
-    store.set('user', user)
-
-    console.log(store.getState())
+      store.set('user', user)
+    } catch (e) {
+      HTTPErrorHandler.handleHttp(e)
+    }
   }
 
   async logout() {
     try {
       await this.api.logout()
-    } catch (e: any) {
-      console.error(e.message)
+    } catch (e) {
+      HTTPErrorHandler.handleHttp(e)
     } finally {
       store.set('user', null)
       router.go('/sign-in')
@@ -56,5 +57,3 @@ export class AuthController {
 }
 
 export const authController = new AuthController()
-
-// window.authController = authController

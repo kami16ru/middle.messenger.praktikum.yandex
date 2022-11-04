@@ -1,5 +1,5 @@
 import ConsoleLoggerAdapter from './adapter/ConsoleLoggerAdapter'
-import { errorMessages } from './config'
+import { errorMessages } from '../../config/errorMessages'
 import AlertLoggerAdapter from './adapter/AlertLoggerAdapter'
 import { isEmpty } from '../helpers/myDash'
 import { IErrorLoggerBuilder, ErrorLoggerBuilderOptions } from './types'

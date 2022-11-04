@@ -368,7 +368,12 @@ Http запросы находятся в папке services/api.
 
 - [ ] v0.4.0 - sprint_4
   - [ ] pcjs-63 - Router middleware
-  - [ ] pcjs-68 - Http requests error handler
+  - [x] pcjs-68 - Http requests error handler
+    - [x] Лучше убрать дублирование типизации одинаковых методов (функций)
+    - [x] HTTPErrorHandler
+    - [x] ChatsController error handling
+    - [x] AuthController error handling
+    - [x] ProfileController error handling
   - [x] pcjs-71 - Рефакторинг 6
     - [x] починить webpack
     - [x] ошибка консоли call
@@ -399,7 +404,6 @@ Http запросы находятся в папке services/api.
     - [ ] в задеплоенном приложении не отображается заглушка под аватар чата
     - [ ] Нужно настроить еще webpack под production
     - [ ] в прекоммит нужно было и запуск линтеров делать, чтобы не дать закоммитить неотформатированный код
-    - [ ] Лучше убрать дублирование типизации одинаковых методов (функций). Это достаточно легко сделать
     - [ ] теперь parcel Вам не нужен. Его можно удалить и скрипты тоже
     - [ ] export default Validator
   - [ ] pcjs-98 - Рефакторинг 9
