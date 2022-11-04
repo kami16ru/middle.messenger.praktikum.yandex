@@ -12,9 +12,13 @@ class ChatsController {
   }
 
   async create(title: string) {
-    await this.api.createChat({ title })
+    try {
+      await this.api.createChat({ title })
 
-    await this.fetchChats()
+      await this.fetchChats()
+    } catch (e) {
+      ErrorHandler.handle(errorMessages.httpErrors.SERVER_ERROR)
+    }
   }
 
   async fetchChats() {
@@ -31,6 +35,8 @@ class ChatsController {
 
       store.set('chats', chats)
     } catch (e) {
+      if (e?.response?.status === 404) ErrorHandler.handle(errorMessages.httpErrors.NOT_FOUND)
+
       ErrorHandler.handle(errorMessages.httpErrors.SERVER_ERROR)
     }
   }
@@ -39,6 +45,8 @@ class ChatsController {
     try {
       this.api.addUsersToChat({ chatId: id, user: [userId] })
     } catch (e) {
+      if (e?.response?.status === 404) ErrorHandler.handle(errorMessages.httpErrors.NOT_FOUND)
+
       ErrorHandler.handle(errorMessages.httpErrors.SERVER_ERROR)
     }
   }
@@ -49,6 +57,8 @@ class ChatsController {
 
       await this.fetchChats()
     } catch (e) {
+      if (e?.response?.status === 404) ErrorHandler.handle(errorMessages.httpErrors.NOT_FOUND)
+
       ErrorHandler.handle(errorMessages.httpErrors.SERVER_ERROR)
     }
   }
@@ -57,9 +67,13 @@ class ChatsController {
     try {
       return await this.api.getChatToken(id)
     } catch (e) {
-      ErrorHandler.handle(errorMessages.httpErrors.SERVER_ERROR)
+      const message = e?.response?.status === 404
+        ? errorMessages.httpErrors.NOT_FOUND
+        : errorMessages.httpErrors.SERVER_ERROR
 
-      return Promise.reject(errorMessages.httpErrors.SERVER_ERROR)
+      ErrorHandler.handle(message)
+
+      return Promise.reject(message)
     }
   }
 
