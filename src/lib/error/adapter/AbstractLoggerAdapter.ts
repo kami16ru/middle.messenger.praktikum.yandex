@@ -1,4 +1,4 @@
-import { errorMessages } from '../config'
+import { errorMessages } from '../../../config/errorMessages'
 import { ErrorMessage } from '../types'
 
 export default abstract class AbstractLoggerAdapter {

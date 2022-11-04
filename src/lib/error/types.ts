@@ -9,11 +9,7 @@ export type ErrorLoggerBuilderOptions = {
   error: Error | string
 }
 
-export type ErrorMessagesConfig = {
-  arrayErrors: Record<string, string>
-  classErrors: Record<string, string>
-  fetchErrors: Record<string, string>
-  DEFAULT_MESSAGE: string
-}
+// export type ErrorMessagesConfig = Record<string, Record<string, string> | string>
+export type ErrorMessagesConfig = Record<string, any>
 
 export type ErrorMessage = string | Error

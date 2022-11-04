@@ -1,4 +1,5 @@
-import { ErrorMessagesConfig } from './types'
+import { ErrorMessagesConfig } from '../lib/error/types'
+import { httpErrors } from '../lib/http/config'
 
 export const errorMessages: ErrorMessagesConfig = {
   arrayErrors: {
@@ -11,7 +12,9 @@ export const errorMessages: ErrorMessagesConfig = {
     INVALID_CONSTRUCTOR_ARGS: 'Invalid constructor arguments!'
   },
   fetchErrors: {
-    NOT_FOUND: '404 not found'
+    NOT_FOUND: '404 not found',
+    SERVER_ERROR: '5** server error'
   },
+  httpErrors,
   DEFAULT_MESSAGE: 'Unhandled error'
 }

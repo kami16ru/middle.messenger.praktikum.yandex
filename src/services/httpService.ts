@@ -5,9 +5,9 @@ export const httpService = (endpoint: string) => {
   const httpTransport = new HTTPTransport(endpoint)
 
   return {
-    get<Response>(options: RequestOptions): Promise<Response> { return httpTransport.get(options) },
-    post<Response = void>(options: RequestOptions): Promise<Response> { return httpTransport.post(options) },
-    put<Response = void>(options: RequestOptions): Promise<Response> { return httpTransport.put(options) },
-    delete<Response>(options: RequestOptions): Promise<Response> { return httpTransport.delete(options) }
+    get(options: RequestOptions) { return httpTransport.get(options) },
+    post(options: RequestOptions) { return httpTransport.post(options) },
+    put(options: RequestOptions) { return httpTransport.put(options) },
+    delete(options: RequestOptions) { return httpTransport.delete(options) }
   }
 }
