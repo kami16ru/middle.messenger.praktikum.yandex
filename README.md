@@ -370,6 +370,7 @@ Http запросы находятся в папке services/api.
   - [ ] pcjs-63 - Router middleware
   - [ ] pcjs-68 - Http requests error handler
     - [x] Лучше убрать дублирование типизации одинаковых методов (функций)
+    - [x] ChatsController error handling
   - [x] pcjs-71 - Рефакторинг 6
     - [x] починить webpack
     - [x] ошибка консоли call

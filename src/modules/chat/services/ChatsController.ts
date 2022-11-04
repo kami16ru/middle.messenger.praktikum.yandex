@@ -1,6 +1,8 @@
 import API, { ChatResponse } from './chatApi'
 import store from '../../../lib/dom/Store'
 import MessagesController from './MessagesController'
+import { ErrorHandler } from '../../../lib/error/ErrorHandler'
+import { errorMessages } from '../../../config/errorMessages'
 
 class ChatsController {
   private readonly api;
@@ -16,31 +18,49 @@ class ChatsController {
   }
 
   async fetchChats() {
-    const chats = await this.api.getChats()
+    try {
+      const chats = await this.api.getChats()
 
-    chats.map(async (chat: ChatResponse) => {
-      const tokenResponse = await this.getToken(chat.id)
+      chats.map(async (chat: ChatResponse) => {
+        const tokenResponse = await this.getToken(chat.id)
 
-      console.log(chat.id, tokenResponse.token)
+        console.log(chat.id, tokenResponse.token)
 
-      await MessagesController.connect(chat.id, tokenResponse.token)
-    })
+        await MessagesController.connect(chat.id, tokenResponse.token)
+      })
 
-    store.set('chats', chats)
+      store.set('chats', chats)
+    } catch (e) {
+      ErrorHandler.handle(errorMessages.httpErrors.SERVER_ERROR)
+    }
   }
 
   addUserToChat(id: number, userId: number) {
-    this.api.addUsersToChat({ chatId: id, user: [userId] })
+    try {
+      this.api.addUsersToChat({ chatId: id, user: [userId] })
+    } catch (e) {
+      ErrorHandler.handle(errorMessages.httpErrors.SERVER_ERROR)
+    }
   }
 
   async delete(id: number) {
-    await this.api.deleteChat({ chatId: id })
+    try {
+      await this.api.deleteChat({ chatId: id })
 
-    await this.fetchChats()
+      await this.fetchChats()
+    } catch (e) {
+      ErrorHandler.handle(errorMessages.httpErrors.SERVER_ERROR)
+    }
   }
 
   async getToken(id: number) {
-    return await this.api.getChatToken(id)
+    try {
+      return await this.api.getChatToken(id)
+    } catch (e) {
+      ErrorHandler.handle(errorMessages.httpErrors.SERVER_ERROR)
+
+      return Promise.reject(errorMessages.httpErrors.SERVER_ERROR)
+    }
   }
 
   selectChat(id: number) {
