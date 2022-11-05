@@ -1,6 +1,5 @@
 import '../style.css'
 import template from './template.hbs'
-import { Button } from '../../../../components/ui/button'
 import { Input } from '../../../../components/ui/input'
 import Block from '../../../../lib/dom/Block'
 import { Form } from '../../../../components/ui/form'
@@ -44,22 +43,27 @@ class ProfileEditPasswordPageComponent extends Block {
     })
 
     this.children.form = new Form({
-      inputs
-    })
-
-    this.children.save = new Button({
-      label: 'Отправить',
-      class: 'bg-dark white',
+      title: 'Изменение пароля',
+      inputs,
+      actions: [{
+        label: 'Отправить',
+        class: 'bg-dark white',
+        type: 'submit'
+      }, {
+        label: 'Отменить',
+        class: 'bg-danger white',
+        events: {
+          click: () => this.onCancel()
+        }
+      }],
       events: {
-        click: () => this.onSubmit()
-      }
-    })
+        submit: async (e: SubmitEvent) => {
+          e.preventDefault()
 
-    this.children.cancel = new Button({
-      label: 'Отменить',
-      class: 'bg-danger white',
-      events: {
-        click: () => this.onCancel()
+          await this.onSubmit()
+
+          return false
+        }
       }
     })
   }
