@@ -9,7 +9,7 @@ import { profileController } from '../../services/ProfileController'
 import { ProfileEditPasswordRequest } from '../../services/api'
 import Router from '../../../../lib/dom/Router'
 import { ProfileField } from '../../components/profile-field'
-import { withStore } from '../../../../lib/dom/Store'
+import { withStore } from '../../../../lib/dom/hocs/withStore'
 
 const formConfig = {
   inputs: [{

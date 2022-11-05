@@ -6,7 +6,7 @@ import { NavDrawerList } from './list'
 import { navDrawerList } from '../../../config/nav'
 import { ChatsList } from '../../../modules/chat/components/list'
 import { ChatResponse } from '../../../modules/chat/services/chatApi'
-import { withStore } from '../../../lib/dom/Store'
+import { withStore } from '../../../lib/dom/hocs/withStore'
 import ChatsController from '../../../modules/chat/services/ChatsController'
 
 export interface NavDrawerProps {

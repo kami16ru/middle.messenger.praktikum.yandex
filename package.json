@@ -4,8 +4,8 @@
   "description": "Live chat",
   "scripts": {
     "test": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'",
-    "dev": "webpack serve",
-    "build": "webpack --mode=production",
+    "dev": "cp -r ./static/public/* ./dist && webpack serve",
+    "build": "webpack --mode=production && cp -r ./static/public/* ./dist",
     "start": "rm -rf ./dist && npm run build && node server.ts --open",
     "stylelint": "npx stylelint --fix **/*.{css,scss}"
   },

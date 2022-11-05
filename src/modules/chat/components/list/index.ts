@@ -1,8 +1,8 @@
 import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
-import { ChatItem } from './item/index'
+import { ChatItem } from './item'
 import './style.css'
-import { withStore } from '../../../../lib/dom/Store'
+import { withStore } from '../../../../lib/dom/hocs/withStore'
 import { ChatResponse } from '../../services/chatApi'
 import ChatsController from '../../services/ChatsController'
 

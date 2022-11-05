@@ -8,13 +8,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'prodev-chat.bundle.js'
-    // publicPath: '/'
   },
   resolve: {
     extensions: ['.ts', '.js', '.json']
-    // alias: {
-    //   '@': path.resolve(__dirname, 'src')
-    // }
   },
   devServer: {
     compress: true,
@@ -22,13 +18,13 @@ module.exports = {
     open: true,
     historyApiFallback: true,
     static: {
-      directory: path.join(__dirname, 'public')
+      directory: path.join(__dirname, 'static/public')
     }
   },
   plugins: [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './static/index.html'
     })
   ],
   module: {

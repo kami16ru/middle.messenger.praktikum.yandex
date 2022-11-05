@@ -1,12 +1,12 @@
 import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
-import { withStore } from '../../../../lib/dom/Store'
-import { Button } from '../../../../components/ui/button/index'
+import { withStore } from '../../../../lib/dom/hocs/withStore'
+import { Button } from '../../../../components/ui/button'
 import { UserResponse } from '../../../auth/services/authApi'
-import { Form } from '../../../../components/ui/form/index'
+import { Form } from '../../../../components/ui/form'
 import Router from '../../../../lib/dom/Router'
 import { ProfileRoutes } from '../../config/routes'
-import { NavDrawer } from '../../../../components/nav/drawer/index'
+import { NavDrawer } from '../../../../components/nav/drawer'
 
 type ProfileProps = UserResponse
 

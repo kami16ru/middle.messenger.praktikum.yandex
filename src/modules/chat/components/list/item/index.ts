@@ -1,7 +1,7 @@
 import Block from '../../../../../lib/dom/Block'
 import template from './template.hbs'
 import './style.css'
-import { withStore } from '../../../../../lib/dom/Store'
+import { withStore } from '../../../../../lib/dom/hocs/withStore'
 import { ChatResponse } from '../../../services/chatApi'
 
 interface ChatProps {
