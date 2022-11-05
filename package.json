@@ -9,6 +9,7 @@
     "start": "rm -rf ./dist && npm run build && node server.ts --open",
     "stylelint": "npx stylelint --fix **/*.{css,scss}",
     "eslint": "./node_modules/eslint/bin/eslint.js ./src --fix",
+    "precommit:install": "husky install",
     "precommit": "npm run test && npm run eslint"
   },
   "author": "kami16ru",
