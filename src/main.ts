@@ -1,6 +1,7 @@
 import Router from './lib/dom/Router'
 import { authController as AuthController } from './modules/auth/services/AuthController'
 import { routes } from './config/routes'
+
 import './assets/css/app.css'
 
 window.addEventListener('DOMContentLoaded', async () => {
