@@ -1,5 +1,19 @@
-<form>
+<form class="card bordered bg-success accent" style="width: {{ width }}">
+  <h3 class="card__title dark">{{ title }}</h3>
+
   {{#each inputs}}
     {{{ this }}}
   {{/each}}
+
+  <div class="spacer"></div>
+
+  <div class="card__actions">
+    <div class="button-group__row">
+      {{#each actions}}
+        {{{ this }}}
+      {{/each}}
+    </div>
+
+    {{{link}}}
+  </div>
 </form>
