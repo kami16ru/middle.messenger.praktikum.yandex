@@ -1,7 +1,6 @@
 import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
 import { Input } from '../../../../components/ui/input'
-import styles from '../styles.module.pcss'
 import { SignInRequest } from '../../services/authApi'
 import { authController } from '../../services/AuthController'
 import { Form } from '../../../../components/ui/form'
@@ -47,19 +46,6 @@ export class LoginPage extends Block {
         }
       }
     })
-
-    // this.children.button = new Button({
-    //   label: 'Войти',
-    //   class: 'bg-primary white full-width',
-    //   events: {
-    //     click: () => this.onSubmit()
-    //   }
-    // })
-
-    // this.children.link = new Link({
-    //   label: 'Регистрация',
-    //   to: '/register'
-    // })
   }
 
   async onSubmit() {
@@ -74,6 +60,6 @@ export class LoginPage extends Block {
   }
 
   render() {
-    return this.compile(template, { ...this.props, styles })
+    return this.compile(template, this.props)
   }
 }
