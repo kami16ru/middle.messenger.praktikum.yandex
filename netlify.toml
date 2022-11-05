@@ -7,7 +7,6 @@
 
 [build]
   publish = "/dist"
-  command = "start"
 [[redirects]]
   from = "/*"
   to = "/index.html"
