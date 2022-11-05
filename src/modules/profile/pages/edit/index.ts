@@ -1,6 +1,5 @@
 import '../style.css'
 import template from './template.hbs'
-import { Button } from '../../../../components/ui/button'
 import { Input } from '../../../../components/ui/input'
 import { UserResponse } from '../../../auth/services/authApi'
 import Block from '../../../../lib/dom/Block'
@@ -13,45 +12,46 @@ import { ProfileEditRequest } from '../../services/api'
 
 type ProfileProps = UserResponse
 
-const formConfig = {
-  inputs: [{
-    name: 'email',
-    type: 'email',
-    label: 'Почта',
-    helper: 'Email пользователя',
-    rules: ['isEmail']
-  }, {
-    name: 'login',
-    type: 'text',
-    label: 'Логин',
-    rules: ['isLogin']
-  }, {
-    name: 'first_name',
-    type: 'text',
-    label: 'Имя',
-    helper: 'Как вас зовут?',
-    rules: ['isName']
-  }, {
-    name: 'second_name',
-    type: 'text',
-    label: 'Фамилия',
-    rules: ['isName']
-  }, {
-    name: 'display_name',
-    type: 'text',
-    label: 'Никнейм',
-    rules: ['isName']
-  }, {
-    name: 'phone',
-    type: 'text',
-    label: 'Телефон',
-    helper: 'От 10 до 15 символов, состоит из цифр, может начинается с плюса',
-    rules: ['isPhone']
-  }]
-}
+const formInputs = [{
+  name: 'email',
+  type: 'email',
+  label: 'Почта',
+  helper: 'Email пользователя',
+  rules: ['isEmail']
+}, {
+  name: 'login',
+  type: 'text',
+  label: 'Логин',
+  rules: ['isLogin']
+}, {
+  name: 'first_name',
+  type: 'text',
+  label: 'Имя',
+  helper: 'Как вас зовут?',
+  rules: ['isName']
+}, {
+  name: 'second_name',
+  type: 'text',
+  label: 'Фамилия',
+  rules: ['isName']
+}, {
+  name: 'display_name',
+  type: 'text',
+  label: 'Никнейм',
+  rules: ['isName']
+}, {
+  name: 'phone',
+  type: 'text',
+  label: 'Телефон',
+  helper: 'От 10 до 15 символов, состоит из цифр, может начинается с плюса',
+  rules: ['isPhone']
+}]
 
 class ProfileEditPageComponent extends Block<ProfileProps> {
   init() {
+    const formConfig = {
+      inputs: formInputs
+    }
     const inputs = formConfig.inputs.map((formConfig) => {
       const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
 
@@ -66,22 +66,27 @@ class ProfileEditPageComponent extends Block<ProfileProps> {
     })
 
     this.children.form = new Form({
-      inputs
-    })
-
-    this.children.save = new Button({
-      label: 'Отправить',
-      class: 'bg-dark white',
+      title: 'Профайл - редактирование',
+      inputs,
+      actions: [{
+        label: 'Отправить',
+        class: 'bg-dark white',
+        type: 'submit'
+      }, {
+        label: 'Отменить',
+        class: 'bg-danger white',
+        events: {
+          click: () => this.onCancel()
+        }
+      }],
       events: {
-        click: () => this.onSubmit()
-      }
-    })
+        submit: async (e: SubmitEvent) => {
+          e.preventDefault()
 
-    this.children.cancel = new Button({
-      label: 'Отменить',
-      class: 'bg-danger white',
-      events: {
-        click: () => this.onCancel()
+          await this.onSubmit()
+
+          return false
+        }
       }
     })
   }

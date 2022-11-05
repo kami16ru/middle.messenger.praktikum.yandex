@@ -12,7 +12,10 @@ export interface FormProps {
   title?: string
   inputs: Array<InputProps>
   actions?: Array<ButtonProps>
-  readonly?: boolean
+  readonly?: boolean,
+  events?: {
+    submit: (e: SubmitEvent) => void
+  }
 }
 
 export class Form extends Block {
