@@ -7,12 +7,18 @@ import { InputProps } from '../input/types'
 import { ValidatedInput } from '../validated-input'
 import { ButtonProps } from '../button/types'
 import { Button } from '../button'
+import { Link } from '../link'
 
 export interface FormProps {
   title?: string
   inputs: Array<InputProps>
   actions?: Array<ButtonProps>
-  readonly?: boolean,
+  link?: {
+    label: string
+    to: string
+  }
+  readonly?: boolean
+  width?: string
   events?: {
     submit: (e: SubmitEvent) => void
   }
@@ -20,13 +26,17 @@ export interface FormProps {
 
 export class Form extends Block {
   constructor(props: FormProps) {
-    super(props)
+    super({
+      width: '500px',
+      ...props
+    })
   }
 
   init() {
     this.children.inputs = this.createInputs(this.props)
 
     if (this.props.actions) this.children.actions = this.props.actions.map((buttonProps: ButtonProps) => new Button(buttonProps))
+    if (this.props.link) this.children.link = new Link(this.props.link)
   }
 
   validate(inputProps: ValidatorConfig) {
