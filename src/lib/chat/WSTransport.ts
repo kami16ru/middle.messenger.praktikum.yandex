@@ -1,4 +1,6 @@
 import { EventBus } from '../dom/EventBus'
+import { ErrorHandler } from '../error/ErrorHandler'
+import { wsErrors } from './config'
 
 export enum WSTransportEvents {
   Connected = 'connected',
@@ -60,28 +62,33 @@ export default class WSTransport extends EventBus {
       this.emit(WSTransportEvents.Connected)
       console.log('socket open')
     })
-    socket.addEventListener('close', () => {
+    socket.addEventListener(WSTransportEvents.Close, () => {
       this.emit(WSTransportEvents.Close)
       console.log('socket close')
     })
 
-    socket.addEventListener('error', (e) => {
+    socket.addEventListener(WSTransportEvents.Error, (e) => {
       this.emit(WSTransportEvents.Error, e)
-      console.log('socket error')
     })
 
-    socket.addEventListener('message', (message) => {
-      if (!message.data) return
+    socket.addEventListener(WSTransportEvents.Message, (message) => {
+      if (!message.data) {
+        ErrorHandler.handle(wsErrors.MESSAGE_ERROR)
 
-      console.log(message)
-
-      const data = JSON.parse(message.data)
-
-      if (data.type && data.type === 'pong') {
         return
       }
 
-      this.emit(WSTransportEvents.Message, data)
+      try {
+        const data = JSON.parse(message.data)
+
+        if (data.type && data.type === 'pong') {
+          return
+        }
+
+        this.emit(WSTransportEvents.Message, data)
+      } catch (e) {
+        ErrorHandler.handle(wsErrors.MESSAGE_ERROR)
+      }
     })
   }
 }
