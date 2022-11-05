@@ -1,8 +1,9 @@
 import Block from '../../../../../lib/dom/Block'
 import template from './template.hbs'
-import { NavDrawerMenuItem, NavDrawerMenuItemProps } from './menu-item/index'
+import { NavDrawerMenuItem, NavDrawerMenuItemProps } from './menu-item'
 import { navDrawerHeader } from '../../../../../config/nav'
-import store, { withStore } from '../../../../../lib/dom/Store'
+import store from '../../../../../lib/dom/Store'
+import { withStore } from '../../../../../lib/dom/hocs/withStore'
 
 export interface NavDrawerMenuProps {
   selectedNavList: string

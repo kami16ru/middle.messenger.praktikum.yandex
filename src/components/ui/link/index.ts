@@ -1,5 +1,5 @@
 import Block from '../../../lib/dom/Block'
-import { PropsWithRouter, withRouter } from '../../../hocs/withRouter'
+import { PropsWithRouter, withRouter } from '../../../lib/dom/hocs/withRouter'
 import template from './template.hbs'
 import './style.css'
 import Router from '../../../lib/dom/Router'
