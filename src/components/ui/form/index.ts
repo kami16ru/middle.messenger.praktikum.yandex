@@ -5,9 +5,13 @@ import { OnBlurCallbackOptions, ValidationRuleConfig, ValidatorConfig } from '..
 import defaultRules from '../../../config/validationRules'
 import { InputProps } from '../input/types'
 import { ValidatedInput } from '../validated-input'
+import { ButtonProps } from '../button/types'
+import { Button } from '../button'
 
 export interface FormProps {
+  title?: string
   inputs: Array<InputProps>
+  actions?: Array<ButtonProps>
   readonly?: boolean
 }
 
@@ -18,6 +22,8 @@ export class Form extends Block {
 
   init() {
     this.children.inputs = this.createInputs(this.props)
+
+    if (this.props.actions) this.children.actions = this.props.actions.map((buttonProps: ButtonProps) => new Button(buttonProps))
   }
 
   validate(inputProps: ValidatorConfig) {

@@ -1,7 +1,7 @@
 import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
 import { withStore } from '../../../../lib/dom/hocs/withStore'
-import { Button } from '../../../../components/ui/button'
+// import { Button } from '../../../../components/ui/button'
 import { UserResponse } from '../../../auth/services/authApi'
 import { Form } from '../../../../components/ui/form'
 import Router from '../../../../lib/dom/Router'
@@ -11,6 +11,7 @@ import { NavDrawer } from '../../../../components/nav/drawer'
 type ProfileProps = UserResponse
 
 const formConfig = {
+  title: 'Профайл',
   inputs: [{
     name: 'email',
     type: 'email',
@@ -56,6 +57,19 @@ const formConfig = {
     label: 'Пароль еще раз',
     helper: 'Должны совпадать',
     rules: ['isPassword']
+  }],
+  actions: [{
+    label: 'Изменить данные',
+    class: 'bg-dark white',
+    events: {
+      click: () => Router.go(ProfileRoutes.edit)
+    }
+  }, {
+    label: 'Изменить пароль',
+    class: 'bg-dark white',
+    events: {
+      click: () => Router.go(ProfileRoutes.editPassword)
+    }
   }]
 }
 
@@ -77,33 +91,35 @@ class ProfileShowPageComponent extends Block<ProfileProps> {
     })
 
     this.children.form = new Form({
+      title: formConfig.title,
       inputs,
+      actions: formConfig.actions,
       readonly: true
     })
 
-    this.children.editProfile = new Button({
-      label: 'Изменить данные',
-      class: 'bg-dark white',
-      events: {
-        click: () => Router.go(ProfileRoutes.edit)
-      }
-    })
-
-    this.children.editPassword = new Button({
-      label: 'Изменить пароль',
-      class: 'bg-dark white',
-      events: {
-        click: () => Router.go(ProfileRoutes.editPassword)
-      }
-    })
-
-    this.children.exit = new Button({
-      label: 'Назад',
-      class: 'bg-danger white',
-      events: {
-        click: () => Router.back()
-      }
-    })
+    // this.children.editProfile = new Button({
+    //   label: 'Изменить данные',
+    //   class: 'bg-dark white',
+    //   events: {
+    //     click: () => Router.go(ProfileRoutes.edit)
+    //   }
+    // })
+    //
+    // this.children.editPassword = new Button({
+    //   label: 'Изменить пароль',
+    //   class: 'bg-dark white',
+    //   events: {
+    //     click: () => Router.go(ProfileRoutes.editPassword)
+    //   }
+    // })
+    //
+    // this.children.exit = new Button({
+    //   label: 'Назад',
+    //   class: 'bg-danger white',
+    //   events: {
+    //     click: () => Router.back()
+    //   }
+    // })
   }
 
   protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
