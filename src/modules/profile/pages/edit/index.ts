@@ -80,9 +80,7 @@ class ProfileEditPageComponent extends Block<ProfileProps> {
         }
       }],
       events: {
-        submit: async (e: SubmitEvent) => {
-          e.preventDefault()
-
+        submit: async () => {
           await this.onSubmit()
 
           return false

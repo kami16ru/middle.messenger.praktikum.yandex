@@ -57,9 +57,7 @@ class ProfileEditPasswordPageComponent extends Block {
         }
       }],
       events: {
-        submit: async (e: SubmitEvent) => {
-          e.preventDefault()
-
+        submit: async () => {
           await this.onSubmit()
 
           return false

@@ -1,6 +1,6 @@
 import Block from '../../../lib/dom/Block'
 import template from './template.hbs'
-import Validator from '../../../lib/validation/Validator'
+import { Validator } from '../../../lib/validation/Validator'
 import { OnBlurCallbackOptions, ValidationRuleConfig, ValidatorConfig } from '../../../lib/validation/types'
 import defaultRules from '../../../config/validationRules'
 import { InputProps } from '../input/types'
@@ -28,7 +28,18 @@ export class Form extends Block {
   constructor(props: FormProps) {
     super({
       width: '500px',
-      ...props
+      ...props,
+      events: {
+        submit: (e: SubmitEvent) => {
+          e.preventDefault()
+
+          const validated = this.validateAll()
+
+          if (validated && props.events) return props.events.submit(e)
+
+          return false
+        }
+      }
     })
   }
 
@@ -41,28 +52,26 @@ export class Form extends Block {
 
   validate(inputProps: ValidatorConfig) {
     const element = document.querySelector(`input[name="${inputProps.name}"]`) as HTMLInputElement
+    const closetsLabel = element.closest('label') as HTMLElement
+    const messageContainer = closetsLabel.querySelector('.input-helper') as HTMLElement
 
-    if (element) {
-      const closetsLabel = element.closest('label')
+    return this.onBlurCallback({
+      target: element,
+      messageContainer,
+      defaultValue: inputProps.helper ?? '',
+      fieldRules: inputProps.rules ?? []
+    })
+  }
 
-      if (closetsLabel) {
-        const messageContainer = closetsLabel.querySelector('.input-helper') as HTMLElement
-
-        this.onBlurCallback({
-          target: element,
-          messageContainer,
-          defaultValue: inputProps.helper ?? '',
-          fieldRules: inputProps.rules ?? []
-        })
-      }
-    }
+  validateAll() {
+    return this.props.inputs.every((input: InputProps) => this.validate(input))
   }
 
   onBlurCallback(options: OnBlurCallbackOptions) {
     const rules = defaultRules
     const { target, messageContainer, defaultValue = '', fieldRules } = options
 
-    fieldRules.forEach((ruleName) => {
+    return fieldRules.every((ruleName) => {
       const rule = rules.find((rule: ValidationRuleConfig) => rule.name === ruleName)
 
       if (!rule) throw new Error(`No such rule: ${ruleName}`)
@@ -72,11 +81,15 @@ export class Form extends Block {
           messageContainer.setAttribute('dirty', '1')
           messageContainer.innerHTML = rule.message
         }
+
+        return false
       } else {
         if (messageContainer.hasAttribute('dirty')) {
           messageContainer.removeAttribute('dirty')
           messageContainer.innerHTML = defaultValue
         }
+
+        return true
       }
     })
   }

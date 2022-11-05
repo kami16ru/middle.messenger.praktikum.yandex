@@ -37,9 +37,7 @@ export class LoginPage extends Block {
         to: '/register'
       },
       events: {
-        submit: async (e: SubmitEvent) => {
-          e.preventDefault()
-
+        submit: async () => {
           await this.onSubmit()
 
           return false
