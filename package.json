@@ -7,7 +7,8 @@
     "dev": "cp -r ./static/public/* ./dist && webpack serve",
     "build": "webpack --mode=production && cp -r ./static/public/* ./dist",
     "start": "rm -rf ./dist && npm run build && node server.ts --open",
-    "stylelint": "npx stylelint --fix **/*.{css,scss}"
+    "stylelint": "npx stylelint --fix **/*.{css,scss}",
+    "eslint": "./node_modules/eslint/bin/eslint.js ./src --fix"
   },
   "author": "kami16ru",
   "license": "MIT",
@@ -59,7 +60,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "npm run test && npm run eslint"
     }
   }
 }
