@@ -1,6 +1,6 @@
 const { merge } = require('webpack-merge')
-const common = require('./webpack.common.js')
-const path = require('path')
+const common = require('./webpack.common.ts')
+const devPath = require('path')
 
 module.exports = merge(common, {
   mode: 'development',
@@ -11,7 +11,7 @@ module.exports = merge(common, {
     open: true,
     historyApiFallback: true,
     static: {
-      directory: path.join(__dirname, 'dist')
+      directory: devPath.join(__dirname, 'dist')
     }
   }
 })

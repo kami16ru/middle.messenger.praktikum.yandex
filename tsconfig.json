@@ -4,7 +4,6 @@
   },
   "compilerOptions": {
     "target": "esnext",
-//    "module": "es6",
     "moduleResolution": "node",
     "outDir": "dist",
     "noImplicitAny": true,
@@ -26,11 +25,5 @@
   "exclude": [
     "./node_modules",
     "./dist"
-  ],
-//  "baseUrl": "./src",
-//  "paths": {
-//    "@/*": [
-//      "/*"
-//    ]
-//  }
+  ]
 }
