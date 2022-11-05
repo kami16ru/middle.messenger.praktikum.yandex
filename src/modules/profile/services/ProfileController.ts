@@ -16,7 +16,7 @@ export class ProfileController {
 
       await authController.fetchUser()
 
-      router.go('/profile/show')
+      router.go('/settings')
     } catch (e: any) {
       HTTPErrorHandler.handleHttp(e)
     }
@@ -26,7 +26,7 @@ export class ProfileController {
     try {
       await this.api.editPassword(data)
 
-      router.go('/profile/show')
+      router.go('/settings')
     } catch (e: any) {
       HTTPErrorHandler.handleHttp(e)
     }

@@ -34,6 +34,11 @@ const formConfig = {
     label: 'Фамилия',
     rules: ['isName']
   }, {
+    name: 'display_name',
+    type: 'text',
+    label: 'Никнейм',
+    rules: ['isName']
+  }, {
     name: 'phone',
     type: 'text',
     label: 'Телефон',

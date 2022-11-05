@@ -8,7 +8,6 @@ import { ValidatedInput } from '../../../../components/ui/validated-input'
 import { profileController } from '../../services/ProfileController'
 import { ProfileEditPasswordRequest } from '../../services/api'
 import Router from '../../../../lib/dom/Router'
-import { ProfileField } from '../../components/profile-field'
 import { withStore } from '../../../../lib/dom/hocs/withStore'
 
 const formConfig = {
@@ -26,16 +25,6 @@ const formConfig = {
     rules: ['isPassword']
   }]
 }
-
-const userFields = [
-  'id',
-  'first_name',
-  'second_name',
-  'display_name',
-  'login', 'avatar',
-  'email',
-  'phone'
-] as Array<keyof ProfileEditPasswordRequest>
 
 type ProfileProps = ProfileEditPasswordRequest
 
@@ -95,9 +84,11 @@ class ProfileEditPasswordPageComponent extends Block {
   }
 
   protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
-    (this.children.form as ProfileField[]).forEach((field, i) => {
-      field.setProps({  value: newProps[userFields[i]] })
-    })
+    super.componentDidUpdate(_oldProps, newProps)
+
+    const form = this.children.form as Form
+
+    form.setProps({ ...newProps })
 
     return false
   }

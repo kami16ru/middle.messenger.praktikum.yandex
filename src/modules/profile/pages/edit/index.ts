@@ -7,7 +7,6 @@ import Block from '../../../../lib/dom/Block'
 import { Form } from '../../../../components/ui/form'
 import Router from '../../../../lib/dom/Router'
 import { ValidatedInput } from '../../../../components/ui/validated-input'
-import { ProfileField } from '../../components/profile-field'
 import { withStore } from '../../../../lib/dom/hocs/withStore'
 import { profileController } from '../../services/ProfileController'
 import { ProfileEditRequest } from '../../services/api'
@@ -38,35 +37,18 @@ const formConfig = {
     label: 'Фамилия',
     rules: ['isName']
   }, {
+    name: 'display_name',
+    type: 'text',
+    label: 'Никнейм',
+    rules: ['isName']
+  }, {
     name: 'phone',
     type: 'text',
     label: 'Телефон',
     helper: 'От 10 до 15 символов, состоит из цифр, может начинается с плюса',
     rules: ['isPhone']
-  }, {
-    name: 'password',
-    type: 'password',
-    label: 'Пароль',
-    helper: 'Хотя бы одна заглавная буква, цифра, минимум 8 символов, максимум 40',
-    rules: ['isPassword']
-  }, {
-    name: 'passwordConfirm',
-    type: 'password',
-    label: 'Пароль еще раз',
-    helper: 'Должны совпадать',
-    rules: ['isPassword']
   }]
 }
-
-const userFields = [
-  'id',
-  'first_name',
-  'second_name',
-  'display_name',
-  'login', 'avatar',
-  'email',
-  'phone'
-] as Array<keyof ProfileProps>
 
 class ProfileEditPageComponent extends Block<ProfileProps> {
   init() {
@@ -124,9 +106,11 @@ class ProfileEditPageComponent extends Block<ProfileProps> {
   }
 
   protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
-    (this.children.form as ProfileField[]).forEach((field, i) => {
-      field.setProps({  value: newProps[userFields[i]] })
-    })
+    super.componentDidUpdate(_oldProps, newProps)
+
+    const form = this.children.form as Form
+
+    form.setProps({ ...newProps })
 
     return false
   }

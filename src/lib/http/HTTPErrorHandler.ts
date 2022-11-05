@@ -4,6 +4,10 @@ import { httpErrors } from './config'
 export class HTTPErrorHandler extends ErrorHandler {
   static handleHttp(error: any) {
     switch (error?.status) {
+    case 400: {
+      this.handle(httpErrors.SERVER_VALIDATION_ERROR)
+      break
+    }
     case 401: {
       this.handle(httpErrors.INVALID_REQUEST)
       break
