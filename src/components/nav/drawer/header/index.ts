@@ -1,24 +1,20 @@
 import template from './template.hbs'
 import './style.css'
 import Block from '../../../../lib/dom/Block'
-// import { NavDrawerHeaderConfig } from '../../../../config/nav'
-import { NavDrawerMenu } from './menu/index'
-import { NavDrawerActivatorIcon } from './activator-icon/index'
+import { NavDrawerMenu } from './menu'
+import { NavDrawerActivatorIcon } from './activator-icon'
 export interface NavDrawerHeaderProps {
-  // collapsed?: boolean
   withMenu?: boolean
   selectedNavList: string
 }
 
 export class NavDrawerHeader extends Block {
   navDrawer: HTMLElement
-  // menuConfig: NavDrawerHeaderConfig[]
   collapsed: boolean
 
   constructor(props: NavDrawerHeaderProps) {
     super({
       collapsed: false,
-      // menuConfig: navDrawerHeader,
       ...props
     })
 

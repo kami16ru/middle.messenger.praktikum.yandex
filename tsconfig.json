@@ -1,13 +1,17 @@
 {
+  "ts-node": {
+    "files": true
+  },
   "compilerOptions": {
     "target": "esnext",
-    "module": "CommonJS",
+    "moduleResolution": "node",
     "outDir": "dist",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
+    "skipLibCheck": true,
     "lib": [
       "es2019",
       "dom",

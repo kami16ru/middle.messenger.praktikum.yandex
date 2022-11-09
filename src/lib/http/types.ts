@@ -2,6 +2,8 @@ export interface IHTTPTransport  {
   request(url: string, params: ParamsWithoutMethod): PromiseLike<unknown>
 }
 
+export type HTTPMethod<Response = any> = (options: RequestOptions) => Promise<Response>
+
 export enum METHODS {
   GET = 'GET',
   POST = 'POST',

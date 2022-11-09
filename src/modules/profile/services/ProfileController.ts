@@ -1,6 +1,7 @@
 import API, { ProfileEditRequest, ProfileEditPasswordRequest } from './api'
 import router from '../../../lib/dom/Router'
 import { authController } from '../../auth/services/AuthController'
+import { HTTPErrorHandler } from '../../../lib/http/HTTPErrorHandler'
 
 export class ProfileController {
   private readonly api;
@@ -15,10 +16,9 @@ export class ProfileController {
 
       await authController.fetchUser()
 
-      router.go('/profile/show')
+      router.go('/settings')
     } catch (e: any) {
-      console.error(e)
-      router.go('/')
+      HTTPErrorHandler.handleHttp(e)
     }
   }
 
@@ -26,10 +26,9 @@ export class ProfileController {
     try {
       await this.api.editPassword(data)
 
-      router.go('/profile/show')
+      router.go('/settings')
     } catch (e: any) {
-      console.error(e.message)
-      router.go('/')
+      HTTPErrorHandler.handleHttp(e)
     }
   }
 }

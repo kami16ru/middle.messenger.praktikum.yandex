@@ -1,10 +1,11 @@
-import ErrorHandler from '../error/ErrorHandler'
-import { RequestData, METHODS, RequestParams, IHTTPTransport, RequestOptions } from './types'
+import { ErrorHandler } from '../error/ErrorHandler'
+import { RequestData, METHODS, RequestParams, IHTTPTransport, RequestOptions, HTTPMethod } from './types'
 import { apiBaseUrl } from '../../config/api'
+import { httpErrors } from './config'
 
 function queryStringify(data: RequestData) {
   if (typeof data !== 'object') {
-    ErrorHandler.handle('Data must be object')
+    ErrorHandler.handle(httpErrors.NOT_OBJECT)
   }
 
   const keys = Object.keys(data)
@@ -22,23 +23,23 @@ class HTTPTransport implements IHTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`
   }
 
-  public get<Response>({ path, params = {} }: RequestOptions): Promise<Response> {
-    return this.request<Response>(this.endpoint + path, { ...params, method: METHODS.GET })
+  public get: HTTPMethod = ({ path, params = {} }: RequestOptions) => {
+    return this.request(this.endpoint + path, { ...params, method: METHODS.GET })
   }
 
-  public post<Response = void>({ path, params = {} }: RequestOptions): Promise<Response> {
+  public post: HTTPMethod = ({ path, params = {} }: RequestOptions) => {
     return this.request(this.endpoint + path, { ...params, method: METHODS.POST })
   }
 
-  public put<Response = void>({ path, params = {} }: RequestOptions): Promise<Response> {
+  public put: HTTPMethod = ({ path, params = {} }: RequestOptions) => {
     return this.request(this.endpoint + path, { ...params, method: METHODS.PUT })
   }
 
-  public patch<Response = void>({ path, params = {} }: RequestOptions): Promise<Response> {
+  public patch: HTTPMethod = ({ path, params = {} }: RequestOptions) => {
     return this.request(this.endpoint + path, { ...params, method: METHODS.PATCH })
   }
 
-  public delete<Response>({ path, params = {} }: RequestOptions): Promise<Response> {
+  public delete: HTTPMethod = ({ path, params = {} }: RequestOptions) => {
     return this.request(this.endpoint + path, { ...params, method: METHODS.DELETE })
   }
 

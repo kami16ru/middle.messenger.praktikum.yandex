@@ -1,15 +1,13 @@
 import '../style.css'
 import template from './template.hbs'
-import { Button } from '../../../../components/ui/button/index'
-import { Input } from '../../../../components/ui/input/index'
+import { Input } from '../../../../components/ui/input'
 import Block from '../../../../lib/dom/Block'
-import { Form } from '../../../../components/ui/form/index'
-import { ValidatedInput } from '../../../../components/ui/validated-input/index'
+import { Form } from '../../../../components/ui/form'
+import { ValidatedInput } from '../../../../components/ui/validated-input'
 import { profileController } from '../../services/ProfileController'
 import { ProfileEditPasswordRequest } from '../../services/api'
 import Router from '../../../../lib/dom/Router'
-import { ProfileField } from '../../components/profile-field/index'
-import { withStore } from '../../../../lib/dom/Store'
+import { withStore } from '../../../../lib/dom/hocs/withStore'
 
 const formConfig = {
   inputs: [{
@@ -27,19 +25,9 @@ const formConfig = {
   }]
 }
 
-const userFields = [
-  'id',
-  'first_name',
-  'second_name',
-  'display_name',
-  'login', 'avatar',
-  'email',
-  'phone'
-] as Array<keyof ProfileEditPasswordRequest>
-
 type ProfileProps = ProfileEditPasswordRequest
 
-class ProfileEditPasswordPageComponent extends Block<ProfileProps> {
+class ProfileEditPasswordPageComponent extends Block {
   init() {
     const inputs = formConfig.inputs.map((formConfig) => {
       const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
@@ -55,22 +43,25 @@ class ProfileEditPasswordPageComponent extends Block<ProfileProps> {
     })
 
     this.children.form = new Form({
-      inputs
-    })
-
-    this.children.save = new Button({
-      label: 'Отправить',
-      class: 'bg-dark white',
+      title: 'Изменение пароля',
+      inputs,
+      actions: [{
+        label: 'Отправить',
+        class: 'bg-dark white',
+        type: 'submit'
+      }, {
+        label: 'Отменить',
+        class: 'bg-danger white',
+        events: {
+          click: () => this.onCancel()
+        }
+      }],
       events: {
-        click: () => this.onSubmit()
-      }
-    })
+        submit: async () => {
+          await this.onSubmit()
 
-    this.children.cancel = new Button({
-      label: 'Отменить',
-      class: 'bg-danger white',
-      events: {
-        click: () => this.onCancel()
+          return false
+        }
       }
     })
   }
@@ -95,9 +86,11 @@ class ProfileEditPasswordPageComponent extends Block<ProfileProps> {
   }
 
   protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
-    (this.children.form as ProfileField[]).forEach((field, i) => {
-      field.setProps({  value: newProps[userFields[i]] })
-    })
+    super.componentDidUpdate(_oldProps, newProps)
+
+    const form = this.children.form as Form
+
+    form.setProps({ ...newProps })
 
     return false
   }

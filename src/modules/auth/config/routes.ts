@@ -10,6 +10,13 @@ export const signInRoute = {
   layout: 'auth'
 }
 
+export const signUpRoute = {
+  name: 'auth-register',
+  path: '/register',
+  component: RegisterPage,
+  layout: 'auth'
+}
+
 export const authRoutes: RouteConfig[] = [signInRoute, {
   name: 'auth-register',
   path: '/register',

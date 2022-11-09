@@ -1,3 +1,5 @@
+import { isEmpty } from '../lib/helpers/myDash'
+
 export default [{
   name: 'isEmail',
   message: 'Не правильный формат email',
@@ -23,4 +25,8 @@ export default [{
   name: 'isName',
   message: 'Латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)',
   check: (value: string) => /^[A-ZА-ЯЁ][a-zA-Zа-яА-ЯёЁ-]+$/.test(value)
+}, {
+  name: 'isEmpty',
+  message: '',
+  check: (value: string) => !isEmpty(value)
 }]

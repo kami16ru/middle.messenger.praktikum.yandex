@@ -1,6 +1,6 @@
 import Block from '../../../../lib/dom/Block'
 import template from './template.hbs'
-import { ChatsList } from '../../components/chat-list'
+import { ChatsList } from '../../components/list'
 import { Messenger } from '../../components/messenger'
 import './style.css'
 import ChatsController from '../../services/ChatsController'

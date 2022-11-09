@@ -1,8 +1,4 @@
 import icons from './icons'
-import { ChatsList } from '../modules/chat/components/chat-list/index'
-// import { NavDrawerList } from '../components/ui/nav/drawer/list/index'
-// import Block from '../utils/Block'
-// import {State} from "../utils/Store";
 
 export const navDrawerList = [{
   title: 'На главную',
@@ -41,32 +37,3 @@ export const navDrawerHeader = [{
   component: 'navList',
   active: false
 }]
-
-export default {
-  drawer: [{
-    title: 'На главную',
-    href: '/',
-    icon: icons.home
-  }, {
-    title: 'Профайл',
-    href: '/settings',
-    icon: icons.profile
-  }, {
-    title: 'Чат',
-    href: '/messenger',
-    icon: icons.chat
-  }, {
-    title: 'Выход',
-    href: '/logout',
-    icon: icons.logout
-  }],
-  drawerHeader: [{
-    icon: 'mdi mdi-chat-processing',
-    component: ChatsList,
-    active: false
-  }, {
-    icon: 'mdi mdi-backburger',
-    component: ChatsList,
-    active: true
-  }]
-}

@@ -1,7 +1,7 @@
 import Block from '../../../../../lib/dom/Block'
 import template from './template.hbs'
 import './style.css'
-import { withStore } from '../../../../../lib/dom/Store'
+import { withStore } from '../../../../../lib/dom/hocs/withStore'
 import { ChatResponse } from '../../../services/chatApi'
 
 interface ChatProps {
@@ -20,7 +20,11 @@ class ChatItemComponent extends Block<ChatProps> {
   }
 
   protected render(): DocumentFragment {
-    return this.compile(template, { ...this.props, isSelected: this.props.id === this.props.selectedChat?.id })
+    return this.compile(template, {
+      ...this.props,
+      isSelected: this.props.id === this.props.selectedChat?.id,
+      avatar: '/images/avatars/avatar1.svg'
+    })
   }
 }
 

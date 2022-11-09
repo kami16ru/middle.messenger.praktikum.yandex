@@ -1,5 +1,7 @@
 import WSTransport, { WSTransportEvents } from '../../../lib/chat/WSTransport'
 import store from '../../../lib/dom/Store'
+import { HTTPErrorHandler } from '../../../lib/http/HTTPErrorHandler'
+import { wsErrors } from '../../../lib/chat/config'
 
 export type Message = {
   chat_id: number;
@@ -22,45 +24,48 @@ class MessagesController {
   private sockets: Map<number, WSTransport> = new Map();
 
   async connect(id: number, token: string) {
-    if (this.sockets.has(id)) {
-      return
+    try {
+      if (this.sockets.has(id)) {
+        return
+      }
+
+      const userId = store.getState().user.id
+
+      const wsTransport = new WSTransport(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`)
+
+      this.sockets.set(id, wsTransport)
+
+      await wsTransport.connect()
+
+      this.subscribe(wsTransport, id)
+      this.fetchOldMessages(id)
+    } catch (e) {
+      e?.status ? HTTPErrorHandler.handleHttp(e) : HTTPErrorHandler.handle(wsErrors.WEBSOCKETS_CONNECT)
     }
-
-    const userId = store.getState().user.id
-
-    console.log(userId, id, token)
-
-    const wsTransport = new WSTransport(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`)
-
-    this.sockets.set(id, wsTransport)
-
-    await wsTransport.connect()
-
-    this.subscribe(wsTransport, id)
-    // this.fetchOldMessages(id)
   }
 
   sendMessage(id: number, message: string) {
-    const socket = this.sockets.get(id)
+    try {
+      const socket = this.sockets.get(id)
 
-    if (!socket) {
-      throw new Error(`Chat ${id} is not connected`)
+      if (!socket) {
+        HTTPErrorHandler.handleHttp(`Chat ${id} is not connected`)
+      } else socket.send({ type: 'message', content: message })
+    } catch (e) {
+      HTTPErrorHandler.handleHttp(e)
     }
-
-    socket.send({
-      type: 'message',
-      content: message
-    })
   }
 
   fetchOldMessages(id: number) {
-    const socket = this.sockets.get(id)
+    try {
+      const socket = this.sockets.get(id)
 
-    if (!socket) {
-      throw new Error(`Chat ${id} is not connected`)
+      if (!socket) {
+        HTTPErrorHandler.handleHttp(`Chat ${id} is not connected`)
+      } else socket.send({ type: 'get old', content: '0' })
+    } catch (e) {
+      HTTPErrorHandler.handleHttp(e)
     }
-
-    socket.send({ type: 'get old', content: '0' })
   }
 
   closeAll() {

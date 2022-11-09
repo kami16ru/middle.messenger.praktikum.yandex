@@ -2,7 +2,7 @@ import Block from './Block'
 import { BlockConstructable, RouteConfig } from './types'
 import { notFoundRoute } from '../../config/routes'
 import store from './Store'
-import { signInRoute } from '../../modules/auth/router'
+import { signInRoute, signUpRoute } from '../../modules/auth/config/routes'
 
 function isEqual(lhs: string, rhs: string): boolean {
   return lhs === rhs
@@ -99,8 +99,6 @@ class Router {
       this.routes.push(route)
     }
 
-    console.log(this)
-
     return this
   }
 
@@ -122,7 +120,7 @@ class Router {
     } else if (route?.redirect) {
       if (this.getRoute(route.redirect)) this.go(route.redirect)
       else this.go(notFoundRoute.path)
-    } else if (!store.getState().user && pathname !== signInRoute.path) {
+    } else if (!store.getState().user && ![signInRoute.path, signUpRoute.path].includes(pathname)) {
       this.go(signInRoute.path)
     } else {
       if (this.currentRoute && this.currentRoute !== route) {

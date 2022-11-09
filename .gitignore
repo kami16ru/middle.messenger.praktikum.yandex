@@ -1,15 +1,10 @@
 # IDE
 .idea
 
-# Developer workflow
-none_project
-
 # Vendor modules
 node_modules
 
 # Build
 dist
 
-# Cache
-.parcel-cache
-.cache
+.env

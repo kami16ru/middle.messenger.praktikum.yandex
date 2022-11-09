@@ -2,8 +2,7 @@ import { EventBus } from './EventBus'
 import { v4 as makeUUID } from 'uuid'
 import { isEqual } from '../helpers/myDash'
 
-// Нельзя создавать экземпляр данного класса
-class Block<P extends Record<string, any> = any> {
+abstract class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',

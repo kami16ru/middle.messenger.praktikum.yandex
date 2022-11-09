@@ -1,7 +1,7 @@
 import { RouteConfig } from '../../../lib/dom/types'
-import { ProfileShowPage } from '../pages/show/index'
-import { ProfileEditPage } from '../pages/edit/index'
-import { ProfileEditPasswordPage } from '../pages/edit-password/index'
+import { ProfileShowPage } from '../pages/show'
+import { ProfileEditPage } from '../pages/edit'
+import { ProfileEditPasswordPage } from '../pages/edit-password'
 
 export enum ProfileRoutes {
   show = '/settings',

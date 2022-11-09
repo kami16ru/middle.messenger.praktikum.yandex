@@ -1,75 +1,57 @@
 import '../style.css'
 import template from './template.hbs'
-import { Button } from '../../../../components/ui/button/index'
-import { Input } from '../../../../components/ui/input/index'
+import { Input } from '../../../../components/ui/input'
 import { UserResponse } from '../../../auth/services/authApi'
 import Block from '../../../../lib/dom/Block'
-import { Form } from '../../../../components/ui/form/index'
+import { Form } from '../../../../components/ui/form'
 import Router from '../../../../lib/dom/Router'
-import { ValidatedInput } from '../../../../components/ui/validated-input/index'
-import { ProfileField } from '../../components/profile-field/index'
-import { withStore } from '../../../../lib/dom/Store'
+import { ValidatedInput } from '../../../../components/ui/validated-input'
+import { withStore } from '../../../../lib/dom/hocs/withStore'
 import { profileController } from '../../services/ProfileController'
 import { ProfileEditRequest } from '../../services/api'
 
 type ProfileProps = UserResponse
 
-const formConfig = {
-  inputs: [{
-    name: 'email',
-    type: 'email',
-    label: 'Почта',
-    helper: 'Email пользователя',
-    rules: ['isEmail']
-  }, {
-    name: 'login',
-    type: 'text',
-    label: 'Логин',
-    rules: ['isLogin']
-  }, {
-    name: 'first_name',
-    type: 'text',
-    label: 'Имя',
-    helper: 'Как вас зовут?',
-    rules: ['isName']
-  }, {
-    name: 'second_name',
-    type: 'text',
-    label: 'Фамилия',
-    rules: ['isName']
-  }, {
-    name: 'phone',
-    type: 'text',
-    label: 'Телефон',
-    helper: 'От 10 до 15 символов, состоит из цифр, может начинается с плюса',
-    rules: ['isPhone']
-  }, {
-    name: 'password',
-    type: 'password',
-    label: 'Пароль',
-    helper: 'Хотя бы одна заглавная буква, цифра, минимум 8 символов, максимум 40',
-    rules: ['isPassword']
-  }, {
-    name: 'passwordConfirm',
-    type: 'password',
-    label: 'Пароль еще раз',
-    helper: 'Должны совпадать',
-    rules: ['isPassword']
-  }]
-}
-
-const userFields = [
-  'id',
-  'first_name',
-  'second_name',
-  'display_name',
-  'login', 'avatar',
-  'email',
-  'phone'
-] as Array<keyof ProfileProps>
+const formInputs = [{
+  name: 'email',
+  type: 'email',
+  label: 'Почта',
+  helper: 'Email пользователя',
+  rules: ['isEmail']
+}, {
+  name: 'login',
+  type: 'text',
+  label: 'Логин',
+  rules: ['isLogin']
+}, {
+  name: 'first_name',
+  type: 'text',
+  label: 'Имя',
+  helper: 'Как вас зовут?',
+  rules: ['isName']
+}, {
+  name: 'second_name',
+  type: 'text',
+  label: 'Фамилия',
+  rules: ['isName']
+}, {
+  name: 'display_name',
+  type: 'text',
+  label: 'Никнейм',
+  rules: ['isName']
+}, {
+  name: 'phone',
+  type: 'text',
+  label: 'Телефон',
+  helper: 'От 10 до 15 символов, состоит из цифр, может начинается с плюса',
+  rules: ['isPhone']
+}]
 
 class ProfileEditPageComponent extends Block<ProfileProps> {
   init() {
+    const formConfig = {
+      inputs: formInputs
+    }
     const inputs = formConfig.inputs.map((formConfig) => {
       const propKey = Object.keys(this.props).find((propKey) => propKey === formConfig.name)
 
@@ -84,22 +66,25 @@ class ProfileEditPageComponent extends Block<ProfileProps> {
     })
 
     this.children.form = new Form({
-      inputs
-    })
-
-    this.children.save = new Button({
-      label: 'Отправить',
-      class: 'bg-dark white',
+      title: 'Профайл - редактирование',
+      inputs,
+      actions: [{
+        label: 'Отправить',
+        class: 'bg-dark white',
+        type: 'submit'
+      }, {
+        label: 'Отменить',
+        class: 'bg-danger white',
+        events: {
+          click: () => this.onCancel()
+        }
+      }],
       events: {
-        click: () => this.onSubmit()
-      }
-    })
+        submit: async () => {
+          await this.onSubmit()
 
-    this.children.cancel = new Button({
-      label: 'Отменить',
-      class: 'bg-danger white',
-      events: {
-        click: () => this.onCancel()
+          return false
+        }
       }
     })
   }
@@ -124,9 +109,11 @@ class ProfileEditPageComponent extends Block<ProfileProps> {
   }
 
   protected componentDidUpdate(_oldProps: ProfileProps, newProps: ProfileProps): boolean {
-    (this.children.form as ProfileField[]).forEach((field, i) => {
-      field.setProps({  value: newProps[userFields[i]] })
-    })
+    super.componentDidUpdate(_oldProps, newProps)
+
+    const form = this.children.form as Form
+
+    form.setProps({ ...newProps })
 
     return false
   }
